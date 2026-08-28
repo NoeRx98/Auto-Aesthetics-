@@ -837,6 +837,7 @@ class Component extends DCLogic {
       }),
       submitLabel: s.sending ? "Sending…" : "Send My Request",
       submit: () => {
+        console.log("[lead-debug] submit clicked", { step3Ok, name: s.name, chosen, window: s.window });
         if (!step3Ok) return;
         this.setState({ sending: true });
         const payload = {
@@ -848,7 +849,8 @@ class Component extends DCLogic {
           notes: s.notes || "",
           preferred_contact: chosen.join(", "),
           best_time: s.window || "",
-          submitted_at: new Date().toISOString(), source_url: location.href
+          submitted_at: new Date().toLocaleString("en-US", { timeZone: "America/Chicago", dateStyle: "short", timeStyle: "medium" }) + " CT",
+          source_url: location.href
         };
         const done = () => this.setState({ submitted: true, sending: false });
         payload._gotcha = this.state._gotcha || "";
