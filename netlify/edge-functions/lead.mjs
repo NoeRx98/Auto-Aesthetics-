@@ -33,8 +33,9 @@ function looksReal(lead) {
   const email = String(lead.email || "");
   const phone = String(lead.phone || "").replace(/\D/g, "");
   const name = String(lead.full_name || lead.first_name || "").trim();
-  if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) return false;
-  if (phone.length < 10) return false;
+  // The form says an email OR a mobile number is enough, so accept either.
+  const emailOk = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email);
+  if (!emailOk && phone.length < 10) return false;
   if (name.length < 2) return false;
   return true;
 }

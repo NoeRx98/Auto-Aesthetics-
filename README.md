@@ -15,7 +15,7 @@ python3 -m http.server 4173      # then visit http://localhost:4173
 | `index.html` | The whole page. Design tokens (primitive, semantic, component) are at the top of the `<style>` block. |
 | `images/` | Hero, service and shop photos as WebP, plus `og.jpg` for link previews. |
 | `api/lead.js` | **Vercel** Edge Function at `/api/lead`. Validates, rate-limits and relays quote requests to GoHighLevel. |
-| `netlify/edge-functions/lead.mjs` | The same relay for **Netlify**. Not used on Vercel. See "Known differences". |
+| `netlify/edge-functions/lead.mjs` | The same relay for **Netlify** (the live site's host). Not used on Vercel. Keep the two in step. |
 | `vercel.json` | Copies `index.html` and `images/` into `public/` so only those are served, and sets security headers. |
 | `.claude/skills/` | Design skills used for the rebuild. Not served (`.vercelignore`). |
 
@@ -39,9 +39,8 @@ Until `GHL_WEBHOOK_URL` is set, the function answers 500 and writes each lead to
 
 The relay adds `client_ip` and `relayed_at`. A hidden `_gotcha` field is the spam honeypot and is stripped before relaying. **Do not rename these fields** without updating the GHL mapping.
 
-## Known differences and follow-ups
+## Known follow-ups
 
-- **Single-contact leads.** The form says one of email or mobile is enough. `api/lead.js` accepts either. The Netlify relay requires both and silently drops the rest. Port the one-line change before using Netlify for this page.
 - **Gallery images** still load from an external Supabase bucket (`qyhdrnbvvjhvjcqrdwju.supabase.co`). Download them into `images/` so the page never depends on storage you do not control.
 - **Vehicle photo preview** uses imagin.studio with the shared `customer=img` demo key. Get your own key before running real traffic.
 - **Vehicle dropdown data** comes from fueleconomy.gov with a 6 second timeout and a built-in make list as fallback. Do not remove the timeout.

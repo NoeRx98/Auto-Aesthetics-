@@ -15,9 +15,6 @@
    The payload field names are the contract the GHL workflow maps against.
    Do not rename them without updating the mapping on the GHL side.
 
-   One deliberate difference from the Netlify relay: the form promises "an
-   email OR a mobile number, one is enough", so a lead is accepted with
-   either. The Netlify relay requires both and silently drops the rest.
    ============================================================ */
 
 export const config = { runtime: "edge" };
