@@ -1,27 +1,33 @@
 /* ============================================================
-   LEAD RELAY — runs on Netlify's servers, not in the browser.
+   LEAD RELAY (Vercel Edge Function) — mirrors netlify/edge-functions/lead.mjs.
 
-   The form posts here instead of straight to GHL. This file:
+   The quote form posts here instead of straight to GHL. This file:
      1. keeps the webhook URL off the public page
      2. throws out bot spam before it reaches the client's CRM
      3. retries GHL, and alerts you if delivery truly fails
 
-   Set these in Netlify:
-     Site configuration > Environment variables
+   Set these in Vercel: Project Settings > Environment Variables
 
      GHL_WEBHOOK_URL   (required)  this client's GHL inbound webhook
      ALERT_WEBHOOK_URL (optional)  YOUR own GHL workflow, for failure alerts
      CLIENT_NAME       (optional)  shows up in the alert email
+
+   The payload field names are the contract the GHL workflow maps against.
+   Do not rename them without updating the mapping on the GHL side.
+
    ============================================================ */
 
-const seen = new Map(); // ip -> [timestamps]  (resets when the function goes cold)
+export const config = { runtime: "edge" };
+
+const seen = new Map(); // ip -> [timestamps]  (per-instance; resets on cold start)
 
 const RATE_LIMIT = 5;            // submissions...
 const RATE_WINDOW = 10 * 60_000; // ...per 10 minutes, per IP
+const MAX_BODY = 16 * 1024;      // a real lead is well under 2 KB
 
 function rateLimited(ip) {
   const now = Date.now();
-  const hits = (seen.get(ip) || []).filter(t => now - t < RATE_WINDOW);
+  const hits = (seen.get(ip) || []).filter((t) => now - t < RATE_WINDOW);
   hits.push(now);
   seen.set(ip, hits);
   if (seen.size > 500) seen.clear(); // crude memory guard
@@ -33,9 +39,7 @@ function looksReal(lead) {
   const email = String(lead.email || "");
   const phone = String(lead.phone || "").replace(/\D/g, "");
   const name = String(lead.full_name || lead.first_name || "").trim();
-  // The form says an email OR a mobile number is enough, so accept either.
-  const emailOk = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email);
-  if (!emailOk && phone.length < 10) return false;
+  if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email) && phone.length < 10) return false;
   if (name.length < 2) return false;
   return true;
 }
@@ -48,7 +52,7 @@ async function postJson(url, body, ms = 8000) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
-      signal: ctrl.signal
+      signal: ctrl.signal,
     });
     return res.ok;
   } catch {
@@ -58,55 +62,73 @@ async function postJson(url, body, ms = 8000) {
   }
 }
 
-export default async (request, context) => {
+const json = (body, status = 200) =>
+  new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
+
+export default async function handler(request) {
   if (request.method !== "POST") {
-    return new Response("Method not allowed", { status: 405 });
+    return new Response("Method not allowed", { status: 405, headers: { Allow: "POST" } });
   }
 
-  const webhook = Netlify.env.get("GHL_WEBHOOK_URL");
-  const alertUrl = Netlify.env.get("ALERT_WEBHOOK_URL");
-  const client = Netlify.env.get("CLIENT_NAME") || "unnamed site";
+  const webhook = process.env.GHL_WEBHOOK_URL;
+  const alertUrl = process.env.ALERT_WEBHOOK_URL;
+  const client = process.env.CLIENT_NAME || "Auto Aesthetics";
 
-  if (!webhook) {
-    console.error("CONFIG ERROR: GHL_WEBHOOK_URL is not set");
-    return Response.json({ ok: false, reason: "not_configured" }, { status: 500 });
+  let raw;
+  try {
+    raw = await request.text();
+  } catch {
+    return json({ ok: false, reason: "bad_body" }, 400);
   }
+  if (raw.length > MAX_BODY) return json({ ok: false, reason: "too_large" }, 413);
 
   let lead;
   try {
-    lead = await request.json();
+    lead = JSON.parse(raw);
   } catch {
-    return Response.json({ ok: false, reason: "bad_json" }, { status: 400 });
+    return json({ ok: false, reason: "bad_json" }, 400);
+  }
+  if (!lead || typeof lead !== "object" || Array.isArray(lead)) {
+    return json({ ok: false, reason: "bad_json" }, 400);
   }
 
-  const ip = context.ip || request.headers.get("x-nf-client-connection-ip") || "unknown";
+  const fwd = request.headers.get("x-forwarded-for") || "";
+  const ip = fwd.split(",")[0].trim() || request.headers.get("x-real-ip") || "unknown";
 
   if (rateLimited(ip)) {
     console.warn("RATE LIMITED", ip);
-    return Response.json({ ok: true, filtered: true }); // look normal to the bot
+    return json({ ok: true, filtered: true }); // look normal to the bot
   }
 
   if (!looksReal(lead)) {
     console.warn("REJECTED as spam", JSON.stringify(lead).slice(0, 300));
-    return Response.json({ ok: true, filtered: true });
+    return json({ ok: true, filtered: true });
   }
 
   delete lead._gotcha;
   lead.client_ip = ip;
   lead.relayed_at = new Date().toISOString();
 
+  if (!webhook) {
+    // Misconfigured deploy. Keep the lead recoverable from the function logs
+    // instead of dropping it, then fail loudly.
+    console.error("CONFIG ERROR: GHL_WEBHOOK_URL is not set");
+    console.error("LEAD_DELIVERY_FAILED", client, JSON.stringify(lead));
+    return json({ ok: false, reason: "not_configured" }, 500);
+  }
+
   // Try GHL: immediate, then two retries with backoff.
   let delivered = await postJson(webhook, lead);
-  for (let wait of [600, 2000]) {
+  for (const wait of [600, 2000]) {
     if (delivered) break;
-    await new Promise(r => setTimeout(r, wait));
+    await new Promise((r) => setTimeout(r, wait));
     delivered = await postJson(webhook, lead);
   }
 
-  if (delivered) return Response.json({ ok: true });
+  if (delivered) return json({ ok: true });
 
   // Delivery failed. Log the whole lead so it is recoverable from
-  // Netlify > Logs > Functions, then try to alert a human.
+  // Vercel > Logs, then try to alert a human.
   console.error("LEAD_DELIVERY_FAILED", client, JSON.stringify(lead));
 
   if (alertUrl) {
@@ -118,13 +140,9 @@ export default async (request, context) => {
       lead_email: lead.email || "",
       lead_phone: lead.phone || "",
       failed_at: new Date().toISOString(),
-      full_lead: JSON.stringify(lead)
+      full_lead: JSON.stringify(lead),
     });
   }
 
-  // The page shows the customer success regardless — losing the lead is
-  // bad, but telling them to try again loses them for good.
-  return Response.json({ ok: false, reason: "delivery_failed" }, { status: 502 });
-};
-
-export const config = { path: "/api/lead" };
+  return json({ ok: false, reason: "delivery_failed" }, 502);
+}
