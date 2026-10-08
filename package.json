@@ -1,0 +1,6 @@
+{
+  "name": "auto-aesthetics",
+  "private": true,
+  "type": "module",
+  "description": "Auto Aesthetics lead-gen landing page. Static HTML, no build step; /api/lead relays quote requests to GoHighLevel."
+}

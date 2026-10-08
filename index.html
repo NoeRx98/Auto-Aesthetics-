@@ -1,899 +1,895 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Auto Aesthetics | Master-Level Cosmetic Repair for Luxury Vehicles</title>
-<meta name="description" content="Master-level showroom paint, carbon fiber restoration, and paintless dent repair for discerning owners of luxury and exotic vehicles.">
+<meta name="description" content="Showroom paint correction and respray, paintless dent repair and carbon fiber restoration for luxury and exotic vehicles. Get a quote in 60 seconds.">
+<meta name="theme-color" content="#F1F2EF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Auto Aesthetics | Master-Level Cosmetic Repair for Luxury Vehicles">
+<meta property="og:description" content="Paint correction and respray, paintless dent repair and carbon fiber restoration for luxury and exotic vehicles.">
+<meta property="og:image" content="https://auto-aesthetics-one.vercel.app/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230F3B2E'/%3E%3Ctext x='50' y='64' font-family='Arial,sans-serif' font-size='44' font-weight='700' fill='%23F1F2EF' text-anchor='middle'%3EAA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&amp;display=swap">
 <style>
-:root{--gold:#F5A623;--gold-light:#FFD06B;--black:#0A0A0A;--dark:#111111;--dark2:#161616;--dark3:#202020;--line:rgba(255,255,255,.08);--gray:#8A8A8A;--gray-light:#C6C6C6}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--black);color:#fff;font-family:'DM Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
-a{color:var(--gold);text-decoration:none}
-a:hover{color:var(--gold-light)}
-input,select,textarea,button{font-family:inherit;font-size:16px}
-input:focus,textarea:focus{outline:none;border-color:var(--gold)!important}
-::placeholder{color:#666}
-@keyframes riseIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+/* ==========================================================================
+   Tokens — three layers: primitive (raw values) -> semantic (purpose) -> component
+   ========================================================================== */
+:root{
+  /* primitive */
+  --p-paper:#F1F2EF; --p-paper-2:#E6E8E3; --p-white:#FFFFFF;
+  --p-graphite-900:#1C1F22; --p-graphite-700:#4A4F54; --p-graphite-600:#5A5F63;
+  --p-stone-500:#7E837C; --p-stone-300:#C9CCC6;
+  --p-green-800:#0F3B2E; --p-green-700:#14513F; --p-green-100:#DCE7E0; --p-green-300:#9FD3B8;
+  --p-red-700:#A8281C;
+
+  --s-1:.25rem; --s-2:.5rem; --s-3:.75rem; --s-4:1rem; --s-5:1.5rem; --s-6:2rem; --s-7:3rem; --s-8:4rem; --s-9:6rem;
+  --fs-sm:.875rem; --fs-base:1.0625rem; --fs-md:1.25rem;
+  --fs-lg:clamp(1.375rem,2.2vw,1.75rem);
+  --fs-xl:clamp(1.875rem,4.4vw,3.25rem);
+  --fs-display:clamp(2.25rem,6.6vw,4.75rem);
+
+  /* semantic */
+  --bg:var(--p-paper); --surface:var(--p-white); --surface-2:var(--p-paper-2);
+  --text:var(--p-graphite-900); --text-2:var(--p-graphite-700); --text-muted:var(--p-graphite-600);
+  --border:var(--p-stone-300); --border-strong:var(--p-stone-500);
+  --accent:var(--p-green-800); --accent-hover:var(--p-green-700); --on-accent:var(--p-white); --accent-tint:var(--p-green-100);
+  --danger:var(--p-red-700);
+  --inverse-bg:var(--p-graphite-900); --inverse-text:var(--p-paper);
+  --focus:var(--p-green-800);
+  --maxw:1200px; --gutter:clamp(1rem,4vw,2.5rem); --header-h:64px; --section-y:clamp(3.5rem,8vw,6.5rem);
+  --radius:2px; --ease:cubic-bezier(.2,.7,.2,1);
+
+  /* component */
+  --btn-bg:var(--accent); --btn-bg-hover:var(--accent-hover); --btn-fg:var(--on-accent);
+  --field-border:var(--border-strong); --field-bg:var(--surface);
+}
+.on-dark{ --focus:var(--p-green-300); }
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--header-h) + 16px)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Archivo',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:var(--fs-base);line-height:1.6;font-stretch:100%;-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:absolute;left:var(--s-4);top:-100px;z-index:100;background:var(--text);color:var(--bg);padding:var(--s-3) var(--s-4);border-radius:var(--radius)}
+.skip-link:focus{top:var(--s-3)}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+
+.display,.h2,.h3{font-stretch:125%;font-weight:600;line-height:1.04;letter-spacing:-.015em;text-wrap:balance}
+.display{font-size:var(--fs-display)}
+.h2{font-size:var(--fs-xl)}
+.h3{font-size:var(--fs-lg);font-stretch:112%;line-height:1.15;letter-spacing:-.01em}
+.lead{font-size:clamp(1.0625rem,1.5vw,1.25rem);line-height:1.55;max-width:52ch;text-wrap:pretty}
+.hint{font-size:var(--fs-sm);color:var(--text-muted)}
+.hint--2{min-height:calc(2 * 1.6em)}
+
+/* ==========================================================================
+   Buttons & links
+   ========================================================================== */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 var(--s-5);border:1px solid var(--btn-bg);border-radius:var(--radius);background:var(--btn-bg);color:var(--btn-fg);font-weight:600;font-stretch:112%;letter-spacing:.005em;text-decoration:none;cursor:pointer;transition:background-color .16s var(--ease),border-color .16s var(--ease),color .16s var(--ease)}
+.btn:hover{--btn-bg:var(--btn-bg-hover)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn--lg{min-height:56px;padding:0 var(--s-6);font-size:1.0625rem}
+.btn--sm{min-height:44px;padding:0 var(--s-4);font-size:.9375rem}
+.btn--ghost{--btn-bg:transparent;--btn-fg:var(--text);border-color:var(--border-strong)}
+.btn--ghost:hover{--btn-bg:var(--surface-2)}
+.btn--inverse{--btn-bg:var(--inverse-text);--btn-fg:var(--inverse-bg);--btn-bg-hover:var(--p-white)}
+.link{display:inline-flex;align-items:center;min-height:44px;font-weight:600;color:var(--accent);text-underline-offset:.22em;text-decoration-thickness:1px}
+.link:hover{text-decoration-thickness:2px}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.site-header{position:sticky;top:0;z-index:50;height:var(--header-h);background:var(--bg);border-bottom:1px solid var(--border)}
+.site-header .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:var(--s-4)}
+.wordmark{font-stretch:125%;font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+
+/* ==========================================================================
+   Hero — mobile: photo is the background, text sits on the floor of the frame.
+          desktop: copy on paper, photo bleeds off the right edge.
+   ========================================================================== */
+.hero{position:relative;display:grid;align-items:end;min-height:calc(100svh - var(--header-h));min-height:calc(100dvh - var(--header-h));color:#fff;background:var(--text);overflow:hidden}
+.hero__media{position:absolute;inset:0}
+.hero__media img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.hero__media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(28,31,34,.94) 0%,rgba(28,31,34,.82) 36%,rgba(28,31,34,.18) 70%,rgba(28,31,34,0) 100%)}
+.hero__glint{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.hero__glint::before{content:"";position:absolute;top:-10%;bottom:-10%;left:0;width:38%;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.0) 20%,rgba(255,255,255,.26) 50%,rgba(255,255,255,0) 80%,transparent 100%);transform:translateX(-140%) skewX(-12deg);opacity:0}
+@media (prefers-reduced-motion:no-preference){
+  .hero__glint::before{animation:glint 1.9s var(--ease) .5s 1 forwards}
+}
+@keyframes glint{0%{transform:translateX(-140%) skewX(-12deg);opacity:0}15%{opacity:1}100%{transform:translateX(330%) skewX(-12deg);opacity:0}}
+.hero__content{position:relative;z-index:2;padding:var(--s-8) var(--gutter) var(--s-6);display:grid;gap:var(--s-5);max-width:var(--maxw)}
+.hero__content .lead{color:rgba(255,255,255,.9)}
+.hero__cta{display:grid;gap:var(--s-3);justify-items:start}
+.hero__cta .hint{color:rgba(255,255,255,.82)}
+.hero__cta .btn{width:100%}
+.hero__caption{display:none}
+
+@media (min-width:960px){
+  .hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);align-items:stretch;min-height:min(780px,calc(100dvh - var(--header-h)));padding-left:max(var(--gutter),calc((100% - var(--maxw)) / 2 + var(--gutter)));color:var(--text);background:var(--bg);overflow:visible}
+  .hero__media{position:relative;inset:auto;grid-column:2;grid-row:1;overflow:hidden}
+  .hero__media img{object-position:42% 40%}
+  .hero__media::after{display:none}
+  .hero__content{grid-column:1;grid-row:1;align-self:center;padding:var(--s-7) var(--s-7) var(--s-7) 0;max-width:none}
+  .hero .display{font-size:clamp(2.5rem,3.9vw,3.75rem)}
+  .hero__content .lead{color:var(--text-2)}
+  .hero__cta .hint{color:var(--text-muted)}
+  .hero__cta .btn{width:auto}
+  .hero__caption{display:block;position:absolute;left:var(--s-4);bottom:var(--s-4);z-index:2;padding:var(--s-2) var(--s-3);background:rgba(28,31,34,.82);color:#fff;font-size:var(--fs-sm);border-radius:var(--radius)}
+}
+
+/* ==========================================================================
+   Sections
+   ========================================================================== */
+.section{padding-block:var(--section-y)}
+.section--alt{background:var(--surface-2)}
+.section-head{display:grid;gap:var(--s-3);margin-bottom:var(--s-7);max-width:44rem}
+.section-head p{color:var(--text-2);text-wrap:pretty}
+
+/* services: ruled rows; the Turnaround column is real information, not decoration */
+.services{border-top:1px solid var(--text)}
+.service{display:grid;gap:var(--s-4);padding-block:var(--s-6);border-bottom:1px solid var(--border)}
+.service__img{width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--surface-2)}
+.service__body{display:grid;gap:var(--s-3);align-content:start}
+.service__body p{color:var(--text-2);max-width:56ch;text-wrap:pretty}
+.service__meta dt{font-size:var(--fs-sm);color:var(--text-muted)}
+.service__meta dd{font-weight:600;font-stretch:112%}
+@media (min-width:860px){
+  .service{grid-template-columns:200px minmax(0,1fr) 220px;gap:var(--s-7);align-items:center}
+  .service__img{aspect-ratio:4/5;height:auto}
+  .service__meta{justify-self:end;text-align:right}
+}
+
+/* quote */
+.quote-grid{display:grid;gap:var(--s-7);align-items:start}
+.quote-intro{display:grid;gap:var(--s-5)}
+.quote-intro p{color:var(--text-2);max-width:48ch;text-wrap:pretty}
+.next-steps{display:grid;gap:var(--s-4);counter-reset:n;margin-top:var(--s-2)}
+.next-steps li{counter-increment:n;display:grid;grid-template-columns:2rem 1fr;gap:var(--s-3);color:var(--text-2)}
+.next-steps li::before{content:counter(n);display:grid;place-items:center;width:2rem;height:2rem;border:1px solid var(--text);border-radius:50%;font-weight:600;font-size:var(--fs-sm);color:var(--text)}
+@media (min-width:960px){.quote-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s-8)}.quote-intro{position:sticky;top:calc(var(--header-h) + var(--s-6))}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-top:4px solid var(--accent);padding:clamp(1.25rem,4vw,2.25rem)}
+.progress__list{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-2);margin-bottom:var(--s-6)}
+.progress__item{display:grid;gap:var(--s-2);font-size:var(--fs-sm);color:var(--text-muted)}
+.progress__item::before{content:"";height:4px;background:var(--border)}
+.progress__item.is-done::before,.progress__item.is-current::before{background:var(--accent)}
+.progress__item.is-current{color:var(--text);font-weight:600}
+.step{border:0;margin:0;padding:0;min-width:0}
+.step[hidden]{display:none}
+.step__title{font-stretch:112%;font-weight:600;font-size:var(--fs-lg);line-height:1.15;letter-spacing:-.01em;margin-bottom:var(--s-5);outline-offset:6px}
+.fields{display:grid;gap:var(--s-5)}
+@media (min-width:560px){.fields--2{grid-template-columns:1fr 1fr}}
+.field{display:grid;gap:var(--s-2);align-content:start;min-width:0}
+.field>label,.group__legend{font-weight:600;font-size:.9375rem}
+.optional{font-weight:400;color:var(--text-muted)}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;min-height:48px;padding:var(--s-3) var(--s-4);background:var(--field-bg);border:1px solid var(--field-border);border-radius:var(--radius);font-size:1rem;transition:border-color .15s var(--ease),box-shadow .15s var(--ease)}
+textarea{resize:vertical;line-height:1.5;min-height:96px}
+select{appearance:none;-webkit-appearance:none;padding-right:2.5rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%231C1F22' stroke-width='1.8'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--accent)}
+[aria-invalid="true"]{border-color:var(--danger);box-shadow:inset 0 0 0 1px var(--danger)}
+.error{display:flex;align-items:flex-start;gap:var(--s-2);color:var(--danger);font-size:var(--fs-sm);font-weight:500}
+.error[hidden]{display:none}
+.error::before{content:"!";flex:none;display:grid;place-items:center;width:1.1rem;height:1.1rem;margin-top:.1rem;border-radius:50%;background:var(--danger);color:#fff;font-size:.75rem;font-weight:700;line-height:1}
+.group{display:grid;gap:var(--s-3);border:0;padding:0;margin:0;min-width:0}
+.group__legend{padding:0;margin-bottom:var(--s-1)}
+.choices{display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.choice{position:relative;display:inline-flex}
+.choice input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.choice span{display:inline-flex;align-items:center;gap:var(--s-2);min-height:48px;padding:var(--s-2) var(--s-4);background:var(--field-bg);border:1px solid var(--field-border);border-radius:var(--radius);cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease)}
+.choice span small{display:block;font-size:.8125rem;color:var(--text-muted);font-weight:400}
+.choice input:checked+span{background:var(--accent-tint);border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);font-weight:600}
+.choice input:checked+span::before{content:"";flex:none;width:.4rem;height:.75rem;margin:0 .3rem .2rem .1rem;border:solid var(--accent);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.choice input:focus-visible+span{outline:3px solid var(--focus);outline-offset:2px}
+.choice input:disabled+span{opacity:.5;cursor:not-allowed}
+.choices--stack .choice{display:flex}
+.choices--stack .choice span{width:100%}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-3);margin-top:var(--s-6)}
+.actions .hint{flex:1 1 12rem}
+.privacy{display:flex;align-items:center;gap:var(--s-2);margin-top:var(--s-4)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.vehicle-preview{margin-top:var(--s-5);border:1px solid var(--border);background:var(--surface-2);min-height:8.5rem;display:flex;align-items:center}
+.vp{display:flex;align-items:center;gap:var(--s-3);padding:var(--s-4);width:100%;min-width:0}
+.vp>div{min-width:0}
+.vp img{flex:none;width:7rem;height:4rem;object-fit:contain;background:var(--surface)}
+.vp strong{font-stretch:112%;display:block;font-size:1.0625rem;line-height:1.2}
+.vp p{color:var(--text-2);font-size:.9375rem;line-height:1.45;margin-top:var(--s-1)}
+.vp .spinner{flex:none}
+.vp--idle p{margin:0;color:var(--text-muted)}
+.spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
-.rv.on{opacity:1;transform:none}
-@media(max-width:560px){.cta-hero{display:block;width:100%;text-align:center}}
-@media(max-width:420px){.vfields{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.spinner{animation-duration:2.4s}}
+
+.success{display:grid;gap:var(--s-4);outline:none}
+.success[hidden]{display:none}
+.success__mark{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff}
+.success__mark::before{content:"";width:.5rem;height:.9rem;margin-bottom:.2rem;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
+.success p{color:var(--text-2);max-width:46ch}
+.success .actions{margin-top:var(--s-2)}
+
+/* philosophy */
+.philosophy{display:grid;gap:var(--s-7);align-items:center}
+.philosophy__img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.philosophy__copy{display:grid;gap:var(--s-4);max-width:34rem}
+.philosophy__copy p{color:var(--text-2);text-wrap:pretty}
+.philosophy__copy p:last-child{color:var(--text);font-weight:600}
+@media (min-width:860px){.philosophy{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:var(--s-9)}}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s-2)}
+@media (min-width:640px){.gallery{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:960px){.gallery{grid-template-columns:repeat(4,1fr);gap:var(--s-3)}}
+.tile{display:block;width:100%;padding:0;border:0;background:var(--surface-2);cursor:zoom-in;aspect-ratio:3/4;overflow:hidden}
+.tile img{width:100%;height:100%;object-fit:cover}
+.lightbox{width:min(96vw,720px);max-height:96dvh;padding:0;border:0;background:transparent;color:#fff;overflow:visible}
+.lightbox::backdrop{background:rgba(18,20,22,.92)}
+.lightbox__figure{display:grid;gap:var(--s-3);justify-items:center}
+.lightbox__figure img{max-height:calc(100dvh - 9rem);width:auto;max-width:100%;object-fit:contain}
+.lightbox__figure figcaption{font-size:.9375rem;color:rgba(255,255,255,.88);text-align:center}
+.lightbox__bar{display:flex;justify-content:space-between;gap:var(--s-3);margin-top:var(--s-3)}
+.lightbox .btn{--btn-bg:rgba(255,255,255,.12);--btn-bg-hover:rgba(255,255,255,.24);--btn-fg:#fff;border-color:rgba(255,255,255,.4);min-width:96px}
+.lightbox{--focus:var(--p-green-300)}
+
+/* process — a true sequence, so it is numbered */
+.process{display:grid;gap:var(--s-6);counter-reset:p}
+.process li{counter-increment:p;position:relative;display:grid;gap:var(--s-2);padding-left:3.5rem}
+.process li::before{content:counter(p);position:absolute;left:0;top:0;display:grid;place-items:center;width:2.5rem;height:2.5rem;border:1px solid var(--text);border-radius:50%;font-weight:600;font-stretch:112%;background:var(--bg)}
+.process li:not(:last-child)::after{content:"";position:absolute;left:1.25rem;top:2.5rem;bottom:calc(-1 * var(--s-6));width:1px;background:var(--border-strong)}
+.process p{color:var(--text-2);text-wrap:pretty}
+@media (min-width:860px){
+  .process{grid-template-columns:repeat(4,1fr);gap:var(--s-6)}
+  .process li{padding-left:0;padding-top:3.5rem}
+  .process li:not(:last-child)::after{left:2.5rem;right:calc(-1 * var(--s-6));top:1.25rem;bottom:auto;width:auto;height:1px}
+}
+
+/* faq */
+.faq{max-width:46rem;border-top:1px solid var(--text)}
+.faq details{border-bottom:1px solid var(--border)}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);min-height:60px;padding-block:var(--s-3);font-weight:600;font-stretch:106%;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:.6rem;height:.6rem;border:solid var(--text);border-width:0 2px 2px 0;transform:rotate(45deg);margin-right:.2rem;transition:transform .2s var(--ease)}
+.faq details[open] summary::after{transform:rotate(-135deg)}
+.faq details>p{padding:0 var(--s-6) var(--s-5) 0;color:var(--text-2);max-width:60ch;text-wrap:pretty}
+
+/* closing band + footer */
+.band{background:var(--inverse-bg);color:var(--inverse-text)}
+.band__cta{display:grid;gap:var(--s-5);justify-items:start;padding-block:var(--section-y)}
+.band__cta p{color:rgba(241,242,239,.82);max-width:44ch}
+.site-footer{border-top:1px solid rgba(241,242,239,.16);padding-block:var(--s-6)}
+.site-footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-4)}
+.site-footer nav{display:flex;gap:var(--s-5)}
+.site-footer a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
+.site-footer a:hover{text-decoration:underline}
+.site-footer .copy{font-size:var(--fs-sm);color:rgba(241,242,239,.72);width:100%}
 </style>
-</helmet>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
 
-<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0A0A0A"/><text x="50" y="58" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#F5A623" text-anchor="middle" letter-spacing="1">AA</text></svg></template>
-<div style="background:var(--gold);color:#0A0A0A;text-align:center;padding:10px 20px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Master-Level Cosmetic Repair for Luxury Vehicles</div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="#top">Auto Aesthetics</a>
+    <a class="btn btn--sm" href="#quote">Get a quote</a>
+  </div>
+</header>
 
-<section style="position:relative;overflow:hidden;border-bottom:1px solid var(--line)">
-<div style="position:absolute;top:-260px;left:50%;transform:translateX(-50%);width:900px;height:700px;background:radial-gradient(circle,rgba(245,166,35,.13) 0%,transparent 68%);pointer-events:none"></div>
-<div style="position:relative;max-width:1180px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(18px,4vw,32px) clamp(48px,7vw,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:clamp(32px,5vw,56px);align-items:center">
-<div class="rv on">
-<div style="display:inline-block;border:1px solid rgba(245,166,35,.4);color:var(--gold);font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 14px;border-radius:2px;margin-bottom:22px">For Discerning Owners of Luxury Vehicles</div>
-<h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,7.4vw,86px);line-height:.92;letter-spacing:.01em;text-transform:uppercase;margin-bottom:20px">Restore Your Vehicle's <span style="color:var(--gold)">Flawless Finish</span></h1>
-<p style="font-size:clamp(15px,1.5vw,18px);color:var(--gray-light);line-height:1.7;max-width:520px;margin-bottom:26px;text-wrap:pretty">Showroom paint, carbon fiber restoration and paintless dent repair — executed by master technicians for owners who notice everything.</p>
-<div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:30px">
-<span style="background:var(--dark3);border:1px solid var(--line);color:var(--gray-light);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;border-radius:2px">Showroom Paint</span>
-<span style="background:var(--dark3);border:1px solid var(--line);color:var(--gray-light);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;border-radius:2px">Flawless PDR</span>
-<span style="background:var(--dark3);border:1px solid var(--line);color:var(--gray-light);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;border-radius:2px">Carbon Fiber</span>
-</div>
-<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
-<a href="#quote" class="cta-hero" style="display:block;background:var(--gold);color:#0A0A0A;font-size:15px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:17px 30px;border-radius:3px;box-shadow:0 10px 30px rgba(245,166,35,.22);transition:transform .18s ease,box-shadow .18s ease" style-hover="transform:translateY(-2px);box-shadow:0 14px 38px rgba(245,166,35,.35);color:#0A0A0A">Tell Us About Your Car
-<span style="display:block;font-size:10.5px;font-weight:600;color:rgba(0,0,0,.6);margin-top:4px;letter-spacing:.06em">Free quote · 60 seconds · no obligation</span></a>
-<a href="#work" style="color:var(--gray-light);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:3px" style-hover="color:#fff">See the work</a>
-</div>
-</div>
-<div class="rv on" style="position:relative">
-<div style="position:relative;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.12);aspect-ratio:4/5;background:var(--dark2)">
-<img src="images/hero.jpg" alt="AMG GT 53 with a fully restored gloss finish" fetchpriority="high" style="width:100%;height:100%;object-fit:cover;object-position:center 55%;display:block">
-<div style="position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(to top,rgba(10,10,10,.92),transparent)"></div>
-<div style="position:absolute;left:18px;right:18px;bottom:16px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px">
-<div><div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:3px">Recent Delivery</div><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em">AMG GT 53 · Multi-Stage Paint Correction</div></div>
-</div>
-</div>
-</div>
-</div>
+<main id="main">
+
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero__media">
+    <img src="images/hero-800.webp" srcset="images/hero-800.webp 800w, images/hero-1280.webp 1280w" sizes="(min-width: 960px) 50vw, 100vw" width="800" height="1422" alt="Mercedes-AMG GT 53 with a restored gloss finish in the Auto Aesthetics bay" fetchpriority="high" decoding="async">
+    <div class="hero__glint" aria-hidden="true"></div>
+    <p class="hero__caption">AMG GT 53, multi-stage paint correction</p>
+  </div>
+  <div class="hero__content">
+    <h1 class="display" id="hero-title">Your car's finish, restored to showroom standard.</h1>
+    <p class="lead">Paint correction and respray, paintless dent repair and carbon fiber restoration for luxury and exotic cars, by master technicians, for owners who notice everything.</p>
+    <div class="hero__cta">
+      <a class="btn btn--lg" href="#quote">Get a quote for your car</a>
+      <p class="hint">Free quote, 60 seconds, no obligation.</p>
+    </div>
+  </div>
 </section>
 
-<section class="rv" style="background:var(--dark2);border-bottom:1px solid var(--line);padding:clamp(48px,7vw,80px) clamp(18px,4vw,32px)">
-<div style="max-width:660px;margin:0 auto;text-align:center;font-size:clamp(17px,2vw,19px);line-height:1.85;color:var(--gray-light);text-wrap:pretty">
-<p style="margin-bottom:14px">That first scratch on a pristine finish. The dull haze on once-vibrant carbon fiber. The door ding your eyes can't unsee.</p>
-<p style="color:#fff;font-weight:500">Your masterpiece deserves better than a standard "fix". It demands artistry.</p>
-</div>
+<section class="section" id="services" aria-labelledby="services-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h2" id="services-title">Three disciplines, one standard</h2>
+      <p>Tell us which one your car needs, or let us assess it.</p>
+    </div>
+    <ul class="services">
+      <li class="service">
+        <img class="service__img" src="images/paint.webp" width="640" height="1138" loading="lazy" decoding="async" alt="Polished wheel and glossy fender on a white widebody car">
+        <div class="service__body">
+          <h3 class="h3">Paint correction and respray</h3>
+          <p>Multi-stage correction and factory-matched application. A finish deeper and glossier than the day it left the factory.</p>
+          <a class="link" href="#quote" data-service="Showroom paint / custom paint">Request paint work</a>
+        </div>
+        <dl class="service__meta"><dt>Turnaround</dt><dd>Show-quality respray: multi-week</dd></dl>
+      </li>
+      <li class="service">
+        <img class="service__img" src="images/pdr.webp" width="640" height="1138" loading="lazy" decoding="async" alt="Paintless dent repair in progress">
+        <div class="service__body">
+          <h3 class="h3">Paintless dent repair</h3>
+          <p>Panels massaged from behind until dents, dings and hail damage disappear, with your original factory paint fully intact.</p>
+          <a class="link" href="#quote" data-service="Paintless dent repair">Request dent repair</a>
+        </div>
+        <dl class="service__meta"><dt>Turnaround</dt><dd>Can be same day</dd></dl>
+      </li>
+      <li class="service">
+        <img class="service__img" src="images/carbon.webp" width="640" height="1138" loading="lazy" decoding="async" alt="Restored carbon fiber hood with a deep clear gloss, masked in the paint bay">
+        <div class="service__body">
+          <h3 class="h3">Carbon fiber restoration</h3>
+          <p>Sun-faded, yellowed or scratched weave brought back to deep, vibrant, glass-clear gloss.</p>
+          <a class="link" href="#quote" data-service="Carbon fiber restoration">Request carbon restoration</a>
+        </div>
+        <dl class="service__meta"><dt>Turnaround</dt><dd>Typically 2 to 3 days</dd></dl>
+      </li>
+    </ul>
+  </div>
 </section>
 
-<section id="services" style="padding:clamp(52px,7vw,90px) clamp(18px,4vw,32px)">
-<div style="max-width:1180px;margin:0 auto">
-<div class="rv" style="text-align:center;margin-bottom:44px">
-<div style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Our Specializations</div>
-<h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4.6vw,56px);line-height:1;letter-spacing:.02em;text-transform:uppercase;margin-bottom:14px">A Symphony of Perfection</h2>
-<p style="color:var(--gray-light);font-size:16px;max-width:580px;margin:0 auto;line-height:1.7">Three disciplines, one standard. Tell us which one your car needs — or let us assess it.</p>
-</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px">
-<div class="rv" style="background:var(--dark2);border:1px solid var(--line);border-radius:5px;overflow:hidden;transition:border-color .3s ease,transform .3s ease" style-hover="border-color:rgba(245,166,35,.45);transform:translateY(-4px)">
-<div style="aspect-ratio:5/4;overflow:hidden;background:var(--dark3)"><img src="images/service-01-paint-sm.jpg" alt="Polished wheel and glossy fender" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-<div style="padding:24px 22px 26px">
-<div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px">01 — Paint</div>
-<h3 style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.02em;line-height:1.05;text-transform:uppercase;margin-bottom:10px">Correction &amp; Respray</h3>
-<p style="font-size:14.5px;color:var(--gray-light);line-height:1.65">Multi-stage correction and factory-matched application. A finish deeper and glossier than the day it left the factory.</p>
-</div>
-</div>
-<div class="rv" style="background:var(--dark2);border:1px solid var(--line);border-radius:5px;overflow:hidden;transition:border-color .3s ease,transform .3s ease" style-hover="border-color:rgba(245,166,35,.45);transform:translateY(-4px)">
-<div style="aspect-ratio:5/4;overflow:hidden;background:var(--dark3)"><img src="images/service-02-pdr-sm.jpg" alt="Paintless dent repair in progress" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-<div style="padding:24px 22px 26px">
-<div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px">02 — PDR</div>
-<h3 style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.02em;line-height:1.05;text-transform:uppercase;margin-bottom:10px">Paintless Dent Repair</h3>
-<p style="font-size:14.5px;color:var(--gray-light);line-height:1.65">Panels massaged from behind until dents, dings and hail damage disappear — with your original factory paint fully intact.</p>
-</div>
-</div>
-<div class="rv" style="background:var(--dark2);border:1px solid var(--line);border-radius:5px;overflow:hidden;transition:border-color .3s ease,transform .3s ease" style-hover="border-color:rgba(245,166,35,.45);transform:translateY(-4px)">
-<div style="aspect-ratio:5/4;overflow:hidden;background:var(--dark3)"><img src="images/service-03-carbon-sm.jpg" alt="Restored carbon fiber weave" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-<div style="padding:24px 22px 26px">
-<div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px">03 — Carbon</div>
-<h3 style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.02em;line-height:1.05;text-transform:uppercase;margin-bottom:10px">Carbon Fiber Restoration</h3>
-<p style="font-size:14.5px;color:var(--gray-light);line-height:1.65">Sun-faded, yellowed or scratched weave brought back to deep, vibrant, glass-clear gloss.</p>
-</div>
-</div>
-</div>
-</div>
+<section class="section section--alt" id="quote" aria-labelledby="quote-title">
+  <div class="wrap quote-grid">
+    <div class="quote-intro">
+      <h2 class="h2" id="quote-title">Tell us about your car</h2>
+      <p>Three quick steps. We'll pull up your vehicle, then one of our representatives reaches out with a real number. No lot visit required.</p>
+      <ol class="next-steps" aria-label="What happens after you send your request">
+        <li>We review your vehicle and the work you need.</li>
+        <li>A representative contacts you on the channel and at the time you choose, usually within a few business hours.</li>
+        <li>You get a transparent, no-obligation quote.</li>
+      </ol>
+    </div>
+
+    <form class="card" id="quote-form" novalidate>
+      <ol class="progress__list" id="progress" aria-label="Quote progress">
+        <li class="progress__item is-current" data-step="1" aria-current="step"><span class="sr-only">Step 1 of 3: </span>Vehicle</li>
+        <li class="progress__item" data-step="2"><span class="sr-only">Step 2 of 3: </span>Service</li>
+        <li class="progress__item" data-step="3"><span class="sr-only">Step 3 of 3: </span>Contact</li>
+      </ol>
+      <p class="sr-only" id="step-live" role="status" aria-live="polite"></p>
+
+      <fieldset class="step" data-step="1" aria-labelledby="step1-title">
+        <h3 class="step__title" id="step1-title" tabindex="-1">Your vehicle</h3>
+        <div class="fields fields--2">
+          <div class="field">
+            <label for="year">Model year</label>
+            <select id="year" name="year" required aria-describedby="year-error"></select>
+            <p class="error" id="year-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="make">Make</label>
+            <input type="text" id="make" name="make" list="dl-make" autocomplete="off" autocapitalize="words" required aria-describedby="make-hint make-error">
+            <datalist id="dl-make"></datalist>
+            <p class="hint" id="make-hint">Start typing, or pick from the list.</p>
+            <p class="error" id="make-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="model">Model</label>
+            <input type="text" id="model" name="model" list="dl-model" autocomplete="off" autocapitalize="words" required aria-describedby="model-hint model-error">
+            <datalist id="dl-model"></datalist>
+            <p class="hint" id="model-hint">Not listed? Type it in.</p>
+            <p class="error" id="model-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="trim">Trim <span class="optional">(optional)</span></label>
+            <input type="text" id="trim" name="trim" list="dl-trim" autocomplete="off" autocapitalize="words">
+            <datalist id="dl-trim"></datalist>
+          </div>
+        </div>
+        <div class="vehicle-preview" id="vehicle-preview" aria-live="polite"></div>
+        <div class="actions">
+          <button type="button" class="btn" data-next>Continue</button>
+          <p class="hint">Step 1 of 3. No account, no spam.</p>
+        </div>
+      </fieldset>
+
+      <fieldset class="step" data-step="2" aria-labelledby="step2-title" hidden>
+        <h3 class="step__title" id="step2-title" tabindex="-1">What does the <span data-vehicle-short>car</span> need?</h3>
+        <div class="fields">
+          <div class="group" role="group" aria-labelledby="svc-legend" aria-describedby="service-error">
+            <span class="group__legend" id="svc-legend">Select all that apply</span>
+            <div class="choices">
+              <label class="choice"><input type="checkbox" name="service" value="Showroom paint / custom paint"><span>Showroom paint / custom paint</span></label>
+              <label class="choice"><input type="checkbox" name="service" value="Carbon fiber restoration"><span>Carbon fiber restoration</span></label>
+              <label class="choice"><input type="checkbox" name="service" value="Paintless dent repair"><span>Paintless dent repair</span></label>
+              <label class="choice"><input type="checkbox" name="service" value="Not sure — assess it"><span>Not sure, assess it</span></label>
+            </div>
+            <p class="error" id="service-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="notes">Anything we should know? <span class="optional">(optional)</span></label>
+            <textarea id="notes" name="notes" rows="3" placeholder="e.g. rock chips across the front bumper, one dent on the driver door"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="button" class="btn btn--ghost" data-back>Back</button>
+          <button type="button" class="btn" data-next>Continue</button>
+          <p class="hint">Step 2 of 3</p>
+        </div>
+      </fieldset>
+
+      <fieldset class="step" data-step="3" aria-labelledby="step3-title" hidden>
+        <h3 class="step__title" id="step3-title" tabindex="-1">How can we reach you?</h3>
+        <div class="fields">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required aria-describedby="name-error">
+            <p class="error" id="name-error" hidden></p>
+          </div>
+          <div class="fields fields--2">
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" inputmode="email" aria-describedby="contact-hint contact-error">
+            </div>
+            <div class="field">
+              <label for="phone">Mobile</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" aria-describedby="contact-hint contact-error">
+            </div>
+          </div>
+          <p class="hint hint--2" id="contact-hint">Add an email or a mobile number, whichever you'd rather hear on. One is enough.</p>
+          <p class="error" id="contact-error" hidden></p>
+
+          <div class="group" role="group" aria-labelledby="chan-legend" aria-describedby="channel-error">
+            <span class="group__legend" id="chan-legend">How should we reach you?</span>
+            <div class="choices" id="channels">
+              <label class="choice"><input type="checkbox" name="channel" value="email" disabled><span>Email me<small id="chan-email-sub">Add an email</small></span></label>
+              <label class="choice"><input type="checkbox" name="channel" value="text" disabled><span>Text me<small id="chan-text-sub">Add a mobile number</small></span></label>
+              <label class="choice"><input type="checkbox" name="channel" value="call" disabled><span>Call me<small id="chan-call-sub">Add a mobile number</small></span></label>
+            </div>
+            <p class="error" id="channel-error" hidden></p>
+          </div>
+
+          <div class="group" role="radiogroup" aria-labelledby="win-legend" aria-describedby="window-error">
+            <span class="group__legend" id="win-legend">When are you usually reachable?</span>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="window" value="Weekday mornings"><span>Weekday mornings</span></label>
+              <label class="choice"><input type="radio" name="window" value="Weekday afternoons"><span>Weekday afternoons</span></label>
+              <label class="choice"><input type="radio" name="window" value="Weekday evenings"><span>Weekday evenings</span></label>
+              <label class="choice"><input type="radio" name="window" value="Weekends"><span>Weekends</span></label>
+              <label class="choice"><input type="radio" name="window" value="Any time — just reach me"><span>Any time, just reach me</span></label>
+            </div>
+            <p class="error" id="window-error" hidden></p>
+          </div>
+        </div>
+        <div class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+        <div class="actions">
+          <button type="button" class="btn btn--ghost" data-back>Back</button>
+          <button type="submit" class="btn" id="submit-btn">Send my request</button>
+        </div>
+        <p class="hint privacy">Confidential. Used once, to quote your car.</p>
+      </fieldset>
+
+      <div class="success" id="success" tabindex="-1" hidden>
+        <span class="success__mark" aria-hidden="true"></span>
+        <h3 class="h3" id="success-title"></h3>
+        <p id="success-body"></p>
+        <div class="actions"><button type="button" class="btn btn--ghost" id="reset-btn">Submit another vehicle</button></div>
+      </div>
+    </form>
+  </div>
 </section>
 
-<section id="quote" style="background:linear-gradient(180deg,var(--dark2),var(--black));border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(52px,7vw,88px) clamp(16px,4vw,32px);scroll-margin-top:0">
-<div style="max-width:760px;margin:0 auto">
-<div class="rv" style="text-align:center;margin-bottom:30px">
-<div style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Free Consultation</div>
-<h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4.6vw,56px);line-height:1;letter-spacing:.02em;text-transform:uppercase;margin-bottom:14px">Tell Us About Your Car</h2>
-<p style="color:var(--gray-light);font-size:16px;max-width:540px;margin:0 auto;line-height:1.7">Three quick steps. We'll pull up your vehicle, then one of our representatives reaches out with a real number — no lot visit required.</p>
-</div>
-
-<div class="rv" style="background:var(--dark2);border:1px solid rgba(245,166,35,.18);border-radius:8px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)">
-<div style="height:3px;background:rgba(255,255,255,.07)"><div style="height:100%;background:linear-gradient(90deg,var(--gold-light),var(--gold));transition:width .45s cubic-bezier(.2,.7,.3,1);width:{{ progressPct }}"></div></div>
-
-<sc-if value="{{ showSteps }}" hint-placeholder-val="{{ true }}">
-<div style="display:flex;gap:0;border-bottom:1px solid var(--line)">
-<sc-for list="{{ stepTabs }}" as="t" hint-placeholder-count="3">
-<button onClick="{{ t.go }}" style="flex:1;background:none;border:none;padding:14px 8px;cursor:pointer;text-align:center;transition:background .2s;border-bottom:2px solid {{ t.bar }}" style-hover="background:rgba(255,255,255,.03)">
-<div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:2px;color:{{ t.color }}">Step {{ t.n }}</div>
-<div style="font-size:12.5px;font-weight:600;color:{{ t.color2 }}">{{ t.label }}</div>
-</button>
-</sc-for>
-</div>
-</sc-if>
-
-<div style="padding:clamp(22px,4vw,34px)">
-
-<sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
-<div style="animation:riseIn .4s ease both">
-<div class="vfields" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:12px">
-<sc-for list="{{ fields }}" as="f" hint-placeholder-count="4">
-<div>
-<label style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);font-weight:700;margin-bottom:7px">{{ f.label }}</label>
-<button onClick="{{ f.open }}" disabled="{{ f.disabled }}" style="width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0E0E0E;border-radius:5px;padding:12px 14px;text-align:left;font-size:15.5px;font-weight:500;transition:border-color .18s ease;border:1px solid {{ f.border }};color:{{ f.color }};cursor:{{ f.cursor }};opacity:{{ f.opacity }}" style-hover="border-color:rgba(245,166,35,.5)">
-<span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ f.text }}</span>
-<span style="flex:none;font-size:10px;color:{{ f.caret }}">▼</span>
-</button>
-</div>
-</sc-for>
-</div>
-<div style="font-size:12.5px;color:#666;margin-top:10px;line-height:1.55">{{ lookupHint }}</div>
-
-<sc-if value="{{ carPanel }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top:20px;border:1px solid rgba(245,166,35,.25);border-radius:6px;overflow:hidden;background:#0E0E0E;animation:pop .35s ease both">
-<sc-if value="{{ carLoading }}" hint-placeholder-val="{{ false }}">
-<div style="padding:26px;display:flex;align-items:center;gap:14px">
-<div style="width:22px;height:22px;border:2px solid rgba(245,166,35,.25);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite"></div>
-<div style="font-size:14px;color:var(--gray-light)">Pulling up your {{ vehicleShort }}…</div>
-</div>
-</sc-if>
-<sc-if value="{{ carFound }}" hint-placeholder-val="{{ false }}">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))">
-<div style="background:linear-gradient(135deg,#1c1c1c,#0d0d0d);display:flex;align-items:center;justify-content:center;padding:14px;min-height:150px"><img src="{{ carImg }}" alt="{{ vehicleFull }}" style="width:100%;max-height:180px;object-fit:contain;display:block"></div>
-<div style="padding:22px">
-<div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:6px">Found it</div>
-<div style="font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:.03em;line-height:1.1;margin-bottom:6px">{{ vehicleFull }}</div>
-<sc-if value="{{ hasTrim }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px;color:#7E7E7E;font-family:ui-monospace,Menlo,monospace;margin-bottom:8px">{{ trimLine }}</div></sc-if>
-<div style="font-size:14.5px;color:var(--gray-light);line-height:1.6">{{ foundLine }}</div>
-</div>
-</div>
-</sc-if>
-<sc-if value="{{ carMissing }}" hint-placeholder-val="{{ false }}">
-<div style="padding:22px;display:flex;gap:16px;align-items:flex-start">
-<div style="width:44px;height:44px;flex:none;border-radius:50%;border:1px solid rgba(245,166,35,.35);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:22px">?</div>
-<div>
-<div style="font-family:'Bebas Neue',sans-serif;font-size:23px;letter-spacing:.03em;line-height:1.15;margin-bottom:6px">{{ vehicleFull }}</div>
-<div style="font-size:14.5px;color:var(--gray-light);line-height:1.6">{{ missingLine }}</div>
-</div>
-</div>
-</sc-if>
-</div>
-</sc-if>
-
-<div style="display:flex;gap:12px;align-items:center;margin-top:22px;flex-wrap:wrap">
-<button onClick="{{ next }}" disabled="{{ step1Blocked }}" style="background:var(--gold);color:#0A0A0A;font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;padding:15px 28px;border:none;border-radius:3px;cursor:pointer;transition:all .18s;opacity:{{ step1Opacity }}" style-hover="background:var(--gold-light);transform:translateY(-1px)">Continue</button>
-<span style="font-size:12.5px;color:#666">Step 1 of 3 · no account, no spam</span>
-</div>
-</div>
-</sc-if>
-
-<sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
-<div style="animation:riseIn .4s ease both">
-<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);font-weight:700;margin-bottom:12px">What does the {{ vehicleShort }} need?</div>
-<div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px">
-<sc-for list="{{ serviceChips }}" as="s" hint-placeholder-count="5">
-<button onClick="{{ s.toggle }}" style="border-radius:3px;padding:12px 16px;font-size:13.5px;font-weight:600;cursor:pointer;transition:all .18s;background:{{ s.bg }};color:{{ s.fg }};border:{{ s.border }}">{{ s.label }}</button>
-</sc-for>
-</div>
-<label style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);font-weight:700;margin-bottom:7px">Anything we should know? <span style="color:#555;text-transform:none;letter-spacing:0">optional</span></label>
-<textarea value="{{ notes }}" onChange="{{ onNotes }}" rows="3" placeholder="e.g. rock chips across the front bumper, one dent on the driver door" style="width:100%;background:#0E0E0E;border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:4px;padding:13px 12px;resize:vertical;line-height:1.6"></textarea>
-<div style="display:flex;gap:12px;align-items:center;margin-top:22px;flex-wrap:wrap">
-<button onClick="{{ back }}" style="background:none;border:1px solid rgba(255,255,255,.18);color:var(--gray-light);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:15px 20px;border-radius:3px;cursor:pointer" style-hover="border-color:rgba(255,255,255,.4);color:#fff">Back</button>
-<button onClick="{{ next }}" disabled="{{ step2Blocked }}" style="background:var(--gold);color:#0A0A0A;font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;padding:15px 28px;border:none;border-radius:3px;cursor:pointer;transition:all .18s;opacity:{{ step2Opacity }}" style-hover="background:var(--gold-light);transform:translateY(-1px)">Continue</button>
-<span style="font-size:12.5px;color:#666">Step 2 of 3</span>
-</div>
-</div>
-</sc-if>
-
-<sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
-<div style="animation:riseIn .4s ease both">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:18px">
-<div>
-<label style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);font-weight:700;margin-bottom:7px">Your name</label>
-<input value="{{ name }}" onChange="{{ onName }}" placeholder="First and last" style="width:100%;background:#0E0E0E;border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:4px;padding:13px 12px">
-</div>
-<div>
-<label style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);font-weight:700;margin-bottom:7px">Email</label>
-<input value="{{ email }}" onChange="{{ onEmail }}" type="email" placeholder="you@domain.com" style="width:100%;background:#0E0E0E;border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:4px;padding:13px 12px">
-</div>
-<div>
-<label style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);font-weight:700;margin-bottom:7px">Mobile</label>
-<input value="{{ phone }}" onChange="{{ onPhone }}" type="tel" inputMode="tel" placeholder="(555) 123-4567" style="width:100%;background:#0E0E0E;border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:4px;padding:13px 12px">
-</div>
-</div>
-<div style="font-size:12.5px;color:#666;margin-bottom:22px">{{ contactHint }}</div>
-
-<sc-if value="{{ hasChannel }}" hint-placeholder-val="{{ false }}">
-<div style="animation:riseIn .35s ease both;margin-bottom:22px">
-<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);font-weight:700;margin-bottom:10px">How should we reach you?</div>
-<div style="display:flex;flex-wrap:wrap;gap:9px">
-<sc-for list="{{ channels }}" as="c" hint-placeholder-count="2">
-<button onClick="{{ c.toggle }}" style="border-radius:3px;padding:12px 18px;font-size:13.5px;font-weight:600;cursor:pointer;text-align:left;transition:all .18s;background:{{ c.bg }};color:{{ c.fg }};border:{{ c.border }}">{{ c.label }}<span style="display:block;font-size:11px;font-weight:500;opacity:.65;margin-top:2px">{{ c.sub }}</span></button>
-</sc-for>
-</div>
-</div>
-</sc-if>
-
-<sc-if value="{{ hasChannel }}" hint-placeholder-val="{{ false }}">
-<div style="animation:riseIn .35s ease both;margin-bottom:6px">
-<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);font-weight:700;margin-bottom:10px">{{ windowPrompt }}</div>
-<div style="display:flex;flex-wrap:wrap;gap:9px">
-<sc-for list="{{ windows }}" as="w" hint-placeholder-count="4">
-<button onClick="{{ w.pick }}" style="border-radius:3px;padding:11px 15px;font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;background:{{ w.bg }};color:{{ w.fg }};border:{{ w.border }}">{{ w.label }}</button>
-</sc-for>
-</div>
-</div>
-</sc-if>
-
-<div style="display:flex;gap:12px;align-items:center;margin-top:24px;flex-wrap:wrap">
-<button onClick="{{ back }}" style="background:none;border:1px solid rgba(255,255,255,.18);color:var(--gray-light);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:15px 20px;border-radius:3px;cursor:pointer" style-hover="border-color:rgba(255,255,255,.4);color:#fff">Back</button>
-<button onClick="{{ submit }}" disabled="{{ step3Blocked }}" style="background:var(--gold);color:#0A0A0A;font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;padding:15px 30px;border:none;border-radius:3px;cursor:pointer;transition:all .18s;opacity:{{ step3Opacity }}" style-hover="background:var(--gold-light);transform:translateY(-1px)">{{ submitLabel }}</button>
-</div>
-<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#666;margin-top:14px">
-<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path></svg>
-<span>Confidential. Used once, to quote your car.</span>
-</div>
-</div>
-</sc-if>
-
-<sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
-<div style="animation:riseIn .5s ease both;text-align:center">
-<div style="width:56px;height:56px;margin:6px auto 18px;border-radius:50%;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.4);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:26px;font-family:'Bebas Neue',sans-serif">✓</div>
-<h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,40px);letter-spacing:.02em;text-transform:uppercase;line-height:1.05;margin-bottom:12px">{{ thanksTitle }}</h3>
-<p style="color:var(--gray-light);font-size:16px;line-height:1.7;max-width:460px;margin:0 auto 26px">{{ thanksBody }}</p>
-<div style="font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#666;font-weight:700;margin-bottom:12px">Here's what to look for</div>
-
-<sc-if value="{{ previewIsSms }}" hint-placeholder-val="{{ true }}">
-<div style="max-width:420px;margin:0 auto;background:#0E0E0E;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:left">
-<div style="display:flex;align-items:center;gap:9px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:14px">
-<div style="width:30px;height:30px;border-radius:50%;background:var(--gold);color:#0A0A0A;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">AA</div>
-<div><div style="font-size:13.5px;font-weight:600">Auto Aesthetics Team</div><div style="font-size:11px;color:#666">{{ previewMeta }}</div></div>
-</div>
-<div style="background:#1E1E1E;border-radius:14px 14px 14px 3px;padding:13px 15px;font-size:14.5px;line-height:1.55;color:#EDEDED">{{ previewBody }}</div>
-<div style="font-size:10.5px;color:#555;margin-top:8px">Delivered · you can reply STOP any time</div>
-</div>
-</sc-if>
-<sc-if value="{{ previewIsEmail }}" hint-placeholder-val="{{ false }}">
-<div style="max-width:460px;margin:0 auto;background:#0E0E0E;border:1px solid var(--line);border-radius:6px;overflow:hidden;text-align:left">
-<div style="padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;gap:10px;align-items:center">
-<div style="width:30px;height:30px;border-radius:50%;background:var(--gold);color:#0A0A0A;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">AA</div>
-<div style="min-width:0"><div style="font-size:13.5px;font-weight:600">Auto Aesthetics Team</div><div style="font-size:11px;color:#666">to {{ emailShown }}</div></div>
-</div>
-<div style="padding:16px">
-<div style="font-size:14.5px;font-weight:700;margin-bottom:8px">{{ previewSubject }}</div>
-<div style="font-size:14px;line-height:1.65;color:#CFCFCF;white-space:pre-line">{{ previewBody }}</div>
-</div>
-</div>
-</sc-if>
-
-<button onClick="{{ reset }}" style="margin-top:24px;background:none;border:1px solid rgba(255,255,255,.16);color:var(--gray);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:11px 18px;border-radius:3px;cursor:pointer" style-hover="color:#fff;border-color:rgba(255,255,255,.35)">Submit another vehicle</button>
-</div>
-</sc-if>
-
-</div>
-</div>
-</div>
+<section class="section" aria-labelledby="philosophy-title">
+  <div class="wrap philosophy">
+    <img class="philosophy__img" src="images/shop.webp" width="800" height="1422" loading="lazy" decoding="async" alt="Widebody white Mustang with carbon fiber details in the Auto Aesthetics bay">
+    <div class="philosophy__copy">
+      <h2 class="h2" id="philosophy-title">A boutique workshop, not a volume shop</h2>
+      <p>Every car that enters our bay is treated with the same reverence and obsession for detail as our own. We built this for owners who view their vehicles as more than transportation.</p>
+      <p>Your trust is our highest honor, and perfection is our only standard.</p>
+    </div>
+  </div>
 </section>
 
-<section style="background:var(--dark2);border-bottom:1px solid var(--line);padding:clamp(52px,7vw,88px) clamp(18px,4vw,32px)">
-<div style="max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,60px);align-items:center">
-<div class="rv" style="border-radius:6px;overflow:hidden;aspect-ratio:4/5;background:var(--dark3)"><img src="images/feature-01-sm.jpg" alt="Widebody build in the Auto Aesthetics bay" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-<div class="rv">
-<div style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Our Philosophy</div>
-<h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4.2vw,50px);line-height:1;letter-spacing:.02em;text-transform:uppercase;margin-bottom:18px">Masters of the Craft</h2>
-<p style="font-size:15.5px;color:var(--gray-light);line-height:1.8;margin-bottom:14px">We are not a volume shop. We are a boutique workshop for owners who view their vehicles as more than transportation. Every car that enters our bay is treated with the same reverence and obsession for detail as our own.</p>
-<p style="font-size:15.5px;color:#fff;font-weight:500;line-height:1.8">Your trust is our highest honor, and perfection is our only standard.</p>
-</div>
-</div>
+<section class="section section--alt" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h2" id="work-title">Recent work</h2>
+      <p>Straight from the bay. Tap any photo to enlarge it.</p>
+    </div>
+    <ul class="gallery" id="gallery">
+      <li><button type="button" class="tile" data-i="0"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241581278-v2ssjz.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="G-Class side profile after correction"></button></li>
+      <li><button type="button" class="tile" data-i="1"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241581279-x45u12.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="AMG GT 53 front end, finished"></button></li>
+      <li><button type="button" class="tile" data-i="2"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241840225-i84yic.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="Widebody Mustang, panel work"></button></li>
+      <li><button type="button" class="tile" data-i="3"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241581279-zqzbqm.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="GT 53 rear light bar detail"></button></li>
+      <li><button type="button" class="tile" data-i="4"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241581279-bfk3o1.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="Damaged bumper before repair"></button></li>
+      <li><button type="button" class="tile" data-i="5"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241581279-ultbwx.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="Rear bumper refinishing in progress"></button></li>
+      <li><button type="button" class="tile" data-i="6"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241897127-aycf74.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="Shelby emblem on restored fender"></button></li>
+      <li><button type="button" class="tile" data-i="7"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241581279-j3pzw3.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="Refinished AMG wheel"></button></li>
+      <li><button type="button" class="tile" data-i="8"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241581279-uznonj.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="Technician fitting a rear panel"></button></li>
+      <li><button type="button" class="tile" data-i="9"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241581279-km3kk3.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="Masked panel ready for spray"></button></li>
+      <li><button type="button" class="tile" data-i="10"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241581279-qby1u4.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="Prep work under masking"></button></li>
+      <li><button type="button" class="tile" data-i="11"><img src="https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/1786241581279-wjw2mb.jpg" width="750" height="1000" loading="lazy" decoding="async" alt="Film being laid over a panel"></button></li>
+    </ul>
+  </div>
 </section>
 
-<section id="work" style="padding:clamp(52px,7vw,88px) clamp(18px,4vw,32px)">
-<div style="max-width:1180px;margin:0 auto">
-<div class="rv" style="text-align:center;margin-bottom:36px">
-<div style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Our Work</div>
-<h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4.6vw,56px);line-height:1;letter-spacing:.02em;text-transform:uppercase;margin-bottom:14px">The Proof is in the Perfection</h2>
-<p style="color:var(--gray-light);font-size:16px;max-width:560px;margin:0 auto;line-height:1.7">Tap any panel to see it full frame.</p>
-</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px">
-<sc-for list="{{ gallery }}" as="g" hint-placeholder-count="9">
-<div onClick="{{ g.open }}" class="rv" style="aspect-ratio:3/4;overflow:hidden;border-radius:4px;border:1px solid var(--line);cursor:zoom-in;position:relative" style-hover="border-color:rgba(245,166,35,.5)">
-<img src="{{ g.src }}" alt="{{ g.alt }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.3,1)" style-hover="transform:scale(1.07)">
-</div>
-</sc-for>
-</div>
-<div style="text-align:center;margin-top:36px">
-<a href="#quote" class="cta-hero" style="display:inline-block;background:var(--gold);color:#0A0A0A;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:16px 30px;border-radius:3px" style-hover="background:var(--gold-light);color:#0A0A0A">Begin Your Restoration</a>
-</div>
-</div>
+<section class="section" aria-labelledby="process-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h2" id="process-title">From consultation to perfection</h2>
+    </div>
+    <ol class="process">
+      <li><h3 class="h3">Consultation</h3><p>A detailed conversation and inspection to understand your vision and your vehicle's needs.</p></li>
+      <li><h3 class="h3">Proposal</h3><p>A transparent proposal outlining scope of work, timeline and investment.</p></li>
+      <li><h3 class="h3">Execution</h3><p>Master technicians begin the restoration with decades of experience behind every pass.</p></li>
+      <li><h3 class="h3">Delivery</h3><p>We present your vehicle restored to a standard that exceeds expectations.</p></li>
+    </ol>
+  </div>
 </section>
 
-<sc-if value="{{ pickerOpen }}" hint-placeholder-val="{{ false }}">
-<div onClick="{{ closePicker }}" style="position:fixed;inset:0;z-index:300;background:rgba(4,4,4,.8);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:14px;animation:pop .16s ease both">
-<div onClick="{{ stop }}" style="width:min(540px,100%);max-height:min(78vh,660px);display:flex;flex-direction:column;background:#121212;border:1px solid rgba(245,166,35,.28);border-radius:12px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.7)">
-<div style="flex:none;padding:16px 16px 12px;border-bottom:1px solid rgba(255,255,255,.08)">
-<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px">
-<div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;text-transform:uppercase">{{ pickerTitle }}</div>
-<button onClick="{{ closePicker }}" aria-label="Close" style="flex:none;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#C6C6C6;font-size:17px;line-height:1;cursor:pointer" style-hover="color:#fff;background:rgba(255,255,255,.12)">✕</button>
-</div>
-<input value="{{ query }}" onChange="{{ onQuery }}" onKeyDown="{{ onPickerKey }}" placeholder="{{ pickerPlaceholder }}" ref="{{ searchRef }}" autoComplete="off" style="width:100%;background:#0A0A0A;border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:6px;padding:14px 14px;font-size:16px">
-</div>
-<div style="flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch">
-<sc-if value="{{ pickerLoading }}" hint-placeholder-val="{{ false }}">
-<div style="padding:36px;display:flex;align-items:center;justify-content:center;gap:12px;color:#8A8A8A;font-size:14px">
-<div style="width:20px;height:20px;border:2px solid rgba(245,166,35,.25);border-top-color:#F5A623;border-radius:50%;animation:spin .8s linear infinite"></div>
-<span>{{ pickerLoadingText }}</span>
-</div>
-</sc-if>
-<sc-for list="{{ pickerRows }}" as="r" hint-placeholder-count="7">
-<button onClick="{{ r.pick }}" onMouseEnter="{{ r.hover }}" style="width:100%;min-height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border:none;border-bottom:1px solid rgba(255,255,255,.05);text-align:left;cursor:pointer;font-size:15.5px;font-weight:500;background:{{ r.bg }};color:{{ r.fg }}">
-<span style="min-width:0"><span style="display:block">{{ r.label }}</span><span style="display:block;font-size:12px;font-weight:400;color:#777;margin-top:2px">{{ r.sub }}</span></span>
-<span style="flex:none;color:#F5A623;font-size:14px">{{ r.mark }}</span>
-</button>
-</sc-for>
-<sc-if value="{{ pickerEmpty }}" hint-placeholder-val="{{ false }}">
-<div style="padding:30px 20px;text-align:center;color:#8A8A8A;font-size:14px;line-height:1.6">{{ pickerEmptyText }}</div>
-</sc-if>
-</div>
-<sc-if value="{{ pickerFree }}" hint-placeholder-val="{{ false }}">
-<button onClick="{{ pickFree }}" style="flex:none;padding:15px 16px;background:rgba(245,166,35,.1);border:none;border-top:1px solid rgba(245,166,35,.25);color:#F5A623;font-size:14px;font-weight:600;cursor:pointer;text-align:center" style-hover="background:rgba(245,166,35,.18)">{{ pickerFreeLabel }}</button>
-</sc-if>
-</div>
-</div>
-</sc-if>
-
-<sc-if value="{{ lightbox }}" hint-placeholder-val="{{ false }}">
-<div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:200;background:rgba(6,6,6,.94);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;animation:pop .2s ease both">
-<img src="{{ lightbox }}" alt="Enlarged project photo" style="max-width:100%;max-height:92vh;object-fit:contain;border-radius:5px;box-shadow:0 40px 90px rgba(0,0,0,.7)">
-</div>
-</sc-if>
-
-<section style="background:var(--dark2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(52px,7vw,88px) clamp(18px,4vw,32px)">
-<div style="max-width:1080px;margin:0 auto">
-<div class="rv" style="text-align:center;margin-bottom:36px">
-<div style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Our Process</div>
-<h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4.6vw,56px);line-height:1;letter-spacing:.02em;text-transform:uppercase">From Consultation to Perfection</h2>
-</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:5px;overflow:hidden">
-<div class="rv" style="background:var(--dark);padding:30px 22px"><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:rgba(245,166,35,.25);line-height:1;margin-bottom:10px">01</div><h3 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px">Consultation</h3><p style="font-size:13px;color:var(--gray-light);line-height:1.6">A detailed conversation and inspection to understand your vision and your vehicle's needs.</p></div>
-<div class="rv" style="background:var(--dark);padding:30px 22px"><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:rgba(245,166,35,.25);line-height:1;margin-bottom:10px">02</div><h3 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px">Proposal</h3><p style="font-size:13px;color:var(--gray-light);line-height:1.6">A transparent proposal outlining scope of work, timeline and investment.</p></div>
-<div class="rv" style="background:var(--dark);padding:30px 22px"><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:rgba(245,166,35,.25);line-height:1;margin-bottom:10px">03</div><h3 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px">Execution</h3><p style="font-size:13px;color:var(--gray-light);line-height:1.6">Master technicians begin the restoration with decades of experience behind every pass.</p></div>
-<div class="rv" style="background:var(--dark);padding:30px 22px"><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:rgba(245,166,35,.25);line-height:1;margin-bottom:10px">04</div><h3 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px">Perfection</h3><p style="font-size:13px;color:var(--gray-light);line-height:1.6">We present your vehicle restored to a standard that exceeds expectations.</p></div>
-</div>
-</div>
+<section class="section section--alt" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h2" id="faq-title">Your questions, answered</h2>
+    </div>
+    <div class="faq">
+      <details name="faq"><summary>What types of vehicles do you work on?</summary><p>We specialize in luxury, exotic and high-performance vehicles: Mercedes-AMG, Porsche, Ferrari, Lamborghini, Rolls-Royce and the like. That said, our standard applies to any vehicle our clients cherish.</p></details>
+      <details name="faq"><summary>What does carbon fiber restoration involve?</summary><p>Sun-faded, yellowed, hazed or lightly scratched clear coat over your carbon weave is stripped, corrected and re-cleared to a deep, glass-clear gloss, bringing the original weave back to life.</p></details>
+      <details name="faq"><summary>How long does the process take?</summary><p>It depends entirely on scope. A paintless dent repair can be same-day; carbon fiber restoration is typically 2 to 3 days; a show-quality respray is a multi-week process. Your proposal includes an accurate timeline.</p></details>
+      <details name="faq"><summary>Do you work with insurance claims?</summary><p>Yes. We work with insurance providers on covered repairs and act as your advocate so the work is completed to our standard, not the insurer's minimum.</p></details>
+      <details name="faq"><summary>What happens after I submit the form?</summary><p>One of our representatives reviews your vehicle details and reaches out on the channel and time window you chose, usually within a few business hours, with a transparent, no-obligation quote.</p></details>
+    </div>
+  </div>
 </section>
 
-<section style="padding:clamp(52px,7vw,88px) clamp(18px,4vw,32px)">
-<div style="max-width:720px;margin:0 auto">
-<div class="rv" style="text-align:center;margin-bottom:32px">
-<div style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">FAQ</div>
-<h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4.6vw,56px);line-height:1;letter-spacing:.02em;text-transform:uppercase">Your Questions, Answered</h2>
-</div>
-<div style="display:flex;flex-direction:column;gap:8px">
-<sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
-<div class="rv" style="background:var(--dark2);border-radius:4px;overflow:hidden;border:1px solid {{ f.borderColor }}">
-<div onClick="{{ f.toggle }}" style="padding:19px 22px;font-size:15.5px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;user-select:none;color:{{ f.qColor }}">
-<span>{{ f.q }}</span>
-<span style="color:var(--gold);font-size:23px;font-weight:300;flex:none;transition:transform .3s ease;display:inline-block;transform:{{ f.iconRot }}">+</span>
-</div>
-<div style="overflow:hidden;transition:max-height .38s ease,padding .3s ease;font-size:14.5px;color:var(--gray-light);line-height:1.7;padding-inline:22px;max-height:{{ f.maxH }};padding-bottom:{{ f.padB }}">{{ f.a }}</div>
-</div>
-</sc-for>
-</div>
-</div>
-</section>
+</main>
 
-<section style="padding:0 clamp(18px,4vw,32px) clamp(56px,8vw,90px)">
-<div class="rv" style="max-width:700px;margin:0 auto;background:var(--dark2);border:1px solid rgba(245,166,35,.22);border-radius:6px;padding:clamp(36px,6vw,58px) clamp(22px,5vw,40px);text-align:center;position:relative;overflow:hidden">
-<div style="position:absolute;bottom:-120px;left:50%;transform:translateX(-50%);width:460px;height:320px;background:radial-gradient(circle,rgba(245,166,35,.1) 0%,transparent 70%);pointer-events:none"></div>
-<div style="position:relative">
-<h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,4.4vw,44px);letter-spacing:.02em;text-transform:uppercase;line-height:1.02;margin-bottom:14px">Ready to Restore Your Vehicle's Perfection?</h2>
-<p style="font-size:15.5px;color:var(--gray-light);max-width:460px;margin:0 auto 30px;line-height:1.7">Your car is a statement. Let us make sure it speaks of nothing but excellence.</p>
-<a href="#quote" class="cta-hero" style="display:inline-block;background:var(--gold);color:#0A0A0A;font-size:15px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:17px 34px;border-radius:3px;box-shadow:0 10px 30px rgba(245,166,35,.22)" style-hover="background:var(--gold-light);color:#0A0A0A">Get Your Free Quote</a>
-<div style="font-size:12px;color:#666;margin-top:16px">100% confidential · no obligation</div>
-</div>
-</div>
+<section class="band on-dark" aria-labelledby="cta-title">
+  <div class="wrap band__cta">
+    <h2 class="h2" id="cta-title">Ready to restore your car's finish?</h2>
+    <p>Your car is a statement. Let us make sure it speaks of nothing but excellence.</p>
+    <a class="btn btn--lg btn--inverse" href="#quote">Get your free quote</a>
+  </div>
 </section>
-
-<footer style="background:var(--dark);border-top:1px solid var(--line);padding:38px 24px 100px;text-align:center">
-<a href="#" style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.12em;color:#fff;display:inline-block;margin-bottom:14px" style-hover="color:var(--gold)">Auto Aesthetics</a>
-<div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px">
-<a href="#work" style="font-size:11.5px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em">Gallery</a>
-<a href="#quote" style="font-size:11.5px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em">Get a Quote</a>
-</div>
-<p style="font-size:11.5px;color:var(--gray)">© 2026 Auto Aesthetics. All Rights Reserved.</p>
+<footer class="site-footer band on-dark">
+  <div class="wrap">
+    <a class="wordmark" href="#top">Auto Aesthetics</a>
+    <nav aria-label="Footer"><a href="#work">Recent work</a><a href="#quote">Get a quote</a></nav>
+    <p class="copy">© 2026 Auto Aesthetics. All rights reserved.</p>
+  </div>
 </footer>
 
-<sc-if value="{{ showBar }}" hint-placeholder-val="{{ false }}">
-<div style="position:fixed;left:0;right:0;bottom:0;z-index:120;background:rgba(12,12,12,.93);backdrop-filter:blur(12px);border-top:1px solid rgba(245,166,35,.25);padding:11px 16px calc(11px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;gap:14px;animation:riseIn .35s ease both">
-<div style="font-size:13px;color:var(--gray-light);line-height:1.35">{{ barText }}</div>
-<a href="#quote" style="flex:none;background:var(--gold);color:#0A0A0A;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:12px 20px;border-radius:3px" style-hover="background:var(--gold-light);color:#0A0A0A">Free Quote</a>
-</div>
-</sc-if>
+<dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+  <figure class="lightbox__figure"><img id="lightbox-img" alt=""><figcaption id="lightbox-cap"></figcaption></figure>
+  <div class="lightbox__bar">
+    <button type="button" class="btn" id="lb-prev">Previous</button>
+    <button type="button" class="btn" id="lb-close">Close</button>
+    <button type="button" class="btn" id="lb-next">Next</button>
+  </div>
+</dialog>
 
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;showStickyBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Conversion&quot;}}">
-const FALLBACK_MAKES = ["Acura","Alfa Romeo","Aston Martin","Audi","Bentley","BMW","Bugatti","Cadillac","Chevrolet","Dodge","Ferrari","Ford","Genesis","GMC","Honda","Hyundai","Infiniti","Jaguar","Jeep","Kia","Lamborghini","Land Rover","Lexus","Lincoln","Lotus","Maserati","Mazda","McLaren","Mercedes-Benz","Nissan","Porsche","Ram","Rivian","Rolls-Royce","Subaru","Tesla","Toyota","Volkswagen","Volvo"];
+<script>
+(() => {
+"use strict";
+
+/* ---------- data ---------- */
 const FE = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/";
+const FALLBACK_MAKES = ["Acura","Alfa Romeo","Aston Martin","Audi","Bentley","BMW","Bugatti","Cadillac","Chevrolet","Dodge","Ferrari","Ford","Genesis","GMC","Honda","Hyundai","Infiniti","Jaguar","Jeep","Kia","Lamborghini","Land Rover","Lexus","Lincoln","Lotus","Maserati","Mazda","McLaren","Mercedes-Benz","Nissan","Porsche","Ram","Rivian","Rolls-Royce","Subaru","Tesla","Toyota","Volkswagen","Volvo"];
 const POPULAR = ["Mercedes-Benz","BMW","Porsche","Audi","Tesla","Lexus","Land Rover","Cadillac","Ferrari","Lamborghini","Bentley","Rolls-Royce","McLaren","Maserati","Aston Martin"];
 const DRIVE_WORDS = /\b(4matic\+?|4matic plus|quattro|xdrive|sdrive|awd|4wd|rwd|fwd|4x4|plus|e-?hybrid|hybrid|phev|mhev)\b/gi;
-const FIELDS = [
-  { key: "year", label: "Year", hint: "Select", locked: "Select", needs: [] },
-  { key: "make", label: "Make", hint: "Select", locked: "Year first", needs: ["year"] },
-  { key: "model", label: "Model", hint: "Select", locked: "Make first", needs: ["year", "make"] },
-  { key: "trim", label: "Trim", hint: "Optional", locked: "Model first", needs: ["year", "make", "model"] }
-];
-const PICKERS = {
-  year: { title: "Model year", ph: "Search years…", loading: "Loading years…" },
-  make: { title: "Make", ph: "Search makes…", loading: "Loading makes for that year…" },
-  model: { title: "Model", ph: "Search models…", loading: "Loading models…" },
-  trim: { title: "Trim / engine", ph: "Search trims…", loading: "Loading factory trims…" }
-};
+const TITLES = ["Your vehicle", "What it needs", "How can we reach you?"];
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const form = $("#quote-form");
+const val = (id) => $("#" + id).value.trim();
+const digits = (s) => (s || "").replace(/\D/g, "");
+const validEmail = () => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(val("email"));
+const validPhone = () => digits(val("phone")).length >= 10;
+const firstName = () => val("name").split(/\s+/)[0] || "there";
+const vehicle = (short) => [short ? "" : val("year"), val("make"), val("model")].filter(Boolean).join(" ") || "your car";
+
+/* ---------- vehicle lookup (fueleconomy.gov, with the 6 s timeout the fallbacks rely on) ---------- */
 const feJson = (path) => {
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 6000);
+  const timer = setTimeout(() => ctrl.abort(), 6000); // do not remove: the fallback lists depend on this
   return fetch(FE + path, { headers: { Accept: "application/json" }, signal: ctrl.signal })
-  .then(r => (r.ok ? r.json() : null))
-  .then(d => {
-    clearTimeout(timer);
-    const m = d && d.menuItem;
-    if (!m) return [];
-    return (Array.isArray(m) ? m : [m]).map(x => String(x.text || x.value)).filter(Boolean);
-  }, err => { clearTimeout(timer); throw err; });
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      const m = d && d.menuItem;
+      if (!m) return [];
+      return (Array.isArray(m) ? m : [m]).map((x) => String(x.text || x.value)).filter(Boolean);
+    })
+    .finally(() => clearTimeout(timer));
 };
-const _feJsonOld = (path) => fetch(FE + path, { headers: { Accept: "application/json" } })
-  .then(r => (r.ok ? r.json() : null))
-  .then(d => {
-    const m = d && d.menuItem;
-    if (!m) return [];
-    return (Array.isArray(m) ? m : [m]).map(x => String(x.text || x.value)).filter(Boolean);
-  });
-const SERVICES = ["Showroom paint / custom paint","Carbon fiber restoration","Paintless dent repair","Not sure — assess it"];
-const GALLERY = [
-  ["1786241581278-v2ssjz","G-Class side profile after correction"],
-  ["1786241581279-x45u12","AMG GT 53 front end, finished"],
-  ["1786241840225-i84yic","Widebody Mustang, panel work"],
-  ["1786241581279-zqzbqm","GT 53 rear light bar detail"],
-  ["1786241581279-bfk3o1","Damaged bumper before repair"],
-  ["1786241581279-ultbwx","Rear bumper refinishing in progress"],
-  ["1786241897127-aycf74","Shelby emblem on restored fender"],
-  ["1786241581279-j3pzw3","Refinished AMG wheel"],
-  ["1786241581279-uznonj","Technician fitting a rear panel"],
-  ["1786241581279-km3kk3","Masked panel ready for spray"],
-  ["1786241581279-qby1u4","Prep work under masking"],
-  ["1786241581279-wjw2mb","Film being laid over a panel"]
-];
-const BASE = "https://qyhdrnbvvjhvjcqrdwju.supabase.co/storage/v1/object/public/ad-uploads/15599234-94ba-4b27-9c27-0b7c7fe1ac26/funnel-media/";
-const FAQ = [
-  ["What types of vehicles do you work on?","We specialize in luxury, exotic and high-performance vehicles — Mercedes-AMG, Porsche, Ferrari, Lamborghini, Rolls-Royce and the like. That said, our standard applies to any vehicle our clients cherish."],
-  ["What does carbon fiber restoration involve?","Sun-faded, yellowed, hazed or lightly scratched clear coat over your carbon weave is stripped, corrected and re-cleared to a deep, glass-clear gloss — bringing the original weave back to life."],
-  ["How long does the process take?","Entirely dependent on scope. A paintless dent repair can be same-day; carbon fiber restoration is typically 2–3 days; a show-quality respray is a multi-week process. Your proposal includes an accurate timeline."],
-  ["Do you work with insurance claims?","Yes. We work with insurance providers on covered repairs and act as your advocate so the work is completed to our standard, not the insurer's minimum."],
-  ["What happens after I submit this form?","One of our representatives reviews your vehicle details and reaches out on the channel and time window you chose — usually within a few business hours — with a transparent, no-obligation quote."]
-];
-const WINDOWS = ["Weekday mornings","Weekday afternoons","Weekday evenings","Weekends","Any time — just reach me"];
+const fillList = (id, items) => {
+  const dl = $("#" + id);
+  dl.replaceChildren(...Array.from(new Set(items)).map((v) => Object.assign(document.createElement("option"), { value: v })));
+};
+const tokens = { make: 0, model: 0, trim: 0 };
 
-class Component extends DCLogic {
-  state = {
-    step: 1, submitted: false,
-    year: "", make: "", model: "", trim: "",
-    years: [], makes: [], models: [], trims: [],
-    picker: "", query: "", hi: 0, busy: "",
-    lookup: "idle", carImg: "", matched: "",
-    services: [], notes: "",
-    name: "", email: "", phone: "", channels: [], window: "",
-    openFaq: -1, lightbox: "", scrolled: false, sending: false
-  };
+const yearSel = $("#year");
+yearSel.append(new Option("Select year", ""));
+for (let y = 2027; y >= 1995; y--) yearSel.append(new Option(String(y), String(y)));
 
-  componentDidMount() {
-    const io = new IntersectionObserver((es) => es.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); }
-    }), { rootMargin: "0px 0px -6% 0px", threshold: 0.04 });
-    const attach = () => document.querySelectorAll(".rv:not(.on)").forEach(el => io.observe(el));
-    attach();
-    this._mo = new MutationObserver(attach); this._mo.observe(document.body, { childList: true, subtree: true });
-    this._onScroll = () => {
-      const s = window.scrollY > 620;
-      if (s !== this.state.scrolled) this.setState({ scrolled: s });
-    };
-    window.addEventListener("scroll", this._onScroll, { passive: true });
-    feJson("year")
-      .then(ys => {
-        const list = ys.filter(y => +y >= 1995);
-        this.setState({ years: list.length ? list : this.localYears() });
-      })
-      .catch(() => this.setState({ years: this.localYears() }));
-  }
-  localYears() { const out = []; for (let y = 2027; y >= 1995; y--) out.push(String(y)); return out; }
-  componentWillUnmount() { window.removeEventListener("scroll", this._onScroll); if (this._mo) this._mo.disconnect(); }
-
-  loadMakes(year) {
-    this.setState({ busy: "make", makes: [] });
-    feJson("make?year=" + encodeURIComponent(year))
-      .then(ms => this.setState({ makes: ms.length ? ms : POPULAR.slice().sort(), busy: "" }))
-      .catch(() => this.setState({ makes: POPULAR.slice().sort(), busy: "" }));
-  }
-  loadModels(year, make) {
-    this.setState({ busy: "model", models: [] });
-    feJson(`model?year=${encodeURIComponent(year)}&make=${encodeURIComponent(make)}`)
-      .then(ms => this.setState({ models: Array.from(new Set(ms)).sort(), busy: "" }))
-      .catch(() => this.setState({ models: [], busy: "" }));
-  }
-  loadTrims(year, make, model) {
-    this.setState({ busy: "trim", trims: [] });
-    feJson(`options?year=${encodeURIComponent(year)}&make=${encodeURIComponent(make)}&model=${encodeURIComponent(model)}`)
-      .then(ts => this.setState({ trims: Array.from(new Set(ts)), busy: "" }))
-      .catch(() => this.setState({ trims: [], busy: "" }));
-  }
-
-  // imagin.studio resolves on modelFamily, so try the most specific spelling first
-  // and fall back to progressively broader ones.
-  imaginCandidates() {
-    const { make, model } = this.state;
-    const clean = s => s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-    const base = clean(model);
-    const noDrive = clean(model.replace(DRIVE_WORDS, " "));
-    const words = noDrive.split(" ").filter(Boolean);
-    const cands = [base, noDrive];
-    if (words.length > 2) cands.push(words.slice(0, 2).join(" "));
-    if (words.length > 1) cands.push(words[0]);
-    if (/^amg|^m\d|^rs\d/.test(noDrive) && words.length > 1) cands.push(words.slice(1).join(" "));
-    return Array.from(new Set(cands.filter(Boolean))).slice(0, 5)
-      .map(f => ({ family: f, make: clean(make).replace(/\s+/g, "-") }));
-  }
-
-  lookupCar() {
-    const { year, make, model, trim } = this.state;
-    if (!make || !model) return;
-    const token = (this._tok = (this._tok || 0) + 1);
-    this.setState({ lookup: "loading", carImg: "", matched: "" });
-    const cands = this.imaginCandidates();
-    const url = c => "https://cdn.imagin.studio/getimage?customer=img"
-      + "&make=" + encodeURIComponent(c.make)
-      + "&modelFamily=" + encodeURIComponent(c.family)
-      + (year ? "&modelYear=" + encodeURIComponent(year) : "")
-      + (trim ? "&trim=" + encodeURIComponent(trim.toLowerCase()) : "")
-      + "&angle=23&width=900&zoomType=fullscreen&fileType=png";
-    const finish = (ok, src, matched) => {
-      if (token !== this._tok) return;
-      this.setState({ lookup: ok ? "found" : "none", carImg: ok ? src : "", matched: matched || "" });
-    };
-    const attempt = (i) => {
-      if (token !== this._tok) return;
-      if (i >= cands.length) return finish(false);
-      const u = url(cands[i]);
-      fetch(u).then(r => {
-        if (!r.ok || r.headers.get("x-imaginstudio-request-found") !== "true") return attempt(i + 1);
-        return r.blob().then(b => {
-          if (b.size < 8000) return attempt(i + 1);
-          let label = "";
-          try {
-            const res = JSON.parse(r.headers.get("x-imaginstudio-request-resolved-to") || "{}");
-            label = [res.modelYear, res.modelFamily].filter(Boolean).join(" ").replace(/-/g, " ");
-          } catch (e) {}
-          finish(true, URL.createObjectURL(b), label);
-        });
-      }).catch(() => {
-        if (i === 0) {
-          const im = new Image();
-          im.onload = () => finish(im.naturalWidth > 200, u);
-          im.onerror = () => attempt(i + 1);
-          im.src = u;
-        } else attempt(i + 1);
-      });
-    };
-    attempt(0);
-  }
-
-  pickerKey(e) {
-    const s = this.state;
-    const rows = this._rows || [];
-    const n = rows.length;
-    if (e.key === "Escape") { e.preventDefault(); this.closePicker(); }
-    else if (e.key === "ArrowDown") { e.preventDefault(); this.setState({ hi: n ? (s.hi + 1) % n : 0 }); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); this.setState({ hi: n ? (s.hi - 1 + n) % n : 0 }); }
-    else if (e.key === "Enter") {
-      e.preventDefault();
-      if (rows[s.hi]) this.choose(s.picker, rows[s.hi]);
-      else if (s.picker !== "year" && s.query.trim()) this.choose(s.picker, s.query.trim());
-    }
-  }
-  openPicker(key) {
-    const s = this.state;
-    if (key === "year" && !s.years.length) this.setState({ years: this.localYears() });
-    if (key === "make" && !s.makes.length) this.loadMakes(s.year);
-    if (key === "model" && !s.models.length) this.loadModels(s.year, s.make);
-    if (key === "trim" && !s.trims.length) this.loadTrims(s.year, s.make, s.model);
-    document.body.style.overflow = "hidden";
-    this.setState({ picker: key, query: "", hi: 0 });
-    if (!this._keyHandler) {
-      this._keyHandler = e => {
-        if (!this.state.picker) return;
-        if (e.key === "Escape") { e.preventDefault(); return this.closePicker(); }
-        if (this._searchEl && document.activeElement === this._searchEl) return;
-        this.pickerKey(e);
-      };
-      document.addEventListener("keydown", this._keyHandler);
-    }
-    let tries = 0;
-    const focus = () => {
-      const el = this._searchEl;
-      if (el) { el.focus({ preventScroll: true }); return; }
-      if (tries++ < 20) setTimeout(focus, 50);
-    };
-    setTimeout(focus, 30);
-  }
-  closePicker() {
-    document.body.style.overflow = "";
-    if (this._keyHandler) { document.removeEventListener("keydown", this._keyHandler); this._keyHandler = null; }
-    this._searchEl = null;
-    this.setState({ picker: "", query: "" });
-  }
-  choose(key, val) {
-    const s = this.state;
-    if (key === "year") this.setState({ year: val, make: "", model: "", trim: "", makes: [], models: [], trims: [], lookup: "idle" }, () => this.loadMakes(val));
-    else if (key === "make") this.setState({ make: val, model: "", trim: "", models: [], trims: [], lookup: "idle" }, () => this.loadModels(s.year, val));
-    else if (key === "model") this.setState({ model: val, trim: "", trims: [], lookup: "idle" }, () => { this.loadTrims(s.year, s.make, val); this.lookupCar(); });
-    else this.setState({ trim: val === "Not sure" ? "" : val }, () => this.lookupCar());
-    this.closePicker();
-  }
-
-  set(k, v) { this.setState({ [k]: v }); }
-  digits(s) { return (s || "").replace(/\D/g, ""); }
-  validEmail() { return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(this.state.email.trim()); }
-  validPhone() { return this.digits(this.state.phone).length >= 10; }
-  firstName() { return (this.state.name.trim().split(/\s+/)[0]) || "there"; }
-  vehicle(short) {
-    const { year, make, model } = this.state;
-    return [short ? "" : year, make, model].filter(Boolean).join(" ") || "your car";
-  }
-  availableChannels() {
-    const out = [];
-    if (this.validEmail()) out.push("email");
-    if (this.validPhone()) { out.push("text"); out.push("call"); }
-    return out;
-  }
-  chipStyle(active) {
-    return active
-      ? { bg: "rgba(245,166,35,.14)", fg: "#F5A623", border: "1px solid #F5A623" }
-      : { bg: "#0E0E0E", fg: "#C6C6C6", border: "1px solid rgba(255,255,255,.14)" };
-  }
-
-  renderVals() {
-    const s = this.state;
-    const pk = PICKERS[s.picker];
-    const src = { year: s.years, make: s.makes, model: s.models, trim: s.trims }[s.picker] || [];
-    const qy = s.query.trim().toLowerCase();
-    let rows = qy ? src.filter(x => x.toLowerCase().includes(qy)) : src.slice();
-    if (s.picker === "make" && !qy) {
-      const pop = rows.filter(m => POPULAR.includes(m));
-      rows = pop.concat(rows.filter(m => !POPULAR.includes(m)));
-    }
-    rows = rows.slice(0, 400);
-    this._rows = rows;
-    const avail = this.availableChannels();
-    const chosen = s.channels.filter(c => avail.includes(c));
-    const step1Ok = !!(s.year && s.make.trim() && s.model.trim());
-    const step2Ok = s.services.length > 0;
-    const step3Ok = !!s.name.trim() && chosen.length > 0 && !!s.window;
-
-    const primary = chosen.includes("text") ? "text" : chosen.includes("call") ? "call" : "email";
-    const svcLabel = s.services.filter(x => x !== "Not sure — assess it").map(x => x.replace(/\s*\(.*\)/, "").toLowerCase())[0] || "a full assessment";
-    const win = (s.window || "").toLowerCase();
-    const smsBody = `Hey ${this.firstName()} — this is the Auto Aesthetics team. Got your request on the ${this.vehicle(true)} for ${svcLabel}. We've blocked out ${win === "any time — just reach me" ? "some time today" : win} to walk you through it. Sound good?`;
-    const emailBody = `Hi ${this.firstName()},\n\nThanks for sending over the ${this.vehicle()}. We've reviewed what you're after (${svcLabel}) and we'd like to walk you through options and pricing.\n\nYou said ${win} works best — we'll aim for that window.\n\n— The Auto Aesthetics Team`;
-
-    const chanCopy = {
-      email: { label: "Email me", sub: s.email.trim() || "written quote" },
-      text: { label: "Text me", sub: "fastest reply" },
-      call: { label: "Call me", sub: "talk it through" }
-    };
-
-    return {
-      fields: FIELDS.map(f => {
-        const val = s[f.key];
-        const locked = f.needs.some(k => !s[k]);
-        return {
-          label: f.label,
-          text: val || (locked ? f.locked : f.hint),
-          color: val ? "#fff" : "#6E6E6E",
-          border: val ? "rgba(245,166,35,.45)" : "rgba(255,255,255,.14)",
-          caret: locked ? "#3A3A3A" : "#F5A623",
-          cursor: locked ? "not-allowed" : "pointer",
-          opacity: locked ? ".45" : "1",
-          disabled: locked,
-          open: () => this.openPicker(f.key)
-        };
-      }),
-      lookupHint: !s.year ? "Start with the model year — makes and models come live from the U.S. DOE vehicle database."
-        : !s.make ? "Now the make. Tap to search all " + (s.makes.length || "") + " makes built that year."
-        : !s.model ? "Pick your model — trims load next and we'll pull a photo of your exact car."
-        : s.trim ? "Looks right? Continue below." : "Add the trim for a closer match, or continue.",
-
-      pickerOpen: !!s.picker,
-      pickerTitle: pk ? pk.title : "",
-      pickerPlaceholder: pk ? pk.ph : "",
-      pickerLoading: !!s.busy && s.busy === s.picker,
-      pickerLoadingText: pk ? pk.loading : "",
-      query: s.query,
-      searchRef: el => { this._searchEl = el; if (el && document.activeElement !== el) el.focus({ preventScroll: true }); },
-      onQuery: e => this.setState({ query: e.target.value, hi: 0 }),
-      onPickerKey: e => this.pickerKey(e),
-      pickerRows: rows.map((label, i) => ({
-        label,
-        sub: s.picker === "make" && POPULAR.includes(label) && !s.query ? "Specialty" : "",
-        mark: s[s.picker] === label ? "✓" : "",
-        bg: i === s.hi ? "rgba(245,166,35,.12)" : "transparent",
-        fg: i === s.hi || s[s.picker] === label ? "#F5A623" : "#EDEDED",
-        pick: () => this.choose(s.picker, label),
-        hover: () => { if (s.hi !== i) this.setState({ hi: i }); }
-      })),
-      pickerEmpty: !!s.picker && !s.busy && rows.length === 0,
-      pickerEmptyText: s.picker === "trim"
-        ? "No factory trims listed for this one. Use \"Skip trim\" below — we'll confirm it with you."
-        : "Nothing matches that search. Check the spelling, or type it in and use the button below.",
-      pickerFree: !!s.picker && s.picker !== "year",
-      pickerFreeLabel: s.picker === "trim"
-        ? (s.query.trim() ? `Use "${s.query.trim()}"` : "Skip trim — I'm not sure")
-        : (s.query.trim() ? `Use "${s.query.trim()}" anyway` : "Mine isn't listed"),
-      pickFree: () => {
-        const v = s.query.trim();
-        if (v) this.choose(s.picker, v);
-        else if (s.picker === "trim") this.choose("trim", "Not sure");
-        else this.closePicker();
-      },
-      closePicker: () => this.closePicker(),
-      stop: e => e.stopPropagation(),
-
-      carPanel: s.lookup !== "idle",
-      carLoading: s.lookup === "loading",
-      carFound: s.lookup === "found",
-      carMissing: s.lookup === "none",
-      carImg: s.carImg,
-      vehicleShort: this.vehicle(true),
-      vehicleFull: this.vehicle(),
-      trimLine: s.trim ? s.trim : "",
-      hasTrim: !!s.trim,
-      foundLine: `Oh nice — ${/^[aeiou]/i.test(s.make) ? "an" : "a"} ${this.vehicle(true)}. Love working on these.${s.matched && s.matched.toLowerCase().replace(/\s+/g, " ") !== `${s.year} ${s.model}`.toLowerCase() ? " Photo is the closest factory render we have — yours may differ in wheels or paint." : ""}`,
-      missingLine: `Couldn't pull a photo of that one — but we'd love to see it in person. Keep going and our team will take it from here.`,
-
-      showSteps: !s.submitted,
-      isStep1: !s.submitted && s.step === 1,
-      isStep2: !s.submitted && s.step === 2,
-      isStep3: !s.submitted && s.step === 3,
-      submitted: s.submitted,
-      progressPct: s.submitted ? "100%" : (s.step === 1 ? "33%" : s.step === 2 ? "66%" : "88%"),
-      stepTabs: [1, 2, 3].map(n => {
-        const active = !s.submitted && s.step === n;
-        const reachable = n < s.step || active;
-        return {
-          n: String(n), label: ["Vehicle", "Service", "Contact"][n - 1],
-          bar: active ? "#F5A623" : "transparent",
-          color: active ? "#F5A623" : "#666",
-          color2: reachable ? "#fff" : "#666",
-          go: () => { if (n < s.step && !s.submitted) this.setState({ step: n }); }
-        };
-      }),
-      step1Blocked: !step1Ok, step1Opacity: step1Ok ? "1" : ".4",
-      step2Blocked: !step2Ok, step2Opacity: step2Ok ? "1" : ".4",
-      step3Blocked: !step3Ok, step3Opacity: step3Ok ? "1" : ".4",
-      next: () => {
-        if (s.step === 1 && s.lookup === "idle") this.lookupCar();
-        this.setState({ step: Math.min(3, s.step + 1) });
-      },
-      back: () => this.setState({ step: Math.max(1, s.step - 1) }),
-
-      serviceChips: SERVICES.map(label => {
-        const active = s.services.includes(label);
-        const st = this.chipStyle(active);
-        return { label, ...st, toggle: () => this.setState({ services: active ? s.services.filter(x => x !== label) : s.services.concat(label) }) };
-      }),
-      notes: s.notes, onNotes: e => this.set("notes", e.target.value),
-
-      name: s.name, email: s.email, phone: s.phone,
-      onName: e => this.set("name", e.target.value),
-      onEmail: e => this.setState({ email: e.target.value, channels: s.channels.filter(c => c !== "email" || /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(e.target.value.trim())) }),
-      onPhone: e => this.setState({ phone: e.target.value, channels: this.digits(e.target.value).length >= 10 ? s.channels : s.channels.filter(c => c === "email") }),
-      hasChannel: avail.length > 0,
-      contactHint: (() => {
-        const e = this.validEmail(), p = this.validPhone();
-        if (!e && !p) return "Add an email or a mobile number — whichever you'd rather hear on. One is enough.";
-        if (e && p) return "Both on file. Pick how you'd like us to reach you.";
-        if (e) return "Email only, understood. Add a mobile if you'd rather get a text or a call.";
-        return "Mobile on file. Add an email too if you'd rather have the quote in writing.";
-      })(),
-      channels: avail.map(id => {
-        const active = chosen.includes(id);
-        const st = this.chipStyle(active);
-        return { label: chanCopy[id].label, sub: chanCopy[id].sub, ...st, toggle: () => this.setState({ channels: active ? s.channels.filter(x => x !== id) : s.channels.concat(id) }) };
-      }),
-      windowPrompt: chosen.includes("call") ? "When's a good time to call?"
-        : chosen.includes("text") ? "When are you around to reply?"
-        : chosen.includes("email") ? "When should we send it?"
-        : this.validPhone() ? "When are you usually reachable?" : "When should we send it?",
-      windows: WINDOWS.map(label => {
-        const active = s.window === label;
-        const st = this.chipStyle(active);
-        return { label, ...st, pick: () => this.set("window", label) };
-      }),
-      submitLabel: s.sending ? "Sending…" : "Send My Request",
-      submit: () => {
-        console.log("[lead-debug] submit clicked", { step3Ok, name: s.name, chosen, window: s.window });
-        if (!step3Ok) return;
-        this.setState({ sending: true });
-        const payload = {
-          funnel: "Auto Aesthetics",
-          full_name: s.name.trim(), first_name: this.firstName(),
-          email: s.email.trim(), phone: s.phone.trim(),
-          vehicle: this.vehicle(false), vehicle_year: s.year, vehicle_make: s.make, vehicle_model: s.model, vehicle_trim: s.trim,
-          services_requested: (s.services || []).join(", "),
-          notes: s.notes || "",
-          preferred_contact: chosen.join(", "),
-          best_time: s.window || "",
-          submitted_at: new Date().toLocaleString("en-US", { timeZone: "America/Chicago", dateStyle: "short", timeStyle: "medium" }) + " CT",
-          source_url: location.href
-        };
-        const done = () => this.setState({ submitted: true, sending: false });
-        payload._gotcha = this.state._gotcha || "";
-        fetch("/api/lead", {
-          method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload)
-        }).then(done).catch(done);
-        setTimeout(() => { if (this.state.sending) done(); }, 4000);
-      },
-      reset: () => this.setState({ step: 1, submitted: false, year: "", make: "", model: "", trim: "", models: [], lookup: "idle", carImg: "", services: [], notes: "", name: "", email: "", phone: "", channels: [], window: "" }),
-
-      thanksTitle: `Thanks, ${this.firstName()} — we've got your request.`,
-      thanksBody: primary === "call"
-        ? `One of our representatives will call you ${win} about the ${this.vehicle(true)}. If you miss it, they'll follow up by text.`
-        : primary === "text"
-        ? `Look for a text from one of our representatives ${win} about the ${this.vehicle(true)}. It'll come from a local number.`
-        : `Look for an email from one of our representatives ${win} about the ${this.vehicle(true)}. Check promotions if it's not in your inbox.`,
-      previewIsSms: primary !== "email",
-      previewIsEmail: primary === "email",
-      previewMeta: primary === "call" ? "Text before the call" : "Now",
-      previewSubject: `Your ${this.vehicle()} — quote from Auto Aesthetics`,
-      previewBody: primary === "email" ? emailBody : smsBody,
-      emailShown: s.email.trim() || "you@domain.com",
-
-      gallery: GALLERY.map(([id, alt]) => ({ src: BASE + id + ".jpg", alt, open: () => this.set("lightbox", BASE + id + ".jpg") })),
-      lightbox: s.lightbox,
-      closeLightbox: () => this.set("lightbox", ""),
-
-      faqs: FAQ.map(([qq, a], i) => {
-        const open = s.openFaq === i;
-        return {
-          q: qq, a, maxH: open ? "420px" : "0px", padB: open ? "20px" : "0px",
-          iconRot: open ? "rotate(45deg)" : "none",
-          qColor: open ? "#F5A623" : "#fff",
-          borderColor: open ? "rgba(245,166,35,.3)" : "rgba(255,255,255,.07)",
-          toggle: () => this.set("openFaq", open ? -1 : i)
-        };
-      }),
-
-      showBar: (this.props.showStickyBar ?? true) && s.scrolled && !s.submitted,
-      barText: s.step > 1 ? "Almost there — finish your quote." : "Free quote on your car."
-    };
-  }
+function loadMakes(year) {
+  const t = ++tokens.make;
+  const fallback = () => fillList("dl-make", POPULAR.concat(FALLBACK_MAKES.filter((m) => !POPULAR.includes(m))));
+  fallback();
+  feJson("make?year=" + encodeURIComponent(year)).then((ms) => {
+    if (t !== tokens.make || !ms.length) return;
+    fillList("dl-make", POPULAR.filter((m) => ms.includes(m)).concat(ms.filter((m) => !POPULAR.includes(m))));
+  }).catch(() => {});
 }
+function loadModels(year, make) {
+  const t = ++tokens.model;
+  fillList("dl-model", []);
+  if (!year || !make) return;
+  feJson(`model?year=${encodeURIComponent(year)}&make=${encodeURIComponent(make)}`).then((ms) => {
+    if (t === tokens.model) fillList("dl-model", ms.sort());
+  }).catch(() => {});
+}
+function loadTrims(year, make, model) {
+  const t = ++tokens.trim;
+  fillList("dl-trim", []);
+  if (!year || !make || !model) return;
+  feJson(`options?year=${encodeURIComponent(year)}&make=${encodeURIComponent(make)}&model=${encodeURIComponent(model)}`).then((ts) => {
+    if (t === tokens.trim) fillList("dl-trim", ts);
+  }).catch(() => {});
+}
+
+/* ---------- vehicle photo preview (imagin.studio; purely optional) ---------- */
+const preview = $("#vehicle-preview");
+let previewTok = 0, previewUrl = "";
+function imaginCandidates() {
+  const clean = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const model = val("model"), make = val("make");
+  const base = clean(model);
+  const noDrive = clean(model.replace(DRIVE_WORDS, " "));
+  const words = noDrive.split(" ").filter(Boolean);
+  const c = [base, noDrive];
+  if (words.length > 2) c.push(words.slice(0, 2).join(" "));
+  if (words.length > 1) c.push(words[0]);
+  if (/^amg|^m\d|^rs\d/.test(noDrive) && words.length > 1) c.push(words.slice(1).join(" "));
+  return Array.from(new Set(c.filter(Boolean))).slice(0, 5).map((f) => ({ family: f, make: clean(make).replace(/\s+/g, "-") }));
+}
+let previewState = "idle";
+function renderPreview(state, src) {
+  previewState = state;
+  const v = esc(vehicle()), t = val("trim");
+  preview.innerHTML =
+    state === "loading" ? '<div class="vp"><div class="spinner" aria-hidden="true"></div><p>Pulling up your ' + esc(vehicle(true)) + '…</p></div>'
+    : state === "found" ? '<div class="vp"><img alt="' + v + '" src="' + src + '"><div><strong>' + v + '</strong><p>' + (t ? esc(t) : 'Factory render; yours may differ.') + '</p></div></div>'
+    : state === "none" ? '<div class="vp"><div><strong>' + v + '</strong><p>No photo for that one, but we\'d love to see it in person.</p></div></div>'
+    : '<div class="vp vp--idle"><p>Choose your model and we\'ll pull up a photo of your car.</p></div>';
+}
+function esc(s) { return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+function lookupCar() {
+  const year = val("year"), make = val("make"), model = val("model"), trim = val("trim");
+  if (!make || !model) return renderPreview("idle");
+  const tok = ++previewTok;
+  renderPreview("loading");
+  const cands = imaginCandidates();
+  const url = (c) => "https://cdn.imagin.studio/getimage?customer=img&make=" + encodeURIComponent(c.make) + "&modelFamily=" + encodeURIComponent(c.family) + (year ? "&modelYear=" + encodeURIComponent(year) : "") + (trim ? "&trim=" + encodeURIComponent(trim.toLowerCase()) : "") + "&angle=23&width=900&zoomType=fullscreen&fileType=png";
+  const finish = (ok, src) => { if (tok === previewTok) renderPreview(ok ? "found" : "none", src); };
+  const attempt = (i) => {
+    if (tok !== previewTok) return;
+    if (i >= cands.length) return finish(false);
+    const u = url(cands[i]);
+    fetch(u).then((r) => {
+      if (!r.ok || r.headers.get("x-imaginstudio-request-found") !== "true") return attempt(i + 1);
+      return r.blob().then((b) => {
+        if (b.size < 8000) return attempt(i + 1);
+        if (previewUrl) URL.revokeObjectURL(previewUrl);
+        previewUrl = URL.createObjectURL(b);
+        finish(true, previewUrl);
+      });
+    }).catch(() => {
+      if (i === 0) {
+        const im = new Image();
+        im.onload = () => finish(im.naturalWidth > 200, u);
+        im.onerror = () => attempt(i + 1);
+        im.src = u;
+      } else attempt(i + 1);
+    });
+  };
+  attempt(0);
+}
+
+yearSel.addEventListener("change", () => { loadMakes(yearSel.value); if (val("make")) loadModels(yearSel.value, val("make")); });
+$("#make").addEventListener("change", () => { loadModels(val("year"), val("make")); fillList("dl-trim", []); lookupCar(); });
+$("#model").addEventListener("change", () => { loadTrims(val("year"), val("make"), val("model")); lookupCar(); });
+$("#trim").addEventListener("change", lookupCar);
+
+/* ---------- validation ---------- */
+const field = (id) => $("#" + id);
+function setError(id, msg, controlId) {
+  const err = $("#" + id + "-error");
+  const ctl = controlId ? $("#" + controlId) : $("#" + id);
+  err.textContent = msg; err.hidden = false;
+  if (ctl && ctl.setAttribute) ctl.setAttribute("aria-invalid", "true");
+}
+function clearError(id, controlId) {
+  const err = $("#" + id + "-error");
+  if (err) { err.hidden = true; err.textContent = ""; }
+  const ctl = controlId ? $("#" + controlId) : $("#" + id);
+  if (ctl && ctl.removeAttribute) ctl.removeAttribute("aria-invalid");
+}
+const checked = (name) => $$(`input[name="${name}"]:checked`).map((i) => i.value);
+
+function validate(n) {
+  let first = null;
+  const bad = (id, msg, focusId, controlId) => { setError(id, msg, controlId); if (!first) first = $("#" + (focusId || id)); };
+  if (n === 1) {
+    ["year", "make", "model"].forEach((id) => clearError(id));
+    if (!val("year")) bad("year", "Choose your car's model year.");
+    if (!val("make")) bad("make", "Enter your car's make, for example Porsche.");
+    if (!val("model")) bad("model", "Enter your car's model, for example 911.");
+  } else if (n === 2) {
+    clearError("service", "svc-legend");
+    if (!checked("service").length) bad("service", "Select at least one service, or choose “Not sure, assess it”.", $$('input[name="service"]')[0].id || null);
+  } else if (n === 3) {
+    ["name", "contact", "channel", "window"].forEach((id) => clearError(id, id === "name" ? "name" : (id === "contact" ? "email" : null)));
+    $("#phone").removeAttribute("aria-invalid");
+    if (!val("name")) bad("name", "Enter your name so we know who to ask for.");
+    if (!validEmail() && !validPhone()) { bad("contact", "Add a valid email or a mobile number with at least 10 digits.", "email", "email"); $("#phone").setAttribute("aria-invalid", "true"); }
+    else if (!checked("channel").length) bad("channel", "Choose how we should reach you.", $$('input[name="channel"]:not(:disabled)')[0].id || null);
+    if (!checked("window").length) bad("window", "Choose a time window.", $$('input[name="window"]')[0].id || null);
+  }
+  if (first) first.focus();
+  return !first;
+}
+// give checkbox/radio inputs ids so errors can move focus to them
+$$('input[name="service"],input[name="channel"],input[name="window"]').forEach((el, i) => { el.id = el.name + "-" + i; });
+
+/* clear a field's error as soon as it is corrected */
+["year", "make", "model"].forEach((id) => { field(id).addEventListener("input", () => clearError(id)); field(id).addEventListener("change", () => clearError(id)); });
+$$('input[name="service"]').forEach((el) => el.addEventListener("change", () => clearError("service", "svc-legend")));
+$$('input[name="window"]').forEach((el) => el.addEventListener("change", () => clearError("window")));
+$("#name").addEventListener("input", () => clearError("name"));
+
+/* ---------- contact channels ---------- */
+function updateChannels() {
+  const e = validEmail(), p = validPhone();
+  const state = { email: e, text: p, call: p };
+  $$('input[name="channel"]').forEach((el) => {
+    el.disabled = !state[el.value];
+    if (el.disabled) el.checked = false;
+  });
+  $("#chan-email-sub").textContent = e ? val("email") : "Add an email";
+  $("#chan-text-sub").textContent = p ? "Fastest reply" : "Add a mobile number";
+  $("#chan-call-sub").textContent = p ? "Talk it through" : "Add a mobile number";
+  $("#contact-hint").textContent = e && p ? "Both on file. Pick how you'd like us to reach you."
+    : e ? "Email only, understood. Add a mobile if you'd rather get a text or a call."
+    : p ? "Mobile on file. Add an email too if you'd rather have the quote in writing."
+    : "Add an email or a mobile number, whichever you'd rather hear on. One is enough.";
+  const ch = checked("channel");
+  $("#win-legend").textContent = ch.includes("call") ? "When's a good time to call?" : ch.includes("text") ? "When are you around to reply?" : ch.includes("email") ? "When should we send it?" : "When are you usually reachable?";
+  if (e || p) { clearError("contact", "email"); $("#phone").removeAttribute("aria-invalid"); }
+}
+["email", "phone"].forEach((id) => field(id).addEventListener("input", updateChannels));
+$$('input[name="channel"]').forEach((el) => el.addEventListener("change", () => { clearError("channel"); updateChannels(); }));
+
+/* ---------- stepper ---------- */
+let step = 1;
+function show(n, userInitiated) {
+  step = n;
+  $$(".step").forEach((s) => { s.hidden = Number(s.dataset.step) !== n; });
+  $$(".progress__item").forEach((li) => {
+    const k = Number(li.dataset.step);
+    li.classList.toggle("is-current", k === n);
+    li.classList.toggle("is-done", k < n);
+    if (k === n) li.setAttribute("aria-current", "step"); else li.removeAttribute("aria-current");
+  });
+  $$("[data-vehicle-short]").forEach((el) => { el.textContent = vehicle(true); });
+  $("#step-live").textContent = `Step ${n} of 3: ${TITLES[n - 1]}`;
+  if (userInitiated) { const h = $(`#step${n}-title`); h.focus(); }
+}
+$$("[data-next]").forEach((b) => b.addEventListener("click", () => {
+  if (!validate(step)) return;
+  if (step === 1 && previewState === "idle") lookupCar();
+  show(step + 1, true);
+}));
+$$("[data-back]").forEach((b) => b.addEventListener("click", () => show(step - 1, true)));
+/* Enter inside a single-line field advances instead of submitting early */
+form.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && e.target.tagName === "INPUT" && e.target.type !== "checkbox" && e.target.type !== "radio" && step < 3) {
+    e.preventDefault();
+    $(`.step[data-step="${step}"] [data-next]`).click();
+  }
+});
+
+/* "Request …" links pre-select the matching service */
+$$("[data-service]").forEach((a) => a.addEventListener("click", () => {
+  const box = $$('input[name="service"]').find((i) => i.value === a.dataset.service);
+  if (box) { box.checked = true; clearError("service", "svc-legend"); }
+}));
+
+/* ---------- submit ---------- */
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (step !== 3 || !validate(3)) return;
+  const btn = $("#submit-btn");
+  if (btn.disabled) return;
+  btn.disabled = true; btn.textContent = "Sending…";
+  const chosen = checked("channel");
+  const payload = {
+    funnel: "Auto Aesthetics",
+    full_name: val("name"), first_name: firstName(),
+    email: val("email"), phone: val("phone"),
+    vehicle: vehicle(false), vehicle_year: val("year"), vehicle_make: val("make"), vehicle_model: val("model"), vehicle_trim: val("trim"),
+    services_requested: checked("service").join(", "),
+    notes: val("notes"),
+    preferred_contact: chosen.join(", "),
+    best_time: checked("window")[0] || "",
+    submitted_at: new Date().toLocaleString("en-US", { timeZone: "America/Chicago", dateStyle: "short", timeStyle: "medium" }) + " CT",
+    source_url: location.href,
+    _gotcha: form.elements._gotcha ? form.elements._gotcha.value : ""
+  };
+  let finished = false;
+  const done = () => { if (finished) return; finished = true; showSuccess(chosen); btn.disabled = false; btn.textContent = "Send my request"; };
+  // The page confirms to the visitor either way; the relay logs and alerts on a failed delivery.
+  fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(done).catch(done);
+  setTimeout(done, 4000);
+});
+
+function showSuccess(chosen) {
+  const primary = chosen.includes("call") ? "call" : chosen.includes("text") ? "text" : "email";
+  const win = (checked("window")[0] || "").toLowerCase();
+  const when = win === "any time — just reach me" ? "as soon as they can" : win;
+  $$(".step").forEach((s) => { s.hidden = true; });
+  $("#progress").hidden = true;
+  $("#success-title").textContent = `Thanks, ${firstName()}. We've got your request.`;
+  $("#success-body").textContent = primary === "call"
+    ? `One of our representatives will call you ${when} about the ${vehicle(true)}. If you miss it, they'll follow up by text.`
+    : primary === "text"
+    ? `Look for a text from one of our representatives ${when} about the ${vehicle(true)}. It will come from a local number.`
+    : `Look for an email from one of our representatives ${when} about the ${vehicle(true)}. Check promotions if it's not in your inbox.`;
+  const s = $("#success"); s.hidden = false; s.focus();
+  $("#step-live").textContent = "Request sent.";
+}
+$("#reset-btn").addEventListener("click", () => {
+  form.reset();
+  $("#success").hidden = true; $("#progress").hidden = false;
+  renderPreview("idle"); fillList("dl-model", []); fillList("dl-trim", []);
+  updateChannels(); show(1, true);
+});
+
+/* ---------- gallery lightbox ---------- */
+const tiles = $$(".tile");
+const lb = $("#lightbox"), lbImg = $("#lightbox-img"), lbCap = $("#lightbox-cap");
+let cur = 0;
+function openAt(i) {
+  cur = (i + tiles.length) % tiles.length;
+  const img = tiles[cur].querySelector("img");
+  lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt; lbCap.textContent = img.alt;
+  if (!lb.open) lb.showModal();
+}
+tiles.forEach((t, i) => t.addEventListener("click", () => openAt(i)));
+$("#lb-prev").addEventListener("click", () => openAt(cur - 1));
+$("#lb-next").addEventListener("click", () => openAt(cur + 1));
+$("#lb-close").addEventListener("click", () => lb.close());
+lb.addEventListener("click", (e) => { if (e.target === lb) lb.close(); });
+lb.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft") { e.preventDefault(); openAt(cur - 1); }
+  if (e.key === "ArrowRight") { e.preventDefault(); openAt(cur + 1); }
+});
+
+/* init */
+renderPreview("idle");
+fillList("dl-make", POPULAR.concat(FALLBACK_MAKES.filter((m) => !POPULAR.includes(m)))); // usable before a year is chosen
+updateChannels();
+show(1, false);
+})();
 </script>
 </body>
 </html>
