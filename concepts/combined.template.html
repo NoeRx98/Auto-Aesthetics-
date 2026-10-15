@@ -183,6 +183,14 @@ a{color:inherit}
 .f input,.f select,.f textarea{width:100%;font:400 16px/1.4 var(--f-body);padding:12px 12px;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:2px}
 .f input:focus,.f select:focus,.f textarea:focus{outline:2px solid var(--green);outline-offset:1px;border-color:var(--green)}
 @media (max-width:640px){.grid2,.grid4{grid-template-columns:1fr 1fr}}
+.f textarea{resize:vertical}
+.lab{font-size:14px;font-weight:500}
+.hint-s{font-size:13.5px;color:var(--text-2)}
+.chip input:disabled + span{opacity:.45;cursor:not-allowed}
+.vin summary{cursor:pointer;font-size:14px;color:var(--green);text-decoration:underline;text-underline-offset:3px;list-style:none}
+.vin summary::-webkit-details-marker{display:none}
+.vin[open] summary{margin-bottom:10px}
+.vin .describe{border-color:var(--line)}
 .consent{display:grid;gap:10px;font-size:13px;line-height:1.5;color:var(--text-2)}
 .consent label{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
 .consent input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--green)}
@@ -351,7 +359,7 @@ footer a{color:var(--on-ink-2)}
     <div class="side">
       <div class="eyebrow">Free quote</div>
       <h2 class="h2" id="h-quote">Tell us about your car.</h2>
-      <p class="lede">Three quick steps. One of our representatives reaches out with a real number. No lot visit required.</p>
+      <p class="lede">Three quick steps. We'll pull up your vehicle, then one of our representatives reaches out with a real number. No lot visit required.</p>
       <ol><li>We review your vehicle and the work you need.</li><li>A representative contacts you on the channel and at the time you choose, usually within a few business hours.</li><li>You get a transparent, no-obligation quote.</li></ol>
     </div>
 
@@ -359,31 +367,39 @@ footer a{color:var(--on-ink-2)}
       <div class="prog" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
 
       <fieldset class="step" data-step="1">
-        <legend><small>Step 1 of 3</small>What does the car need?</legend>
-        <div class="f">
-          <label for="describe">Describe it in your own words <small>(optional)</small></label>
-          <div class="describe"><input id="describe" name="notes" autocomplete="off" placeholder="e.g. swirl marks on the hood, faded carbon splitter"></div>
-          <div class="match" aria-live="polite"></div>
+        <legend><small>Step 1 of 3</small>Your vehicle</legend>
+        <div class="grid2">
+          <div class="f"><label for="year">Model year</label><select id="year" name="year"></select></div>
+          <div class="f"><label for="make">Make</label><input id="make" name="make" list="dl-make" autocomplete="off" autocapitalize="words" placeholder="Start typing"></div>
+          <div class="f"><label for="model">Model</label><input id="model" name="model" list="dl-model" autocomplete="off" autocapitalize="words" placeholder="Not listed? Type it in."></div>
+          <div class="f"><label for="trim">Trim <small>(optional)</small></label><input id="trim" name="trim" list="dl-trim" autocomplete="off" autocapitalize="words"></div>
         </div>
-        <div class="chips" role="group" aria-label="Services">
-          <label class="chip"><input type="checkbox" name="services" value="paint"><span>Showroom paint / custom paint</span></label>
-          <label class="chip"><input type="checkbox" name="services" value="carbon"><span>Carbon fiber restoration</span></label>
-          <label class="chip"><input type="checkbox" name="services" value="pdr"><span>Paintless dent repair</span></label>
-          <label class="chip"><input type="checkbox" name="services" value="assess"><span>Not sure, assess it</span></label>
-        </div>
+        <datalist id="dl-make"></datalist><datalist id="dl-model"></datalist><datalist id="dl-trim"></datalist>
+        <details class="vin">
+          <summary>Have your VIN? Fill everything in from it</summary>
+          <div class="f">
+            <label for="vin">VIN <small>(17 characters, optional)</small></label>
+            <div class="describe"><input id="vin" name="vin" maxlength="17" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="WDD7X8KB1MA000000"><button class="btn btn-line" type="button" data-vin style="padding:10px 14px">Look up</button></div>
+            <div class="match" data-vin-msg aria-live="polite"></div>
+          </div>
+        </details>
         <div class="err" data-err></div>
-        <div class="nav"><span class="hint">Pick at least one, or describe it.</span><button class="btn btn-green" type="button" data-next>Continue</button></div>
+        <div class="nav"><span class="hint">Step 1 of 3. No account, no spam.</span><button class="btn btn-green" type="button" data-next>Continue</button></div>
       </fieldset>
 
       <fieldset class="step" data-step="2" hidden>
-        <legend><small>Step 2 of 3</small>Your vehicle</legend>
-        <div class="grid4">
-          <div class="f"><label for="year">Year</label><input id="year" name="year" inputmode="numeric" maxlength="4" placeholder="2021"></div>
-          <div class="f"><label for="make">Make</label><input id="make" name="make" list="makes" placeholder="Mercedes-AMG"></div>
-          <div class="f"><label for="model">Model</label><input id="model" name="model" placeholder="GT 53"></div>
-          <div class="f"><label for="trim">Trim <small>(optional)</small></label><input id="trim" name="trim"></div>
+        <legend><small>Step 2 of 3</small>What does the car need?</legend>
+        <div class="chips" role="group" aria-label="Select all that apply">
+          <label class="chip"><input type="checkbox" name="service" value="Showroom paint / custom paint"><span>Showroom paint / custom paint</span></label>
+          <label class="chip"><input type="checkbox" name="service" value="Carbon fiber restoration"><span>Carbon fiber restoration</span></label>
+          <label class="chip"><input type="checkbox" name="service" value="Paintless dent repair"><span>Paintless dent repair</span></label>
+          <label class="chip"><input type="checkbox" name="service" value="Not sure — assess it"><span>Not sure, assess it</span></label>
         </div>
-        <datalist id="makes"><option value="Mercedes-AMG"><option value="Porsche"><option value="Ferrari"><option value="Lamborghini"><option value="Rolls-Royce"><option value="BMW M"><option value="McLaren"><option value="Bentley"><option value="Aston Martin"></datalist>
+        <div class="f">
+          <label for="notes">Anything we should know? <small>(optional)</small></label>
+          <textarea id="notes" name="notes" rows="3" placeholder="e.g. swirl marks on the hood, one dent on the driver door"></textarea>
+          <div class="match" data-match aria-live="polite"></div>
+        </div>
         <div class="err" data-err></div>
         <div class="nav"><button class="btn btn-line" type="button" data-back>Back</button><button class="btn btn-green" type="button" data-next>Continue</button></div>
       </fieldset>
@@ -392,26 +408,41 @@ footer a{color:var(--on-ink-2)}
         <legend><small>Step 3 of 3</small>How can we reach you?</legend>
         <div class="f"><label for="name">Your name</label><input id="name" name="name" autocomplete="name"></div>
         <div class="grid2">
-          <div class="f"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email"></div>
-          <div class="f"><label for="phone">Mobile</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="f"><label for="email">Email</label><input id="email" name="email" type="email" inputmode="email" autocomplete="email"></div>
+          <div class="f"><label for="phone">Mobile</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"></div>
         </div>
-        <div class="grid2">
-          <div class="f"><label for="channel">Reach me by</label><select id="channel" name="channel"><option value="text">Text</option><option value="call">Call</option><option value="email">Email</option></select></div>
-          <div class="f"><label for="window">Best time</label><select id="window" name="window"><option>Any time, just reach me</option><option>Weekday mornings</option><option>Weekday afternoons</option><option>Weekday evenings</option><option>Weekends</option></select></div>
+        <p class="hint-s">Add an email or a mobile number, whichever you'd rather hear on. One is enough.</p>
+        <div class="f"><span class="lab">How should we reach you?</span>
+          <div class="chips" role="group" aria-label="How should we reach you?">
+            <label class="chip"><input type="checkbox" name="channel" value="email" disabled><span>Email me</span></label>
+            <label class="chip"><input type="checkbox" name="channel" value="text" disabled><span>Text me</span></label>
+            <label class="chip"><input type="checkbox" name="channel" value="call" disabled><span>Call me</span></label>
+          </div>
+        </div>
+        <div class="f"><span class="lab">When are you usually reachable?</span>
+          <div class="chips" role="radiogroup" aria-label="When are you usually reachable?">
+            <label class="chip"><input type="radio" name="window" value="Weekday mornings"><span>Weekday mornings</span></label>
+            <label class="chip"><input type="radio" name="window" value="Weekday afternoons"><span>Weekday afternoons</span></label>
+            <label class="chip"><input type="radio" name="window" value="Weekday evenings"><span>Weekday evenings</span></label>
+            <label class="chip"><input type="radio" name="window" value="Weekends"><span>Weekends</span></label>
+            <label class="chip"><input type="radio" name="window" value="Any time — just reach me"><span>Any time, just reach me</span></label>
+          </div>
         </div>
         <div class="consent">
-          <label><input type="checkbox" name="sms_service_consent" id="c-svc"><span>I consent to receive text messages about my quote request and appointment from <span class="need">legal business name</span> at the phone number provided. Message frequency may vary. Message &amp; data rates may apply. Text HELP for assistance, reply STOP to opt out.</span></label>
-          <label><input type="checkbox" name="sms_marketing_consent" id="c-mkt"><span>I consent to receive marketing text messages, about special offers, discounts, and service updates, from <span class="need">legal business name</span> at the phone number provided. Message frequency may vary. Message &amp; data rates may apply. Text HELP for assistance, reply STOP to opt out.</span></label>
-          <span>Neither box is required. <u>Privacy Policy</u> · <u>Terms</u> <span class="need">pages needed</span></span>
+          <label><input type="checkbox" id="c-terms"><span>I have read and agree to the <u data-privacy>Privacy Policy</u> and <u data-terms>Terms of Service</u>. <span class="need">pages needed</span></span></label>
+          <label><input type="checkbox" id="c-svc"><span>I consent to receive text messages about my quote request and appointment from <span data-biz class="need">legal business name</span> at the phone number provided. Message frequency may vary. Message &amp; data rates may apply. Text HELP for assistance, reply STOP to opt out.</span></label>
+          <label><input type="checkbox" id="c-mkt"><span>I consent to receive marketing text messages, about special offers, discounts, and service updates, from <span data-biz class="need">legal business name</span> at the phone number provided. Message frequency may vary. Message &amp; data rates may apply. Text HELP for assistance, reply STOP to opt out.</span></label>
+          <span>None of these boxes is required to send your request.</span>
         </div>
         <div class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
         <div class="err" data-err></div>
         <div class="nav"><button class="btn btn-line" type="button" data-back>Back</button><button class="btn btn-green" type="submit">Send my request</button></div>
+        <p class="hint-s">Confidential. Used once, to quote your car.</p>
       </fieldset>
 
       <div class="done" hidden>
         <h3>Request received.</h3>
-        <p class="lede">In the live build this posts to <code>/api/lead</code> with the same field names the GHL mapping already uses. This is the payload it would send:</p>
+        <p class="lede">In the live build this posts to <code>/api/lead</code>. This is the exact payload it would send. Every field the live form sends today keeps the same name and the same values; the six marked NEW are added at the end.</p>
         <pre data-payload></pre>
         <button class="btn btn-line" type="button" data-reset>Submit another vehicle</button>
       </div>
@@ -489,55 +520,152 @@ footer a{color:var(--on-ink-2)}
     ro.textContent = 'X ' + String(Math.round((e.clientX - r.left) / r.width * 1953)).padStart(4, '0') + ' · Y ' + String(Math.round((e.clientY - r.top) / r.height * 1447)).padStart(4, '0');
   });
 
-  /* quote form */
+  /* ---------------------------------------------------------------
+     QUOTE FORM. Field names and option values are copied from the live
+     index.html so the GHL workflow mapping keeps working unchanged.
+     Only the NEW_* keys below are additions.
+     --------------------------------------------------------------- */
+  var CONFIG = {
+    funnel: 'Auto Aesthetics',                   // live value, do not change
+    business_legal_name: '',                     // must match the EIN document; shown in the SMS consent text
+    privacy_url: '', terms_url: '',              // fill in when the pages exist
+    consent_text_version: 'aa-consent-2026-10-15' // bump whenever any consent wording changes
+  };
+  var FALLBACK_MAKES = ["Acura","Alfa Romeo","Aston Martin","Audi","Bentley","BMW","Bugatti","Cadillac","Chevrolet","Dodge","Ferrari","Ford","Genesis","GMC","Honda","Hyundai","Infiniti","Jaguar","Jeep","Kia","Lamborghini","Land Rover","Lexus","Lincoln","Lotus","Maserati","Mazda","McLaren","Mercedes-Benz","Nissan","Porsche","Ram","Rivian","Rolls-Royce","Subaru","Tesla","Toyota","Volkswagen","Volvo"];
+  var POPULAR = ["Mercedes-Benz","BMW","Porsche","Audi","Tesla","Lexus","Land Rover","Cadillac","Ferrari","Lamborghini","Bentley","Rolls-Royce","McLaren","Maserati","Aston Martin"];
+  var MAKES = POPULAR.concat(FALLBACK_MAKES.filter(function(m){ return POPULAR.indexOf(m) < 0; }));
+  var VPIC = 'https://vpic.nhtsa.dot.gov/api/vehicles/';   // NHTSA vPIC: free, no API key, covers every make/model sold in the US
+
   var form = document.getElementById('qf'), steps = form.querySelectorAll('.step'), bars = form.querySelectorAll('.prog i'), cur = 0;
+  var $ = function(id){ return document.getElementById(id); };
+  var val = function(id){ return $(id).value.trim(); };
+  var digits = function(x){ return (x || '').replace(/\D/g, ''); };
+  var validEmail = function(){ return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(val('email')); };
+  var validPhone = function(){ return digits(val('phone')).length >= 10; };
+  var checked = function(n){ return [].map.call(form.querySelectorAll('input[name="' + n + '"]:checked'), function(i){ return i.value; }); };
+  var firstName = function(){ return val('name').split(/\s+/)[0] || 'there'; };
+  var vehicle = function(){ return [val('year'), val('make'), val('model')].filter(Boolean).join(' ') || 'your car'; };
+
+  if (CONFIG.business_legal_name) form.querySelectorAll('[data-biz]').forEach(function(e){ e.className = ''; e.textContent = CONFIG.business_legal_name; });
+
+  [['privacy_url', '[data-privacy]'], ['terms_url', '[data-terms]']].forEach(function(x){
+    if (!CONFIG[x[0]]) return;
+    var u = form.querySelector(x[1]), l = document.createElement('a'); l.href = CONFIG[x[0]]; l.target = '_blank'; l.rel = 'noopener'; l.textContent = u.textContent; u.replaceWith(l);
+  });
+  if (CONFIG.privacy_url && CONFIG.terms_url){ var nd = form.querySelector('#c-terms').parentNode.querySelector('.need'); if (nd) nd.remove(); }
+
+  /* vehicle data */
+  var yearSel = $('year'); yearSel.append(new Option('Select year', ''));
+  for (var y = 2027; y >= 1995; y--) yearSel.append(new Option(String(y), String(y)));
+  function fill(id, items){ var dl = $(id); dl.replaceChildren.apply(dl, Array.from(new Set(items)).map(function(v){ var o = document.createElement('option'); o.value = v; return o; })); }
+  fill('dl-make', MAKES);
+  function getJson(url){
+    var ctrl = new AbortController(), timer = setTimeout(function(){ ctrl.abort(); }, 6000); // fallbacks rely on this timeout
+    return fetch(url, {signal: ctrl.signal}).then(function(r){ return r.ok ? r.json() : null; }).finally(function(){ clearTimeout(timer); });
+  }
+  function niceMake(m){ var hit = MAKES.filter(function(x){ return x.toUpperCase() === String(m).toUpperCase(); })[0]; return hit || String(m).toLowerCase().replace(/\b\w/g, function(c){ return c.toUpperCase(); }); }
+  var modelToken = 0;
+  function loadModels(){
+    var t = ++modelToken, yr = val('year'), mk = val('make'); fill('dl-model', []);
+    if (!yr || !mk) return;
+    getJson(VPIC + 'GetModelsForMakeYear/make/' + encodeURIComponent(mk.toLowerCase()) + '/modelyear/' + yr + '?format=json').then(function(d){
+      if (t !== modelToken || !d || !d.Results) return;
+      var exact = d.Results.filter(function(r){ return String(r.Make_Name).toUpperCase() === mk.toUpperCase(); });
+      fill('dl-model', (exact.length ? exact : d.Results).map(function(r){ return r.Model_Name; }).sort());
+    }).catch(function(){});
+  }
+  yearSel.addEventListener('change', loadModels);
+  $('make').addEventListener('change', loadModels);
+  form.querySelector('[data-vin]').addEventListener('click', function(){
+    var vin = val('vin').toUpperCase(), msg = form.querySelector('[data-vin-msg]');
+    if (!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin)){ msg.textContent = 'A VIN is 17 letters and numbers (no I, O or Q).'; return; }
+    msg.textContent = 'Looking it up…';
+    getJson(VPIC + 'DecodeVinValues/' + vin + '?format=json').then(function(d){
+      var r = d && d.Results && d.Results[0];
+      if (!r || !r.Make || !r.Model){ msg.textContent = "We couldn't read that VIN. Pick the year, make and model above instead."; return; }
+      if (r.ModelYear) yearSel.value = r.ModelYear;
+      $('make').value = niceMake(r.Make); $('model').value = r.Model;
+      var trim = [r.Trim, r.Series].filter(Boolean).join(' ').trim(); if (trim) $('trim').value = trim;
+      fill('dl-trim', [r.Trim, r.Series, trim].filter(Boolean));
+      msg.textContent = 'Found: ' + [r.ModelYear, niceMake(r.Make), r.Model, trim].filter(Boolean).join(' ');
+    }).catch(function(){ msg.textContent = "The VIN lookup didn't answer. Pick the year, make and model above instead."; });
+  });
+
+  /* steps */
   function show(i){
     cur = i; steps.forEach(function(s, k){ s.hidden = k !== i; });
     bars.forEach(function(b, k){ b.classList.toggle('on', k <= i); });
-    var first = steps[i].querySelector('input:not([type=checkbox]),select'); if (first && i > 0) first.focus({preventScroll: true});
+    var first = steps[i].querySelector('select,input:not([type=checkbox]):not([type=radio]),textarea'); if (first && i > 0) first.focus({preventScroll: true});
   }
+  var PICK = {paint: 'Showroom paint / custom paint', carbon: 'Carbon fiber restoration', pdr: 'Paintless dent repair'};
+  function tick(value){ var box = form.querySelector('input[name="service"][value="' + value + '"]'); if (box) box.checked = true; }
   document.querySelectorAll('[data-pick]').forEach(function(b){
-    b.addEventListener('click', function(){
-      form.querySelectorAll('input[name=services]').forEach(function(c){ c.checked = c.value === b.dataset.pick || c.checked; });
-      show(0); document.getElementById('quote').scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
-    });
+    b.addEventListener('click', function(){ tick(PICK[b.dataset.pick]); document.getElementById('quote').scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); });
   });
-  var map = [[/swirl|holo|haze|scratch|respray|paint|scuff|chip/i, 'paint'], [/dent|ding|hail|crease/i, 'pdr'], [/carbon|weave|yellow|faded/i, 'carbon']];
-  var names = {paint: 'Paint', pdr: 'Dent repair', carbon: 'Carbon', assess: 'Assessment'};
-  var desc = document.getElementById('describe'), match = form.querySelector('.match');
-  desc.addEventListener('input', function(){
-    var hits = map.filter(function(m){ return m[0].test(desc.value); }).map(function(m){ return m[1]; });
-    hits.forEach(function(h){ form.querySelector('input[name=services][value=' + h + ']').checked = true; });
-    match.textContent = hits.length ? 'Matched: ' + hits.map(function(h){ return names[h]; }).join(' + ') : '';
+  /* describe-it: words in the notes tick the matching service (never unticks) */
+  var MATCH = [[/swirl|holo|haze|scratch|respray|paint|scuff|chip|oxid/i, PICK.paint], [/dent|ding|hail|crease/i, PICK.pdr], [/carbon|weave|yellow|faded/i, PICK.carbon]];
+  var notes = $('notes'), match = form.querySelector('[data-match]');
+  notes.addEventListener('input', function(){
+    var hits = MATCH.filter(function(m){ return m[0].test(notes.value); }).map(function(m){ return m[1]; });
+    hits.forEach(tick);
+    match.textContent = hits.length ? 'Matched: ' + hits.join(' + ') : '';
   });
-  function err(msg){ var e = steps[cur].querySelector('[data-err]'); e.textContent = msg || ''; return !msg; }
+  /* contact channels: same rules as the live page */
+  function updateChannels(){
+    var state = {email: validEmail(), text: validPhone(), call: validPhone()};
+    form.querySelectorAll('input[name="channel"]').forEach(function(el){ el.disabled = !state[el.value]; if (el.disabled) el.checked = false; });
+  }
+  $('email').addEventListener('input', updateChannels); $('phone').addEventListener('input', updateChannels);
+
+  function err(msg){ steps[cur].querySelector('[data-err]').textContent = msg || ''; return !msg; }
   function valid(){
-    if (cur === 0){ var any = form.querySelector('input[name=services]:checked'); return err(any || desc.value.trim() ? '' : 'Pick a service or describe the work.'); }
-    if (cur === 1){ var y = form.year.value.trim(); if (!/^(19[5-9]\d|20[0-3]\d)$/.test(y)) return err('Enter a 4-digit model year.'); return err(form.make.value.trim() && form.model.value.trim() ? '' : 'Add the make and model.'); }
-    if (!form.name.value.trim()) return err('Add your name.');
-    if (!form.email.value.trim() && !form.phone.value.trim()) return err('Add an email or a mobile number. One is enough.');
-    if (form.email.value.trim() && !/^\S+@\S+\.\S+$/.test(form.email.value.trim())) return err('That email address looks incomplete.');
+    if (cur === 0){
+      if (!val('year')) return err("Choose your car's model year.");
+      if (!val('make')) return err("Enter your car's make, for example Porsche.");
+      if (!val('model')) return err("Enter your car's model, for example 911.");
+      return err('');
+    }
+    if (cur === 1) return err(checked('service').length ? '' : 'Select at least one service, or choose “Not sure, assess it”.');
+    if (!val('name')) return err('Enter your name so we know who to ask for.');
+    if (!validEmail() && !validPhone()) return err('Add a valid email or a mobile number with at least 10 digits.');
+    if (!checked('channel').length) return err('Choose how we should reach you.');
+    if (!checked('window').length) return err('Choose a time window.');
     return err('');
   }
   form.querySelectorAll('[data-next]').forEach(function(b){ b.addEventListener('click', function(){ if (valid()) show(cur + 1); }); });
   form.querySelectorAll('[data-back]').forEach(function(b){ b.addEventListener('click', function(){ show(cur - 1); }); });
+  form.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type !== 'checkbox' && e.target.type !== 'radio' && cur < 2){ e.preventDefault(); steps[cur].querySelector('[data-next]').click(); }
+  });
+  var yn = function(id){ return $(id).checked ? 'Yes' : 'No'; };
   form.addEventListener('submit', function(e){
-    e.preventDefault(); if (!valid()) return;
-    var svc = [].map.call(form.querySelectorAll('input[name=services]:checked'), function(c){ return names[c.value]; });
-    var full = form.name.value.trim();
+    e.preventDefault(); if (cur !== 2 || !valid()) return;
     var payload = {
-      funnel: 'auto-aesthetics-quote', full_name: full, first_name: full.split(/\s+/)[0], email: form.email.value.trim(), phone: form.phone.value.trim(),
-      vehicle: [form.year.value, form.make.value, form.model.value, form.trim.value].filter(Boolean).join(' '),
-      vehicle_year: form.year.value.trim(), vehicle_make: form.make.value.trim(), vehicle_model: form.model.value.trim(), vehicle_trim: form.trim.value.trim(),
-      services_requested: svc.join(', '), notes: desc.value.trim(), preferred_contact: form.channel.value, best_time: form.window.value,
-      sms_service_consent: document.getElementById('c-svc').checked, sms_marketing_consent: document.getElementById('c-mkt').checked,
-      submitted_at: new Date().toISOString(), source_url: location.href.split('#')[0]
+      /* --- unchanged: identical keys and values to the live form --- */
+      funnel: CONFIG.funnel,
+      full_name: val('name'), first_name: firstName(),
+      email: val('email'), phone: val('phone'),
+      vehicle: vehicle(), vehicle_year: val('year'), vehicle_make: val('make'), vehicle_model: val('model'), vehicle_trim: val('trim'),
+      services_requested: checked('service').join(', '),
+      notes: val('notes'),
+      preferred_contact: checked('channel').join(', '),
+      best_time: checked('window')[0] || '',
+      submitted_at: new Date().toLocaleString('en-US', {timeZone: 'America/Chicago', dateStyle: 'short', timeStyle: 'medium'}) + ' CT',
+      source_url: location.href,
+      _gotcha: form.elements._gotcha ? form.elements._gotcha.value : '',
+      /* --- NEW: map these in the GHL workflow when you're ready --- */
+      vehicle_vin: val('vin').toUpperCase(),
+      terms_consent: yn('c-terms'),
+      sms_service_consent: yn('c-svc'),
+      sms_marketing_consent: yn('c-mkt'),
+      consent_text_version: CONFIG.consent_text_version,
+      consent_at: new Date().toISOString()
     };
     steps.forEach(function(s){ s.hidden = true; }); form.querySelector('.prog').hidden = true;
     form.querySelector('[data-payload]').textContent = JSON.stringify(payload, null, 2);
     form.querySelector('.done').hidden = false;
   });
-  form.querySelector('[data-reset]').addEventListener('click', function(){ form.reset(); match.textContent = ''; form.querySelector('.done').hidden = true; form.querySelector('.prog').hidden = false; show(0); });
+  form.querySelector('[data-reset]').addEventListener('click', function(){ form.reset(); match.textContent = ''; updateChannels(); form.querySelector('.done').hidden = true; form.querySelector('.prog').hidden = false; show(0); });
 
   /* sticky mobile CTA after the hero */
   var mbar = document.getElementById('mbar'), hero = document.querySelector('.hero'), quote = document.getElementById('quote');
