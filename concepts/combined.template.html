@@ -29,7 +29,7 @@ Waivers: none
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   --f-serif:"Playfair Display",Georgia,serif;
   --img-hero:url({{hero}}); --img-paint:url({{paint}}); --img-pdr:url({{pdr}}); --img-carbon:url({{carbon}}); --img-shop:url({{shop}});
-  --img-gclass1:url({{gclass1}}); --img-gclass2:url({{gclass2}}); --img-carbontop:url({{carbontop}}); --img-carbondetail:url({{carbondetail}}); --img-gt53:url({{gt53}});
+  --img-gclass1:url({{gclass1}}); --img-gclass2:url({{gclass2}}); --img-carbontop:url({{carbontop}}); --img-carbondetail:url({{carbondetail}}); --img-gt53:url({{gt53}}); --img-gt53b:url({{gt53b}}); --img-gt53wheel:url({{gt53wheel}}); --img-gt53rear:url({{gt53rear}}); --img-tech:url({{tech}}); --img-gclassrear:url({{gclassrear}});
   --gut:max(16px,env(safe-area-inset-left,0px)); --gut-r:max(16px,env(safe-area-inset-right,0px));
   color-scheme:light;
 }
@@ -260,6 +260,7 @@ a{color:inherit}
 .visit .in > div{display:grid;gap:8px;align-content:start;min-width:0}
 .visit h3{font:500 12px/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
 .visit p{font-size:15px}
+.whoimg{aspect-ratio:4/5;max-width:220px;border-radius:3px;background:var(--img-tech) center 30%/cover no-repeat}
 @media (max-width:760px){.visit .in{grid-template-columns:1fr 1fr}}
 .faq{padding-block:clamp(64px,8vw,104px)}
 .faq .in{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(28px,5vw,72px)}
@@ -488,7 +489,7 @@ footer a{color:var(--on-ink-2)}
     <div><h3>Workshop</h3><p><span class="need">street address</span></p><p>By appointment</p></div>
     <div><h3>Hours</h3><p><span class="need">hours</span></p></div>
     <div><h3>Call or text</h3><p><span class="need">phone number</span></p></div>
-    <div><h3>Who you'll deal with</h3><p><span class="need">name, role, photo</span></p><p>A real person, not a call center.</p></div>
+    <div class="who"><h3>Who you'll deal with</h3><div class="whoimg" role="img" aria-label="Technician masking a rear quarter panel before paint"></div><p><span class="need">name, role</span></p><p>A real person, not a call center.</p></div>
   </div>
 </section>
 
@@ -532,8 +533,8 @@ footer a{color:var(--on-ink-2)}
      `quote` is optional, in the owner's own words.
      --------------------------------------------------------------- */
   var JOBS = [
-    {show: true,  vehicle: 'Mercedes-AMG GT 53', work: 'Multi-stage paint correction', photos: ['gt53']},
-    {show: true,  vehicle: 'Mercedes-Benz G-Class', work: 'Satin finish, rear quarter', photos: ['gclass1', 'gclass2']},
+    {show: true,  vehicle: 'Mercedes-AMG GT 53', work: 'Multi-stage paint correction', photos: ['gt53b', 'gt53rear', 'gt53wheel']},
+    {show: true,  vehicle: 'Mercedes-Benz G-Class', work: 'Satin finish, rear quarter', photos: ['gclass1', 'gclass2', 'gclassrear']},
     {show: true,  vehicle: 'Carbon fiber hood', work: 'Carbon fiber restoration', photos: ['carbontop', 'carbondetail']},
     {show: false, vehicle: 'Widebody Mustang', work: 'Panel work and gloss finish', photos: ['shop', 'paint']},
     {show: false, vehicle: 'Rear quarter panel', work: 'Paintless dent repair', photos: ['pdr']}
