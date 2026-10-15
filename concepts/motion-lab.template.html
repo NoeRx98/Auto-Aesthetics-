@@ -96,29 +96,12 @@ input[type=range]{width:100%;accent-color:var(--green);margin:0}
   <div class="eyebrow">Auto Aesthetics · motion lab · October 2026</div>
   <h1>Show the work, not just the car.</h1>
   <p>Visitors can't see what paint correction or paintless dent repair actually does. Each piece below <b>shows one service working</b>, in a way a photo can't. Every one is interactive: press Play, or drag the slider to run it yourself. They're built with plain canvas and CSS. <b>No animation library, nothing to download.</b></p>
-  <p>The motion rules allow one signature animation per landing page, so this is a menu. The plan at the bottom says which piece goes where.</p>
+  <p>The motion rules allow one signature animation per landing page. That slot now goes to the request journey on the page itself; the three explainers below sit inside the service cards and play only when tapped.</p>
 </header>
-
-<!-- 1 Reflection test -->
-<section class="mod" data-mod="reflect" data-dur="4200">
-  <div class="mhead"><h2><span>01</span>The reflection test</h2><div class="shows">Shows: paint correction · what "swirl-free" looks like</div></div>
-  <div class="bench">
-    <div class="stagewrap">
-      <div class="stage"><canvas aria-hidden="true"></canvas><span class="chip tl">Shop light on a black panel</span></div>
-      <div class="ctrl"><button class="play" type="button" data-play>▶ Play</button><input type="range" min="0" max="1000" value="0" aria-label="Correction progress"><div class="read" data-read></div></div>
-    </div>
-    <div class="spec">
-      <div><h3>What the audience gets</h3><p>The test every owner already does: look at a light in the paint. Before, the reflection is a blur ringed with circular swirl marks. After three passes it's a crisp mirror.</p></div>
-      <div><h3>Where it goes</h3><p>The landing page's signature moment, in place of the faked before/after photo until real matched pairs exist. An illustration labeled as one is honest; a faked photo isn't.</p></div>
-      <div><h3>Motion cost</h3><p>Tier 2 · canvas · about 2 KB of script · plays once when scrolled into view, then the visitor drives it.</p></div>
-      <div class="lim"><h3>Limits</h3><p>It explains correction; it doesn't prove the shop's work. Real before/after photos still win once you have them.</p></div>
-    </div>
-  </div>
-</section>
 
 <!-- 2 Clear coat cross-section -->
 <section class="mod" data-mod="section" data-dur="5200">
-  <div class="mhead"><h2><span>02</span>Inside the clear coat</h2><div class="shows">Shows: why correction lasts and a glaze doesn't</div></div>
+  <div class="mhead"><h2><span>01</span>Inside the clear coat</h2><div class="shows">Shows: why correction lasts and a glaze doesn't</div></div>
   <div class="bench">
     <div class="stagewrap">
       <div class="stage"><canvas aria-hidden="true"></canvas><span class="chip tl">Cross-section · not to scale</span></div>
@@ -135,7 +118,7 @@ input[type=range]{width:100%;accent-color:var(--green);margin:0}
 
 <!-- 3 PDR reflection board -->
 <section class="mod" data-mod="pdr" data-dur="4800">
-  <div class="mhead"><h2><span>03</span>Reading the dent</h2><div class="shows">Shows: paintless dent repair · factory paint stays</div></div>
+  <div class="mhead"><h2><span>02</span>Reading the dent</h2><div class="shows">Shows: paintless dent repair · factory paint stays</div></div>
   <div class="bench">
     <div class="stagewrap">
       <div class="stage"><canvas aria-hidden="true"></canvas><span class="chip tl">Reflection board on the panel</span><span class="chip tr ok">Factory paint · untouched</span></div>
@@ -152,7 +135,7 @@ input[type=range]{width:100%;accent-color:var(--green);margin:0}
 
 <!-- 4 Carbon -->
 <section class="mod" data-mod="carbon" data-dur="5000">
-  <div class="mhead"><h2><span>04</span>Weave revival</h2><div class="shows">Shows: carbon fiber restoration · three stages</div></div>
+  <div class="mhead"><h2><span>03</span>Weave revival</h2><div class="shows">Shows: carbon fiber restoration · three stages</div></div>
   <div class="bench">
     <div class="stagewrap">
       <div class="stage"><canvas aria-hidden="true"></canvas><span class="chip tl" data-stage>Faded</span></div>
@@ -169,7 +152,7 @@ input[type=range]{width:100%;accent-color:var(--green);margin:0}
 
 <!-- 5 Reel -->
 <section class="mod">
-  <div class="mhead"><h2><span>05</span>Six-second reel</h2><div class="shows">Shows: the brand line, for ads and Stories</div></div>
+  <div class="mhead"><h2><span>04</span>Six-second reel</h2><div class="shows">Shows: the brand line, for ads and Stories</div></div>
   <div class="reelbench">
     <div style="display:grid;gap:12px;justify-items:center">
       <div class="phone"><div class="reel" id="reel" role="img" aria-label="Six second vertical ad: Swirls out. Depth back. Auto Aesthetics, get a quote">
@@ -194,11 +177,11 @@ input[type=range]{width:100%;accent-color:var(--green);margin:0}
   <div class="tw"><table>
     <thead><tr><th>Piece</th><th>Where</th><th>Starts</th><th>Rule check</th></tr></thead>
     <tbody>
-      <tr><td>01 Reflection test</td><td>Results section (replaces the faked photo)</td><td>Once on scroll, then drag</td><td>The page's one signature moment</td></tr>
-      <tr><td>02 Inside the clear coat</td><td>Paint correction card</td><td>Tap "How it works"</td><td>Visitor-started; counts as tier 1</td></tr>
-      <tr><td>03 Reading the dent</td><td>Dent repair card; signature on a dent ad page</td><td>Tap</td><td>Visitor-started</td></tr>
-      <tr><td>04 Weave revival</td><td>Carbon card; signature on a carbon ad page</td><td>Tap</td><td>Visitor-started</td></tr>
-      <tr><td>05 Six-second reel</td><td>Social ads only</td><td>Autoplays muted on social</td><td>Never on the page</td></tr>
+      <tr><td>The request journey</td><td>"How it works" section of the landing page</td><td>Once on scroll, then tap any step</td><td>The page's one signature moment</td></tr>
+      <tr><td>01 Inside the clear coat</td><td>Paint correction card</td><td>Tap "See how it works"</td><td>Visitor-started</td></tr>
+      <tr><td>02 Reading the dent</td><td>Dent repair card; signature on a dent ad page</td><td>Tap</td><td>Visitor-started</td></tr>
+      <tr><td>03 Weave revival</td><td>Carbon card; signature on a carbon ad page</td><td>Tap</td><td>Visitor-started</td></tr>
+      <tr><td>04 Six-second reel</td><td>Social ads only</td><td>Autoplays muted on social</td><td>Never on the page</td></tr>
     </tbody>
   </table></div>
   <p><b>The hard truth.</b> These explain the work; they don't prove it. A new shop with no reviews needs proof most. Every finished job from now on should leave the bay with a matched before/after pair (same angle, same light) and a ten-second clip of a light passing over the panel. Six months of that beats anything in this lab.</p>
@@ -214,35 +197,6 @@ input[type=range]{width:100%;accent-color:var(--green);margin:0}
   function rr(ctx, x, y, w, h, r){ ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
 
   var MODS = {
-    /* 01 ------------------------------------------------------------ */
-    reflect: {
-      setup: function(c){
-        var w = c.w, h = c.h, r = rng(11), fl = document.createElement('canvas'); fl.width = w; fl.height = h;
-        var x = fl.getContext('2d'), n = Math.round(w * h / 90);
-        for (var i = 0; i < n; i++){ var a = r() * .07; x.fillStyle = 'rgba(200,205,215,' + a.toFixed(3) + ')'; x.fillRect(r() * w, r() * h, c.dpr, c.dpr); }
-        c.flakes = fl; c.sw = [];
-        for (var k = 0; k < 420; k++) c.sw.push({ox: (r() - .5) * w * .6, oy: (r() - .5) * h * .04, rad: h * .03 + r() * h * .55, a0: r() * Math.PI * 2, len: .1 + r() * .35, a: .06 + r() * .22});
-      },
-      draw: function(ctx, c, t){
-        var w = c.w, h = c.h, d = c.dpr, haze = 1 - t;
-        var g = ctx.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#17191D'); g.addColorStop(1, '#060708');
-        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); ctx.drawImage(c.flakes, 0, 0);
-        var cx = w * .5, cy = h * .36, bw = w * .62, bh = Math.max(5 * d, h * .034);
-        ctx.save(); ctx.translate(cx, cy); ctx.rotate(-.05);
-        ctx.shadowColor = 'rgba(235,240,255,' + (.25 + .5 * haze) + ')'; ctx.shadowBlur = (4 + 46 * haze) * d;
-        ctx.fillStyle = 'rgba(255,255,255,' + (.5 + .5 * t) + ')'; rr(ctx, -bw / 2, -bh / 2, bw, bh, bh / 2); ctx.fill();
-        ctx.restore();
-        ctx.lineWidth = .8 * d; var k = Math.pow(haze, 1.4);
-        if (k > .01) c.sw.forEach(function(s){ ctx.strokeStyle = 'rgba(255,255,255,' + (s.a * k).toFixed(3) + ')'; ctx.beginPath(); ctx.arc(cx + s.ox, cy + s.oy, s.rad, s.a0, s.a0 + s.len); ctx.stroke(); });
-        /* body line reflection lower on the panel */
-        ctx.save(); ctx.shadowColor = 'rgba(255,255,255,' + (.2 + .3 * haze) + ')'; ctx.shadowBlur = (2 + 26 * haze) * d;
-        ctx.strokeStyle = 'rgba(220,225,235,' + (.18 + .3 * t) + ')'; ctx.lineWidth = (1.5 + 2 * haze) * d;
-        ctx.beginPath(); ctx.moveTo(0, h * .74); ctx.bezierCurveTo(w * .3, h * .70, w * .7, h * .80, w, h * .76); ctx.stroke(); ctx.restore();
-        ctx.fillStyle = 'rgba(205,210,220,' + (.09 * haze).toFixed(3) + ')'; ctx.fillRect(0, 0, w, h);
-      },
-      read: function(t){ var p = Math.min(3, Math.floor(t * 3.999)); return ['<b>Before</b> · swirl marks ring the light, the reflection is a blur', '<b>Pass 1</b> · heavy cut takes out the deep swirls', '<b>Pass 2</b> · polish clears the haze', '<b>Pass 3</b> · refined: a crisp mirror, no rings'][p]; }
-    },
-
     /* 02 ------------------------------------------------------------ */
     section: {
       setup: function(){},
