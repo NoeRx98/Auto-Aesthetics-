@@ -94,18 +94,16 @@ a{color:inherit}
 .work{background:var(--ink);color:var(--on-ink);padding-block:clamp(72px,10vw,128px)}
 .work .head{display:grid;gap:14px;max-width:62ch}
 .work h2{font:500 italic clamp(2.4rem,5.6vw,4.4rem)/.98 var(--f-serif);letter-spacing:-.02em}
-.jobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:clamp(28px,4vw,48px)}
+.jobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:clamp(28px,4vw,48px)}
 .job{background:var(--ink-2);border:1px solid var(--ink-line);border-radius:4px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-width:0}
 .job .pics{display:grid;grid-auto-flow:column;grid-auto-columns:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;aspect-ratio:4/5}
 .job .pics::-webkit-scrollbar{display:none}
 .job .pics .ph{scroll-snap-align:start;background-size:cover;background-position:center;min-height:100%}
 .job .count{position:absolute;right:10px;top:10px;font:500 11px/1 var(--f-mono);background:rgba(13,14,15,.72);padding:6px 8px;border-radius:2px}
 .job .top{position:relative}
-.job .body{padding:14px 16px 16px;display:grid;gap:6px;align-content:start}
-.job h3{font:500 18px/1.2 var(--f-display)}
-.job .what{font-size:14px;color:var(--on-ink-2)}
-.job .st{justify-self:start;font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;padding:5px 7px;border:1px solid;border-radius:2px}
-.st.done{color:#9BE3C2;border-color:#2F6E55}.st.wip{color:#F7C98C;border-color:#7A5426}
+.job .body{padding:18px 18px 20px;display:grid;gap:6px;align-content:start}
+.job h3{font:300 22px/1.15 var(--f-display);letter-spacing:-.01em}
+.job .what{font:500 11.5px/1.5 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--on-ink-2)}
 .job blockquote{margin:6px 0 0;font:400 italic 15px/1.45 var(--f-serif);color:var(--on-ink)}
 .ba{position:relative;aspect-ratio:4/5;max-width:100%;overflow:hidden;--pos:50%;background:var(--ink-2);touch-action:pan-y}
 .ba .ph{position:absolute;inset:0;background-size:cover;background-position:center}
@@ -325,9 +323,9 @@ footer a{color:var(--on-ink-2)}
 <section class="work dark band" id="work" aria-labelledby="h-work">
   <div class="in">
     <div class="head">
-      <div class="eyebrow">From the bay</div>
-      <h2 id="h-work">Every car, on the record.</h2>
-      <p class="lede">A new workshop, building its record one car at a time. Every finished job goes here, newest first: the car, the work, and the photos.</p>
+      <div class="eyebrow">Selected work</div>
+      <h2 id="h-work">Recent commissions.</h2>
+      <p class="lede">A selection of cars that have left our bay, each one held to the same standard, panel by panel.</p>
     </div>
     <div class="jobs" id="jobs" aria-live="polite"></div>
   </div>
@@ -524,17 +522,20 @@ footer a{color:var(--on-ink-2)}
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------------------------------------------------------------
-     WORK LOG. Add every finished job to the TOP of this list.
-     img keys: hero, shop, paint, carbon, pdr (in the live build, real file paths).
-     A job with both `before` and `after` gets a drag comparison; only use real,
-     matched pairs (same angle, same light). `review` is the owner's own words.
+     SELECTED WORK. A curated showcase: list the cars you want seen,
+     in the order you want them. Set show: false to keep an entry
+     without displaying it. There is no status or date, so nothing
+     goes stale. img keys: hero, shop, paint, carbon, pdr (in the live
+     build, real file paths). An entry with both `before` and `after`
+     gets a drag comparison; use only real, matched pairs.
+     `quote` is optional, in the owner's own words.
      --------------------------------------------------------------- */
   var JOBS = [
-    {vehicle: 'Mercedes-AMG GT 53', work: 'Multi-stage paint correction', status: 'done', photos: ['hero']},
-    {vehicle: 'Widebody Mustang', work: 'Panel work and gloss finish', status: 'done', photos: ['shop', 'paint']},
-    {vehicle: 'Carbon fiber hood', work: 'Carbon fiber restoration, re-cleared', status: 'done', photos: ['carbon']},
-    {vehicle: 'Rear panel', work: 'Paintless dent repair', status: 'wip', photos: ['pdr']}
-    /* e.g. {vehicle: '2022 Porsche 911', work: 'Hood swirl correction', status: 'done', before: 'b1', after: 'a1', review: 'Looks better than new. — Owner, Houston'} */
+    {show: true,  vehicle: 'Mercedes-AMG GT 53', work: 'Multi-stage paint correction', photos: ['hero']},
+    {show: true,  vehicle: 'Carbon fiber hood', work: 'Carbon fiber restoration', photos: ['carbon']},
+    {show: true,  vehicle: 'Widebody Mustang', work: 'Panel work and gloss finish', photos: ['shop', 'paint']},
+    {show: false, vehicle: 'Rear quarter panel', work: 'Paintless dent repair', photos: ['pdr']}
+    /* e.g. {show: true, vehicle: '2022 Porsche 911 GT3', work: 'Hood swirl correction', before: 'b1', after: 'a1', quote: 'Better than the day I bought it.'} */
   ];
   function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function ph(key){ var d = el('div', 'ph'); d.style.backgroundImage = 'var(--img-' + key + ')'; return d; }
@@ -553,15 +554,15 @@ footer a{color:var(--on-ink-2)}
       else {
         var pics = el('div', 'pics'); pics.setAttribute('role', 'img'); pics.setAttribute('aria-label', j.vehicle + ', ' + j.work);
         (j.photos || []).forEach(function(k){ pics.append(ph(k)); }); top.append(pics);
-        if ((j.photos || []).length > 1) top.append(el('span', 'count', '1/' + j.photos.length + ' · swipe'));
+        if ((j.photos || []).length > 1) top.append(el('span', 'count', j.photos.length + ' photos · swipe'));
       }
       var body = el('div', 'body');
-      body.append(el('span', 'st ' + (j.status === 'wip' ? 'wip' : 'done'), j.status === 'wip' ? 'In the bay' : 'Finished'), el('h3', null, j.vehicle), el('p', 'what', j.work));
-      if (j.review) body.append(el('blockquote', null, '“' + j.review + '”'));
+      body.append(el('h3', null, j.vehicle), el('p', 'what', j.work));
+      if (j.quote) body.append(el('blockquote', null, '“' + j.quote + '”'));
       card.append(top, body); box.append(card);
     });
   }
-  renderJobs(JOBS);
+  renderJobs(JOBS.filter(function(j){ return j.show !== false; }));
   window.aaRenderJobs = renderJobs; /* prototype hook for testing */
 
   /* ---------------------------------------------------------------
