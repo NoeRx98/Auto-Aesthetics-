@@ -29,6 +29,7 @@ Waivers: none
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   --f-serif:"Playfair Display",Georgia,serif;
   --img-hero:url({{hero}}); --img-paint:url({{paint}}); --img-pdr:url({{pdr}}); --img-carbon:url({{carbon}}); --img-shop:url({{shop}});
+  --img-gclass1:url({{gclass1}}); --img-gclass2:url({{gclass2}}); --img-carbontop:url({{carbontop}}); --img-carbondetail:url({{carbondetail}}); --img-gt53:url({{gt53}});
   --gut:max(16px,env(safe-area-inset-left,0px)); --gut-r:max(16px,env(safe-area-inset-right,0px));
   color-scheme:light;
 }
@@ -531,9 +532,10 @@ footer a{color:var(--on-ink-2)}
      `quote` is optional, in the owner's own words.
      --------------------------------------------------------------- */
   var JOBS = [
-    {show: true,  vehicle: 'Mercedes-AMG GT 53', work: 'Multi-stage paint correction', photos: ['hero']},
-    {show: true,  vehicle: 'Carbon fiber hood', work: 'Carbon fiber restoration', photos: ['carbon']},
-    {show: true,  vehicle: 'Widebody Mustang', work: 'Panel work and gloss finish', photos: ['shop', 'paint']},
+    {show: true,  vehicle: 'Mercedes-AMG GT 53', work: 'Multi-stage paint correction', photos: ['gt53']},
+    {show: true,  vehicle: 'Mercedes-Benz G-Class', work: 'Satin finish, rear quarter', photos: ['gclass1', 'gclass2']},
+    {show: true,  vehicle: 'Carbon fiber hood', work: 'Carbon fiber restoration', photos: ['carbontop', 'carbondetail']},
+    {show: false, vehicle: 'Widebody Mustang', work: 'Panel work and gloss finish', photos: ['shop', 'paint']},
     {show: false, vehicle: 'Rear quarter panel', work: 'Paintless dent repair', photos: ['pdr']}
     /* e.g. {show: true, vehicle: '2022 Porsche 911 GT3', work: 'Hood swirl correction', before: 'b1', after: 'a1', quote: 'Better than the day I bought it.'} */
   ];
