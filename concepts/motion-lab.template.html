@@ -1,0 +1,362 @@
+<title>Auto Aesthetics Motion Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;500;700&family=Schibsted+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@1,500&display=swap">
+<style>
+/* Layout: a dark studio bench. Each motion module is a wide stage (canvas) with its controls underneath
+   and a four-cell spec beside it. One look on purpose: the shop's graphite and the build's racing green. */
+:root{
+  --bg:#0E0F10; --panel:#16181A; --line:#2A2D30; --fg:#EFEEEA; --fg-2:#A3A29D; --green:#3FA37C; --green-ink:#0B2A20; --flag:#F2A06B;
+  --f-display:"Outfit",ui-sans-serif,system-ui,sans-serif; --f-body:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace; --f-serif:"Playfair Display",Georgia,serif;
+  --img-hero:url({{hero}});
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.6 var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px;margin:0 auto;padding-block:48px 96px;display:grid;gap:96px}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.eyebrow{font:500 12px/1.3 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2)}
+.intro{display:grid;gap:22px}
+.intro h1{font:200 clamp(2.6rem,6.4vw,5.2rem)/.98 var(--f-display);letter-spacing:-.03em;max-width:14ch}
+.intro p{max-width:62ch;color:var(--fg-2);font-size:1.05rem}
+.intro p b{color:var(--fg);font-weight:500}
+
+.mod{display:grid;gap:18px}
+.mhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 20px}
+.mhead h2{font:300 clamp(1.7rem,3.4vw,2.6rem)/1.05 var(--f-display);letter-spacing:-.02em}
+.mhead h2 span{font:500 .42em/1 var(--f-mono);color:var(--fg-2);margin-right:.8em;vertical-align:.5em}
+.shows{font:400 13px/1.4 var(--f-mono);color:var(--green)}
+.bench{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:24px;align-items:start}
+.stagewrap{display:grid;gap:12px;min-width:0}
+.stage{position:relative;aspect-ratio:16/10;border-radius:6px;overflow:hidden;background:#08090A;border:1px solid var(--line);max-width:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stage .chip{position:absolute;font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;background:rgba(8,9,10,.72);border:1px solid var(--line);padding:7px 9px;border-radius:3px;pointer-events:none}
+.stage .chip.tl{left:12px;top:12px}.stage .chip.tr{right:12px;top:12px}
+.stage .chip.ok{color:#9BE3C2;border-color:#2F6E55}
+.ctrl{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
+.play{font:500 13px/1 var(--f-body);background:var(--fg);color:var(--bg);border:0;border-radius:99px;padding:10px 16px;cursor:pointer;white-space:nowrap}
+.play:hover{background:#fff}
+input[type=range]{width:100%;accent-color:var(--green);margin:0}
+.read{grid-column:1/-1;font:400 13.5px/1.4 var(--f-mono);color:var(--fg);min-height:1.4em}
+.read b{color:var(--green);font-weight:500}
+.spec{display:grid;gap:0;border-top:1px solid var(--line)}
+.spec div{padding:12px 0;border-bottom:1px solid var(--line);display:grid;gap:4px}
+.spec h3{font:500 11px/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-2)}
+.spec p{font-size:14.5px;line-height:1.5}
+.spec .lim h3{color:var(--flag)}
+@media (max-width:900px){.bench{grid-template-columns:1fr}}
+
+/* social reel */
+.reelbench{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr);gap:32px;align-items:start}
+.phone{position:relative;width:min(100%,340px);aspect-ratio:9/16;border-radius:28px;overflow:hidden;border:8px solid #1E2124;background:#000;justify-self:center;container-type:inline-size}
+.reel{position:absolute;inset:0;overflow:hidden}
+.reel .bgimg{position:absolute;inset:-6%;background:var(--img-hero) 50% 40%/cover no-repeat;animation:kb 6s linear infinite}
+.reel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15) 40%,rgba(0,0,0,.85))}
+.reel .bar{position:absolute;z-index:3;left:12px;right:12px;top:12px;height:3px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden}
+.reel .bar i{display:block;height:100%;background:#fff;transform-origin:left;animation:barfill 6s linear infinite}
+.reel .t{position:absolute;z-index:2;left:8cqi;right:8cqi;color:#fff;font-family:var(--f-display)}
+.reel .w1{top:22%;font-weight:700;font-size:19cqi;line-height:.9;letter-spacing:-.03em;animation:w1 6s cubic-bezier(.2,.7,.2,1) infinite}
+.reel .w2{top:37%;font-weight:200;font-size:19cqi;line-height:.9;letter-spacing:-.03em;animation:w2 6s cubic-bezier(.2,.7,.2,1) infinite}
+.reel .w3{top:22%;font-family:var(--f-serif);font-style:italic;font-weight:500;font-size:20cqi;line-height:.9;animation:w3 6s cubic-bezier(.2,.7,.2,1) infinite}
+.reel .w4{top:39%;font-family:var(--f-serif);font-style:italic;font-weight:500;font-size:20cqi;line-height:.9;animation:w4 6s cubic-bezier(.2,.7,.2,1) infinite}
+.reel .sweepr{position:absolute;z-index:1;inset:-20% -80%;background:linear-gradient(105deg,transparent 44%,rgba(255,255,255,.28) 50%,transparent 56%);mix-blend-mode:screen;animation:rs 6s ease-in-out infinite}
+.reel .end{position:absolute;z-index:2;left:8cqi;right:8cqi;bottom:12%;display:grid;gap:4cqi;animation:endf 6s ease infinite}
+.reel .end .wm{font:500 5.2cqi/1 var(--f-display);letter-spacing:.3em;text-transform:uppercase;color:#fff}
+.reel .end .sub{font:400 4.4cqi/1.35 var(--f-body);color:#D6D5D0}
+.reel .end .cta{justify-self:start;background:#fff;color:#000;font:500 4.6cqi/1 var(--f-body);padding:3.4cqi 5cqi;border-radius:99px}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.12)}}
+@keyframes barfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes w1{0%{opacity:0;transform:translateY(30%)}6%{opacity:1;transform:none}36%{opacity:1;transform:none}42%,100%{opacity:0;transform:translateY(-20%)}}
+@keyframes w2{0%,8%{opacity:0;transform:translateX(-12%)}15%{opacity:1;transform:none}36%{opacity:1}42%,100%{opacity:0}}
+@keyframes w3{0%,42%{opacity:0;transform:scale(1.15)}49%{opacity:1;transform:none}70%{opacity:1}76%,100%{opacity:0}}
+@keyframes w4{0%,48%{opacity:0;transform:translateY(25%)}55%{opacity:1;transform:none}70%{opacity:1}76%,100%{opacity:0}}
+@keyframes rs{0%,40%{transform:translateX(-60%)}55%,100%{transform:translateX(60%)}}
+@keyframes endf{0%,74%{opacity:0;transform:translateY(8%)}81%{opacity:1;transform:none}97%{opacity:1}100%{opacity:0}}
+.reel.paused *,.reel.paused{animation-play-state:paused!important}
+@media (prefers-reduced-motion:reduce){.reel *{animation:none!important}.reel .w1,.reel .w2,.reel .w3,.reel .w4,.reel .sweepr{display:none}.reel .end{opacity:1}}
+@media (max-width:900px){.reelbench{grid-template-columns:1fr}}
+
+.plan{border-top:2px solid var(--fg);padding-top:28px;display:grid;gap:22px}
+.plan h2{font:300 clamp(1.8rem,4vw,3rem)/1.05 var(--f-display);letter-spacing:-.02em;max-width:22ch}
+.plan table{width:100%;border-collapse:collapse;font-size:14.5px}
+.plan th{text-align:left;font:500 11px/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-2);padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.plan td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.tw{overflow-x:auto}
+.plan p{max-width:72ch;color:var(--fg-2)}
+.plan p b{color:var(--fg);font-weight:500}
+</style>
+
+<div class="wrap">
+<header class="intro">
+  <div class="eyebrow">Auto Aesthetics · motion lab · October 2026</div>
+  <h1>Show the work, not just the car.</h1>
+  <p>Visitors can't see what paint correction or paintless dent repair actually does. Each piece below <b>shows one service working</b>, in a way a photo can't. Every one is interactive: press Play, or drag the slider to run it yourself. They're built with plain canvas and CSS. <b>No animation library, nothing to download.</b></p>
+  <p>The motion rules allow one signature animation per landing page, so this is a menu. The plan at the bottom says which piece goes where.</p>
+</header>
+
+<!-- 1 Reflection test -->
+<section class="mod" data-mod="reflect" data-dur="4200">
+  <div class="mhead"><h2><span>01</span>The reflection test</h2><div class="shows">Shows: paint correction · what "swirl-free" looks like</div></div>
+  <div class="bench">
+    <div class="stagewrap">
+      <div class="stage"><canvas aria-hidden="true"></canvas><span class="chip tl">Shop light on a black panel</span></div>
+      <div class="ctrl"><button class="play" type="button" data-play>▶ Play</button><input type="range" min="0" max="1000" value="0" aria-label="Correction progress"><div class="read" data-read></div></div>
+    </div>
+    <div class="spec">
+      <div><h3>What the audience gets</h3><p>The test every owner already does: look at a light in the paint. Before, the reflection is a blur ringed with circular swirl marks. After three passes it's a crisp mirror.</p></div>
+      <div><h3>Where it goes</h3><p>The landing page's signature moment, in place of the faked before/after photo until real matched pairs exist. An illustration labeled as one is honest; a faked photo isn't.</p></div>
+      <div><h3>Motion cost</h3><p>Tier 2 · canvas · about 2 KB of script · plays once when scrolled into view, then the visitor drives it.</p></div>
+      <div class="lim"><h3>Limits</h3><p>It explains correction; it doesn't prove the shop's work. Real before/after photos still win once you have them.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 Clear coat cross-section -->
+<section class="mod" data-mod="section" data-dur="5200">
+  <div class="mhead"><h2><span>02</span>Inside the clear coat</h2><div class="shows">Shows: why correction lasts and a glaze doesn't</div></div>
+  <div class="bench">
+    <div class="stagewrap">
+      <div class="stage"><canvas aria-hidden="true"></canvas><span class="chip tl">Cross-section · not to scale</span></div>
+      <div class="ctrl"><button class="play" type="button" data-play>▶ Play</button><input type="range" min="0" max="1000" value="0" aria-label="Leveling progress"><div class="read" data-read></div></div>
+    </div>
+    <div class="spec">
+      <div><h3>What the audience gets</h3><p>Scratches are grooves in the clear coat. Correction levels the clear coat down to the bottom of each groove, so there's nothing left to fill and nothing to wash off. Cheap shops fill the grooves with glaze, and the swirls come back after a few washes.</p></div>
+      <div><h3>Where it goes</h3><p>Inside the paint correction service card, behind "How it works". It plays when tapped.</p></div>
+      <div><h3>Motion cost</h3><p>Tier 1 when placed in a card (visitor-started) · canvas · about 2 KB.</p></div>
+      <div class="lim"><h3>Limits</h3><p>Check the wording with the shop. Say only what they actually do, for example whether they measure paint depth before cutting.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 PDR reflection board -->
+<section class="mod" data-mod="pdr" data-dur="4800">
+  <div class="mhead"><h2><span>03</span>Reading the dent</h2><div class="shows">Shows: paintless dent repair · factory paint stays</div></div>
+  <div class="bench">
+    <div class="stagewrap">
+      <div class="stage"><canvas aria-hidden="true"></canvas><span class="chip tl">Reflection board on the panel</span><span class="chip tr ok">Factory paint · untouched</span></div>
+      <div class="ctrl"><button class="play" type="button" data-play>▶ Play</button><input type="range" min="0" max="1000" value="0" aria-label="Repair progress"><div class="read" data-read></div></div>
+    </div>
+    <div class="spec">
+      <div><h3>What the audience gets</h3><p>PDR technicians read a dent by how straight lines bend in its reflection. Watch the lines bend around the dent, then straighten as small pushes from behind work it out, with no filler and no paint.</p></div>
+      <div><h3>Where it goes</h3><p>The dent repair card, and the landing page for a dent or hail ad. On that page it can be the signature moment.</p></div>
+      <div><h3>Motion cost</h3><p>Tier 1–2 · canvas · about 2 KB.</p></div>
+      <div class="lim"><h3>Limits</h3><p>It shows a clean, shallow dent. Creased or stretched metal may need more than PDR, so keep "can be same day" as "can be".</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 Carbon -->
+<section class="mod" data-mod="carbon" data-dur="5000">
+  <div class="mhead"><h2><span>04</span>Weave revival</h2><div class="shows">Shows: carbon fiber restoration · three stages</div></div>
+  <div class="bench">
+    <div class="stagewrap">
+      <div class="stage"><canvas aria-hidden="true"></canvas><span class="chip tl" data-stage>Faded</span></div>
+      <div class="ctrl"><button class="play" type="button" data-play>▶ Play</button><input type="range" min="0" max="1000" value="0" aria-label="Restoration progress"><div class="read" data-read></div></div>
+    </div>
+    <div class="spec">
+      <div><h3>What the audience gets</h3><p>The three stages from the FAQ, made visible: yellowed and hazed clear coat, stripped back to the weave, then re-cleared until the twill pattern looks deep and wet again.</p></div>
+      <div><h3>Where it goes</h3><p>The carbon service card, and the hero of a carbon-only ad landing page (concept 03 from the first round).</p></div>
+      <div><h3>Motion cost</h3><p>Tier 1–2 · canvas · about 2 KB.</p></div>
+      <div class="lim"><h3>Limits</h3><p>The weave is drawn, not photographed. Pair it with the real carbon hood photo the shop already has.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 Reel -->
+<section class="mod">
+  <div class="mhead"><h2><span>05</span>Six-second reel</h2><div class="shows">Shows: the brand line, for ads and Stories</div></div>
+  <div class="reelbench">
+    <div style="display:grid;gap:12px;justify-items:center">
+      <div class="phone"><div class="reel" id="reel" role="img" aria-label="Six second vertical ad: Swirls out. Depth back. Auto Aesthetics, get a quote">
+        <div class="bgimg"></div><div class="sweepr"></div><div class="bar"><i></i></div>
+        <div class="t w1">Swirls</div><div class="t w2">out.</div><div class="t w3">Depth</div><div class="t w4">back.</div>
+        <div class="end"><div class="wm">Auto Aesthetics</div><div class="sub">Paint correction · dent repair · carbon restoration</div><div class="cta">Get a free quote</div></div>
+      </div></div>
+      <button class="play" type="button" id="reel-btn">❚❚ Pause</button>
+    </div>
+    <div class="spec">
+      <div><h3>What the audience gets</h3><p>The landing page's promise in six seconds: "Swirls out. Depth back.", a light sweep across the AMG, then the name and the offer. Social ads and the page say the same thing, so a click lands on a page that keeps the promise.</p></div>
+      <div><h3>Where it goes</h3><p>Instagram and Facebook Reels, Stories and ads. It doesn't go on the landing page, because a looping video next to the form breaks the motion rules.</p></div>
+      <div><h3>Motion cost</h3><p>On social it's a video file. Next step: render this as a 1080×1920 MP4 with HyperFrames, under 2.5 MB.</p></div>
+      <div class="lim"><h3>Limits</h3><p>It uses the one good photo the shop has. Ten short phone clips of real work (a buffer on paint, a light passing over a finished panel) would make a stronger reel than any typography.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="plan">
+  <div class="eyebrow">How this fits the landing page</div>
+  <h2>One signature moment. The rest wait to be tapped.</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Piece</th><th>Where</th><th>Starts</th><th>Rule check</th></tr></thead>
+    <tbody>
+      <tr><td>01 Reflection test</td><td>Results section (replaces the faked photo)</td><td>Once on scroll, then drag</td><td>The page's one signature moment</td></tr>
+      <tr><td>02 Inside the clear coat</td><td>Paint correction card</td><td>Tap "How it works"</td><td>Visitor-started; counts as tier 1</td></tr>
+      <tr><td>03 Reading the dent</td><td>Dent repair card; signature on a dent ad page</td><td>Tap</td><td>Visitor-started</td></tr>
+      <tr><td>04 Weave revival</td><td>Carbon card; signature on a carbon ad page</td><td>Tap</td><td>Visitor-started</td></tr>
+      <tr><td>05 Six-second reel</td><td>Social ads only</td><td>Autoplays muted on social</td><td>Never on the page</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The hard truth.</b> These explain the work; they don't prove it. A new shop with no reviews needs proof most. Every finished job from now on should leave the bay with a matched before/after pair (same angle, same light) and a ten-second clip of a light passing over the panel. Six months of that beats anything in this lab.</p>
+</section>
+</div>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ease = function(x){ return x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2; };
+  var smooth = function(a, b, x){ x = Math.min(1, Math.max(0, (x - a) / (b - a))); return x * x * (3 - 2 * x); };
+  function rng(seed){ return function(){ seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }; }
+  function rr(ctx, x, y, w, h, r){ ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+
+  var MODS = {
+    /* 01 ------------------------------------------------------------ */
+    reflect: {
+      setup: function(c){
+        var w = c.w, h = c.h, r = rng(11), fl = document.createElement('canvas'); fl.width = w; fl.height = h;
+        var x = fl.getContext('2d'), n = Math.round(w * h / 90);
+        for (var i = 0; i < n; i++){ var a = r() * .07; x.fillStyle = 'rgba(200,205,215,' + a.toFixed(3) + ')'; x.fillRect(r() * w, r() * h, c.dpr, c.dpr); }
+        c.flakes = fl; c.sw = [];
+        for (var k = 0; k < 420; k++) c.sw.push({ox: (r() - .5) * w * .6, oy: (r() - .5) * h * .04, rad: h * .03 + r() * h * .55, a0: r() * Math.PI * 2, len: .1 + r() * .35, a: .06 + r() * .22});
+      },
+      draw: function(ctx, c, t){
+        var w = c.w, h = c.h, d = c.dpr, haze = 1 - t;
+        var g = ctx.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#17191D'); g.addColorStop(1, '#060708');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); ctx.drawImage(c.flakes, 0, 0);
+        var cx = w * .5, cy = h * .36, bw = w * .62, bh = Math.max(5 * d, h * .034);
+        ctx.save(); ctx.translate(cx, cy); ctx.rotate(-.05);
+        ctx.shadowColor = 'rgba(235,240,255,' + (.25 + .5 * haze) + ')'; ctx.shadowBlur = (4 + 46 * haze) * d;
+        ctx.fillStyle = 'rgba(255,255,255,' + (.5 + .5 * t) + ')'; rr(ctx, -bw / 2, -bh / 2, bw, bh, bh / 2); ctx.fill();
+        ctx.restore();
+        ctx.lineWidth = .8 * d; var k = Math.pow(haze, 1.4);
+        if (k > .01) c.sw.forEach(function(s){ ctx.strokeStyle = 'rgba(255,255,255,' + (s.a * k).toFixed(3) + ')'; ctx.beginPath(); ctx.arc(cx + s.ox, cy + s.oy, s.rad, s.a0, s.a0 + s.len); ctx.stroke(); });
+        /* body line reflection lower on the panel */
+        ctx.save(); ctx.shadowColor = 'rgba(255,255,255,' + (.2 + .3 * haze) + ')'; ctx.shadowBlur = (2 + 26 * haze) * d;
+        ctx.strokeStyle = 'rgba(220,225,235,' + (.18 + .3 * t) + ')'; ctx.lineWidth = (1.5 + 2 * haze) * d;
+        ctx.beginPath(); ctx.moveTo(0, h * .74); ctx.bezierCurveTo(w * .3, h * .70, w * .7, h * .80, w, h * .76); ctx.stroke(); ctx.restore();
+        ctx.fillStyle = 'rgba(205,210,220,' + (.09 * haze).toFixed(3) + ')'; ctx.fillRect(0, 0, w, h);
+      },
+      read: function(t){ var p = Math.min(3, Math.floor(t * 3.999)); return ['<b>Before</b> · swirl marks ring the light, the reflection is a blur', '<b>Pass 1</b> · heavy cut takes out the deep swirls', '<b>Pass 2</b> · polish clears the haze', '<b>Pass 3</b> · refined: a crisp mirror, no rings'][p]; }
+    },
+
+    /* 02 ------------------------------------------------------------ */
+    section: {
+      setup: function(){},
+      draw: function(ctx, c, t){
+        var w = c.w, h = c.h, d = c.dpr, L0 = w * .06, R0 = w * .94;
+        ctx.fillStyle = '#0C0D0F'; ctx.fillRect(0, 0, w, h);
+        var top = h * .30, clearB = h * .54, baseB = h * .67, primB = h * .75, metB = h * .88, maxCut = (clearB - top) * .34;
+        var notches = [[.16, .62], [.31, .38], [.5, .78], [.66, .5], [.82, .32]], L = .78 * maxCut * ease(t);
+        function band(y1, y2, c1, c2){ var g = ctx.createLinearGradient(0, y1, 0, y2); g.addColorStop(0, c1); g.addColorStop(1, c2); ctx.fillStyle = g; ctx.fillRect(L0, y1, R0 - L0, y2 - y1); }
+        band(primB, metB, '#7D8288', '#4B4F54'); band(baseB, primB, '#9A958A', '#7F7A70'); band(clearB, baseB, '#24364C', '#1A2838');
+        /* clear coat with grooves */
+        var y0 = top + L; ctx.beginPath(); ctx.moveTo(L0, y0);
+        notches.forEach(function(n){ var full = n[1] * maxCut, rem = Math.max(0, full - L), half = w * .018 * (rem / full); if (rem > 0){ var x = L0 + (R0 - L0) * n[0]; ctx.lineTo(x - half, y0); ctx.lineTo(x, y0 + rem); ctx.lineTo(x + half, y0); } });
+        ctx.lineTo(R0, y0); ctx.lineTo(R0, clearB); ctx.lineTo(L0, clearB); ctx.closePath();
+        ctx.fillStyle = 'rgba(150,190,230,.22)'; ctx.fill(); ctx.strokeStyle = 'rgba(220,236,255,.85)'; ctx.lineWidth = 1.4 * d; ctx.stroke();
+        /* original surface ghost */
+        if (L > 1){ ctx.setLineDash([4 * d, 4 * d]); ctx.strokeStyle = 'rgba(242,160,107,.7)'; ctx.lineWidth = 1 * d; ctx.beginPath(); ctx.moveTo(L0, top); ctx.lineTo(R0, top); ctx.stroke(); ctx.setLineDash([]); }
+        /* pad */
+        if (t > .02 && t < .985){ var px = L0 + (R0 - L0) * (.5 + .4 * Math.sin(t * 38)), pw = w * .13, ph = h * .07;
+          ctx.fillStyle = '#E8E2D4'; rr(ctx, px - pw / 2, y0 - ph - 2 * d, pw, ph, ph * .3); ctx.fill(); ctx.fillStyle = '#D9622B'; ctx.fillRect(px - pw / 2, y0 - ph * .45 - 2 * d, pw, ph * .45); }
+        /* labels */
+        ctx.font = '500 ' + Math.round(11 * d) + 'px "IBM Plex Mono", monospace'; ctx.fillStyle = 'rgba(239,238,234,.75)'; ctx.textBaseline = 'middle';
+        ctx.fillText('CLEAR COAT', L0 + 10 * d, (y0 + clearB) / 2 + 10 * d); ctx.fillText('COLOR', L0 + 10 * d, (clearB + baseB) / 2); ctx.fillText('PRIMER', L0 + 10 * d, (baseB + primB) / 2); ctx.fillText('PANEL', L0 + 10 * d, (primB + metB) / 2);
+        if (L > 1){ ctx.fillStyle = 'rgba(242,160,107,.9)'; ctx.fillText('ORIGINAL SURFACE', L0 + 10 * d, top - 10 * d); }
+        var sA = 1 - smooth(.15, .5, t); if (sA > 0){ var nx = L0 + (R0 - L0) * .5; ctx.fillStyle = 'rgba(239,238,234,' + (.9 * sA) + ')'; ctx.textAlign = 'center'; ctx.fillText('SCRATCH', nx, top - 12 * d); ctx.textAlign = 'left'; }
+      },
+      read: function(t){ return t < .04 ? '<b>Scratches</b> are grooves cut into the clear coat' : t < .985 ? '<b>Leveling</b> the clear coat down to the bottom of each groove' : '<b>Done</b> · the grooves are gone, not filled, so nothing washes out'; }
+    },
+
+    /* 03 ------------------------------------------------------------ */
+    pdr: {
+      setup: function(c){ var r = rng(5); c.push = []; for (var i = 0; i < 26; i++){ var a = r() * Math.PI * 2, q = Math.sqrt(r()) * .8; c.push.push([Math.cos(a) * q, Math.sin(a) * q]); } },
+      draw: function(ctx, c, t){
+        var w = c.w, h = c.h, d = c.dpr;
+        var g = ctx.createRadialGradient(w * .4, h * .3, 0, w * .5, h * .5, w * .8); g.addColorStop(0, '#24272C'); g.addColorStop(1, '#0B0C0E'); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+        var cx = w * .56, cy = h * .52, sig = Math.min(w, h) * .17, e = ease(t), A = sig * .95 * (1 - e) * (1 + .07 * Math.sin(t * 70) * (1 - e));
+        var n = 15, sp = h / (n + 1), step = Math.max(3, 4 * d);
+        ctx.lineCap = 'round';
+        for (var i = 0; i < n; i++){
+          var yb = (i + 1) * sp; ctx.beginPath();
+          for (var x = -step; x <= w + step; x += step){
+            var dx = x - cx, dy = yb - cy, gg = Math.exp(-(dx * dx + dy * dy) / (2 * sig * sig));
+            var X = x - A * .35 * gg * (dx / sig), Y = yb + A * gg * (dy / sig);
+            if (x <= -step + .1) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+          }
+          ctx.strokeStyle = i % 2 ? 'rgba(235,236,232,.88)' : 'rgba(235,236,232,.35)'; ctx.lineWidth = (i % 2 ? sp * .32 : sp * .12); ctx.stroke();
+        }
+        /* pushes from behind */
+        var shown = t >= .985 ? 0 : Math.floor(t * c.push.length);
+        for (var k = Math.max(0, shown - 3); k < shown; k++){
+          var age = (t * c.push.length - k) / 3, p = c.push[k]; if (age > 1) continue;
+          ctx.strokeStyle = 'rgba(63,163,124,' + (1 - age) + ')'; ctx.lineWidth = 2 * d; ctx.beginPath(); ctx.arc(cx + p[0] * sig, cy + p[1] * sig, (4 + 14 * age) * d, 0, Math.PI * 2); ctx.stroke();
+        }
+      },
+      read: function(t){ return t < .04 ? '<b>The dent</b> · straight lines bend around it in the reflection' : t < .985 ? '<b>Small pushes from behind</b> · the lines straighten as the metal moves back' : '<b>Done</b> · lines straight, no filler, original factory paint'; }
+    },
+
+    /* 04 ------------------------------------------------------------ */
+    carbon: {
+      setup: function(c){
+        var w = c.w, h = c.h, d = c.dpr, wv = document.createElement('canvas'); wv.width = w; wv.height = h; var x = wv.getContext('2d');
+        var s = Math.max(9 * d, Math.round(w / 46)); x.fillStyle = '#121212'; x.fillRect(0, 0, w, h);
+        for (var i = 0; i * s < w + s; i++) for (var j = 0; j * s < h + s; j++){
+          var horiz = ((i + j) % 4) < 2, X = i * s, Y = j * s, g = horiz ? x.createLinearGradient(0, Y, 0, Y + s) : x.createLinearGradient(X, 0, X + s, 0);
+          if (horiz){ g.addColorStop(0, '#141516'); g.addColorStop(.45, '#4A4C50'); g.addColorStop(.55, '#4A4C50'); g.addColorStop(1, '#141516'); }
+          else { g.addColorStop(0, '#0A0A0B'); g.addColorStop(.5, '#26272A'); g.addColorStop(1, '#0A0A0B'); }
+          x.fillStyle = g; x.fillRect(X, Y, s, s);
+        }
+        c.weave = wv; var r = rng(3); c.scuff = []; for (var k = 0; k < 90; k++) c.scuff.push([r() * w, r() * h, (r() - .5) * w * .12, (r() - .5) * h * .05, .2 + r() * .5]);
+      },
+      draw: function(ctx, c, t){
+        var w = c.w, h = c.h, d = c.dpr;
+        ctx.drawImage(c.weave, 0, 0);
+        var yellow = .46 * (1 - smooth(.08, .42, t)), scuff = 1 - smooth(.2, .45, t), matte = .32 * smooth(.3, .45, t) * (1 - smooth(.6, .8, t)), gloss = smooth(.62, 1, t);
+        if (yellow > .005){ ctx.fillStyle = 'rgba(196,158,70,' + yellow.toFixed(3) + ')'; ctx.fillRect(0, 0, w, h); ctx.fillStyle = 'rgba(230,225,210,' + (yellow * .35).toFixed(3) + ')'; ctx.fillRect(0, 0, w, h); }
+        if (scuff > .01){ ctx.lineWidth = d; c.scuff.forEach(function(s){ ctx.strokeStyle = 'rgba(240,235,220,' + (s[4] * scuff * .5).toFixed(3) + ')'; ctx.beginPath(); ctx.moveTo(s[0], s[1]); ctx.lineTo(s[0] + s[2], s[1] + s[3]); ctx.stroke(); }); }
+        if (matte > .005){ ctx.fillStyle = 'rgba(160,160,158,' + matte.toFixed(3) + ')'; ctx.fillRect(0, 0, w, h); }
+        if (gloss > .005){
+          ctx.fillStyle = 'rgba(0,0,0,' + (.22 * gloss).toFixed(3) + ')'; ctx.fillRect(0, 0, w, h); ctx.drawImage(c.weave, 0, 0, w, h);
+          var bx = w * (-.25 + 1.0 * gloss), g = ctx.createLinearGradient(bx - w * .18, 0, bx + w * .18, h * .3);
+          g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(.5, 'rgba(235,242,255,' + (.42 * gloss).toFixed(3) + ')'); g.addColorStop(1, 'rgba(255,255,255,0)');
+          ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+          var v = ctx.createRadialGradient(w * .5, h * .5, h * .2, w * .5, h * .5, w * .75); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,' + (.45 * gloss).toFixed(3) + ')'); ctx.fillStyle = v; ctx.fillRect(0, 0, w, h);
+        }
+      },
+      read: function(t){ return t < .3 ? '<b>Faded</b> · sun-yellowed, hazed and scratched clear coat' : t < .62 ? '<b>Stripped</b> · old clear coat removed, weave exposed' : '<b>Re-cleared</b> · deep, glass-clear gloss, the weave is back'; },
+      stage: function(t){ return t < .3 ? 'Faded' : t < .62 ? 'Stripped' : 'Re-cleared'; }
+    }
+  };
+
+  document.querySelectorAll('[data-mod]').forEach(function(el){
+    var M = MODS[el.dataset.mod], cv = el.querySelector('canvas'), ctx = cv.getContext('2d'), range = el.querySelector('input[type=range]');
+    var btn = el.querySelector('[data-play]'), read = el.querySelector('[data-read]'), stage = el.querySelector('[data-stage]'), dur = +el.dataset.dur;
+    var c = {}, t = 0, raf = 0, played = false;
+    function render(){ if (!c.w) return; M.draw(ctx, c, t); read.innerHTML = M.read(t); if (stage && M.stage) stage.textContent = M.stage(t); range.value = Math.round(t * 1000); btn.textContent = t >= 1 ? '↺ Replay' : '▶ Play'; }
+    function size(){ var r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); c.dpr = d; c.w = cv.width = Math.max(1, Math.round(r.width * d)); c.h = cv.height = Math.max(1, Math.round(r.height * d)); M.setup(c); render(); }
+    function play(){
+      cancelAnimationFrame(raf); if (t >= 1) t = 0;
+      if (reduce){ t = 1; render(); return; }
+      var t0 = performance.now() - t * dur; btn.textContent = '❚❚ Playing';
+      (function step(now){ t = Math.min(1, (now - t0) / dur); render(); if (t < 1) raf = requestAnimationFrame(step); })(t0);
+    }
+    btn.addEventListener('click', play);
+    range.addEventListener('input', function(){ cancelAnimationFrame(raf); t = range.value / 1000; render(); });
+    new ResizeObserver(size).observe(cv); size();
+    if ('IntersectionObserver' in window) new IntersectionObserver(function(es){
+      if (es[0].isIntersecting && !played){ played = true; setTimeout(play, 350); }
+      if (!es[0].isIntersecting) cancelAnimationFrame(raf);
+    }, {threshold: .55}).observe(el.querySelector('.stage'));
+  });
+
+  var reel = document.getElementById('reel'), rb = document.getElementById('reel-btn');
+  if (reduce){ reel.classList.add('paused'); rb.hidden = true; }
+  rb.addEventListener('click', function(){ var p = reel.classList.toggle('paused'); rb.textContent = p ? '▶ Play' : '❚❚ Pause'; });
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ if (!reduce && rb.textContent.indexOf('Pause') > -1) reel.classList.toggle('paused', !es[0].isIntersecting); }).observe(reel);
+})();
+</script>
