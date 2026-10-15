@@ -1,0 +1,758 @@
+<title>Auto Aesthetics Directions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@200;500&family=Archivo:wdth,wght@75..125,500..900&family=Jost:wght@200;500&family=Instrument+Serif:ital@1&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=DM+Mono:wght@400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,500&family=Inter:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Anton&family=Homemade+Apple&family=Sora:wght@300;600&family=Stardos+Stencil:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@1,500&family=Karla:wght@400;600&display=swap">
+<style>
+/* Layout: a studio contact sheet. Ten live, self-contained hero mocks stacked down one column,
+   each followed by a four-cell spec strip (idea / motion / use it when / the risk). */
+:root{
+  --bg:#EDEDE8; --surface:#F7F7F3; --fg:#17181A; --muted:#5D615C; --line:#CFD1CA; --accent:#0F3B2E; --accent-ink:#FFFFFF; --warn:#9A3412;
+  --f-ui:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --img-hero:url({{hero}}); --img-paint:url({{paint}}); --img-pdr:url({{pdr}}); --img-carbon:url({{carbon}}); --img-shop:url({{shop}});
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121413;--surface:#1A1D1B;--fg:#E8E9E3;--muted:#9A9F98;--line:#2E322F;--accent:#86C9A6;--accent-ink:#0D1F17;--warn:#F59E6B;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121413;--surface:#1A1D1B;--fg:#E8E9E3;--muted:#9A9F98;--line:#2E322F;--accent:#86C9A6;--accent-ink:#0D1F17;--warn:#F59E6B;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.55 var(--f-ui);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px;margin:0 auto;padding-block:48px 96px;display:grid;gap:88px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.eyebrow{font:500 12px/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{text-wrap:balance;margin:0}
+
+/* intro */
+.intro{display:grid;gap:28px}
+.intro h1{font:700 clamp(2.2rem,5.4vw,4rem)/1.02 var(--f-ui);letter-spacing:-.025em;max-width:16ch}
+.intro p{margin:0;max-width:62ch;color:var(--muted);font-size:1.05rem}
+.intro p strong{color:var(--fg);font-weight:500}
+.index{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));border-top:1px solid var(--line)}
+.index li{border-bottom:1px solid var(--line)}
+.index a{display:grid;grid-template-columns:2.2em 1fr;gap:2px 8px;padding:12px 8px 12px 0;text-decoration:none}
+.index a:hover .n{color:var(--accent)}
+.index .n{font:500 12px/1.6 var(--f-mono);color:var(--muted);grid-row:span 2}
+.index .t{font-weight:500}
+.index .i{font:400 12px/1.4 var(--f-mono);color:var(--muted)}
+
+/* concept block */
+.concept{display:grid;gap:18px;scroll-margin-top:24px}
+.chead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;justify-content:space-between}
+.chead h2{font:700 clamp(1.5rem,3vw,2.1rem)/1.1 var(--f-ui);letter-spacing:-.015em}
+.chead h2 span{font:500 .55em/1 var(--f-mono);color:var(--muted);margin-right:.6em;vertical-align:.35em}
+.from{font:400 13px/1.4 var(--f-mono);color:var(--muted)}
+.from a{color:var(--fg)}
+.frame{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.chrome{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line);font:400 11px/1 var(--f-mono);color:var(--muted)}
+.chrome i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+.chrome span{margin-left:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.spec{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.spec div{padding:14px 18px 4px 0;min-width:0}
+.spec div + div{padding-left:18px;border-left:1px solid var(--line)}
+.spec h3{font:500 11px/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.spec p{margin:0;font-size:14.5px;line-height:1.5}
+.spec .risk h3{color:var(--warn)}
+.tier{display:inline-block;font:500 11px/1 var(--f-mono);padding:4px 6px;border:1px solid var(--line);border-radius:4px;margin-bottom:6px}
+@media (max-width:860px){.spec{grid-template-columns:1fr 1fr}.spec div:nth-child(3){padding-left:0;border-left:0}.spec div:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:520px){.spec{grid-template-columns:1fr}.spec div,.spec div + div{padding-left:0;border-left:0}.spec div + div{border-top:1px solid var(--line)}}
+
+/* verdict */
+.verdict{display:grid;gap:22px;border-top:2px solid var(--fg);padding-top:28px}
+.verdict h2{font:700 clamp(1.6rem,3.4vw,2.4rem)/1.08 var(--f-ui);letter-spacing:-.02em}
+.verdict ol{margin:0;padding-left:1.3em;display:grid;gap:12px;max-width:72ch}
+.verdict li::marker{font-family:var(--f-mono);color:var(--muted)}
+.verdict p{margin:0;max-width:72ch}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.cols > div{min-width:0}
+.cols h3{font:500 12px/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.cols ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+
+/* ============ shared mock scaffolding ============ */
+.mock{position:relative;container-type:inline-size;aspect-ratio:16/10;overflow:hidden;isolation:isolate;max-width:100%}
+.mock *{box-sizing:border-box}
+.mock .photo{position:absolute;background-size:cover;background-repeat:no-repeat}
+.mock button,.mock input{font:inherit;color:inherit}
+@container (max-width:620px){.mock-inner{--narrow:1}}
+@media (max-width:620px){.mock{aspect-ratio:4/5}}
+.mock .anim{animation-play-state:paused}
+.mock.inview .anim{animation-play-state:running}
+@media (prefers-reduced-motion:reduce){.mock .anim{animation:none!important}}
+
+/* ---- 01 Showroom Noir ---- */
+.c1{background:#0C0C0D;color:#F2F1EE;font-family:"Outfit",sans-serif}
+.c1 .photo{inset:0;background-image:var(--img-hero);background-position:center 42%;filter:saturate(.9)}
+.c1::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(8,8,9,.92) 0%,rgba(8,8,9,.65) 38%,rgba(8,8,9,0) 70%),linear-gradient(0deg,rgba(8,8,9,.85),rgba(8,8,9,0) 30%)}
+.c1 .sweep{position:absolute;inset:-20% -60%;z-index:2;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.22) 49%,rgba(255,255,255,.04) 53%,transparent 58%);mix-blend-mode:screen;transform:translateX(-60%);animation:c1sweep 7s cubic-bezier(.6,0,.2,1) .4s 1 both;pointer-events:none}
+.c1:hover .sweep{animation:c1sweep 2.4s cubic-bezier(.6,0,.2,1) 1 both;animation-play-state:running}
+@keyframes c1sweep{to{transform:translateX(60%)}}
+.c1 .nav{position:absolute;z-index:3;top:4cqi;left:5cqi;right:5cqi;display:flex;justify-content:space-between;align-items:center;font-size:clamp(10px,1.3cqi,14px);letter-spacing:.18em;text-transform:uppercase}
+.c1 .nav b{font-weight:500}
+.c1 .copy{position:absolute;z-index:3;left:5cqi;top:22%;width:min(48cqi,560px);display:grid;gap:2.2cqi}
+.c1 h4{margin:0;font-weight:200;font-size:clamp(28px,6.2cqi,78px);line-height:.98;letter-spacing:-.02em}
+.c1 p{margin:0;font-size:clamp(11px,1.45cqi,16px);color:#B9B8B3;max-width:40ch}
+.c1 .btn{justify-self:start;background:#F2F1EE;color:#0C0C0D;border:0;padding:1.3cqi 2.4cqi;font-weight:500;font-size:clamp(11px,1.35cqi,15px);letter-spacing:.06em;border-radius:2px;cursor:pointer}
+.c1 .proof{position:absolute;z-index:3;left:5cqi;right:5cqi;bottom:3.5cqi;display:flex;gap:4cqi;font-size:clamp(9px,1.15cqi,13px);color:#9C9B96;border-top:1px solid rgba(255,255,255,.14);padding-top:1.6cqi}
+.c1 .proof b{color:#F2F1EE;font-weight:500;display:block;font-size:1.25em}
+.c1 .slot{border:1px dashed rgba(255,255,255,.3);padding:.2em .5em}
+
+/* ---- 02 Correction Sheet ---- */
+.c2{background:#ECEBE6;color:#161616;font-family:"Archivo",sans-serif;
+  background-image:linear-gradient(#D9D7D0 1px,transparent 1px),linear-gradient(90deg,#D9D7D0 1px,transparent 1px);background-size:2.5cqi 2.5cqi}
+.c2 .title{position:absolute;left:4cqi;top:4cqi;bottom:4cqi;width:44%;display:flex;flex-direction:column;justify-content:space-between}
+.c2 .meta{font:400 clamp(9px,1.05cqi,12px)/1.5 "IBM Plex Mono",monospace;color:#57564F;display:grid;grid-template-columns:auto 1fr;gap:0 1.4cqi;border:1px solid #161616;padding:1cqi 1.4cqi;background:#ECEBE6}
+.c2 h4{margin:0;font-stretch:78%;font-weight:900;text-transform:uppercase;font-size:clamp(26px,6cqi,76px);line-height:.88;letter-spacing:-.01em}
+.c2 h4 em{font-style:normal;color:#C2410C}
+.c2 .lede{font-size:clamp(11px,1.35cqi,15px);max-width:36ch;margin:0}
+.c2 .cta{display:flex;gap:1.4cqi;align-items:center}
+.c2 .btn{background:#161616;color:#ECEBE6;border:0;padding:1.2cqi 2cqi;font-weight:700;font-size:clamp(11px,1.3cqi,14px);text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+.c2 .cta span{font:400 clamp(9px,1.05cqi,12px) "IBM Plex Mono",monospace;color:#57564F}
+.c2 .sheet{position:absolute;right:4cqi;top:4cqi;bottom:4cqi;width:46%;border:1px solid #161616;background:#ECEBE6;overflow:hidden;cursor:crosshair}
+.c2 .sheet .photo{inset:0;background-image:var(--img-hero);background-position:center 46%;filter:grayscale(1) contrast(1.15) brightness(1.05);mix-blend-mode:multiply;opacity:.9}
+.c2 .dim{position:absolute;font:400 clamp(8px,.95cqi,11px) "IBM Plex Mono",monospace;color:#161616;background:#ECEBE6;padding:0 .4em}
+.c2 .readout{position:absolute;right:0;bottom:0;font:400 clamp(8px,.95cqi,11px) "IBM Plex Mono",monospace;background:#161616;color:#ECEBE6;padding:.5cqi .9cqi}
+.c2 .hs{position:absolute;width:2.6cqi;height:2.6cqi;min-width:18px;min-height:18px;border-radius:50%;border:0;background:#C2410C;color:#fff;font:700 clamp(9px,1cqi,12px) "IBM Plex Mono",monospace;cursor:pointer;transform:translate(-50%,-50%);padding:0}
+.c2 .hs::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid #C2410C;animation:c2ping 2.4s ease-out infinite;animation-play-state:inherit}
+.c2.inview .hs::after{animation-play-state:running}.c2:not(.inview) .hs::after{animation-play-state:paused}
+@keyframes c2ping{0%{transform:scale(.7);opacity:1}100%{transform:scale(1.8);opacity:0}}
+@media (prefers-reduced-motion:reduce){.c2 .hs::after{animation:none;opacity:.5}}
+.c2 .tip{position:absolute;z-index:4;width:min(30cqi,260px);background:#161616;color:#ECEBE6;padding:1.2cqi 1.4cqi;font-size:clamp(10px,1.15cqi,13px);line-height:1.4;transform:translate(-50%,calc(-100% - 2.2cqi))}
+.c2 .tip b{display:block;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#FDBA74;margin-bottom:.3em}
+.c2 .tip span{display:block;font-family:"IBM Plex Mono",monospace;font-size:.9em;color:#B5B3AB;margin-top:.4em}
+
+/* ---- 03 The Weave ---- */
+.c3{background:radial-gradient(ellipse at 50% 55%,#1C2A2E 0%,#0A1114 62%);color:#E9EEF0;font-family:"Jost",sans-serif}
+.c3 .nav{position:absolute;top:3.4cqi;left:50%;transform:translateX(-50%);display:flex;gap:2.4cqi;align-items:center;border:1px solid rgba(233,238,240,.18);border-radius:99px;padding:.8cqi 1cqi .8cqi 2cqi;font-size:clamp(9px,1.15cqi,13px);white-space:nowrap;background:rgba(10,17,20,.5)}
+.c3 .nav button{background:#E9EEF0;color:#0A1114;border:0;border-radius:99px;padding:.6cqi 1.6cqi;font-weight:500;cursor:pointer}
+.c3 .stage{position:absolute;left:50%;top:54%;width:30cqi;height:30cqi;transform:translate(-50%,-50%);perspective:900px}
+.c3 .tile{position:absolute;inset:0;border-radius:3cqi;transform-style:preserve-3d;animation:c3spin 14s linear infinite;
+  background-color:#1a1a1a;
+  background-image:linear-gradient(27deg,#141414 5px,transparent 5px),linear-gradient(207deg,#141414 5px,transparent 5px),linear-gradient(27deg,#262626 5px,transparent 5px),linear-gradient(207deg,#262626 5px,transparent 5px),linear-gradient(90deg,#1c1c1c 10px,transparent 10px),linear-gradient(#1d1d1d 25%,#1a1a1a 25%,#1a1a1a 50%,transparent 50%,transparent 75%,#2a2a2a 75%,#2a2a2a);
+  background-position:0 5px,10px 0,0 10px,10px 5px,0 0,0 0;background-size:20px 20px;
+  box-shadow:0 4cqi 8cqi rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.08)}
+.c3 .tile::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(120deg,rgba(255,255,255,0) 30%,rgba(220,235,250,.35) 46%,rgba(255,255,255,0) 60%);background-size:250% 100%;animation:c3gloss 7s ease-in-out infinite alternate;animation-play-state:inherit}
+@keyframes c3spin{0%{transform:rotateX(14deg) rotateY(-28deg)}50%{transform:rotateX(8deg) rotateY(28deg)}100%{transform:rotateX(14deg) rotateY(-28deg)}}
+@keyframes c3gloss{from{background-position:100% 0}to{background-position:0 0}}
+.c3 h4{position:absolute;left:5cqi;top:40%;margin:0;font-weight:200;font-size:clamp(24px,5.4cqi,68px);line-height:1;letter-spacing:-.02em;width:28cqi}
+.c3 .serif{position:absolute;right:5cqi;top:44%;font-family:"Instrument Serif",serif;font-style:italic;font-size:clamp(18px,3.4cqi,44px);line-height:1.05;text-align:right;width:24cqi;color:#C9D6DC}
+.c3 .foot{position:absolute;left:5cqi;right:5cqi;bottom:3.6cqi;display:flex;justify-content:space-between;font-size:clamp(9px,1.15cqi,13px);color:#8FA2AA;gap:2cqi}
+.c3 .foot b{color:#E9EEF0;font-weight:500}
+
+/* ---- 04 Macro Finish ---- */
+.c4{background:#16181B;color:#F4F2EE}
+.c4 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.c4::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 30% 40%,transparent 30%,rgba(10,10,12,.55) 100%)}
+.c4 .nav{position:absolute;z-index:2;top:3.4cqi;left:4cqi;right:4cqi;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;font:400 clamp(9px,1.05cqi,12px) "DM Mono",monospace;letter-spacing:.06em;color:#CFCBC4}
+.c4 .nav .wm{font-family:"Cormorant Garamond",serif;font-size:clamp(12px,1.6cqi,18px);letter-spacing:.42em;text-transform:uppercase;color:#F4F2EE}
+.c4 .nav .r{justify-self:end}
+.c4 h4{position:absolute;z-index:2;right:6cqi;bottom:12%;margin:0;font:500 clamp(24px,5.6cqi,72px)/.98 "Cormorant Garamond",serif;text-align:left;width:40cqi;letter-spacing:-.01em}
+.c4 h4 i{font-style:italic;color:#D8C6A6}
+.c4 .sub{position:absolute;z-index:2;left:4cqi;bottom:5cqi;font:400 clamp(9px,1.05cqi,12px)/1.6 "DM Mono",monospace;color:#B6B1A8;max-width:30cqi}
+.c4 .sub a{color:#F4F2EE}
+
+/* ---- 05 Reserve the Bay ---- */
+.c5{background:#050505;color:#F1EFEA;font-family:"Inter",sans-serif;display:grid;grid-template-rows:auto 1fr;padding:3.6cqi 4cqi;gap:2.6cqi}
+.c5 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:3cqi}
+.c5 .wm{font:500 clamp(26px,6.4cqi,82px)/.92 "Bodoni Moda",serif;letter-spacing:-.02em}
+.c5 .wm i{display:block;font-size:.34em;color:#9A958C;margin-top:.5em;letter-spacing:0}
+.c5 .card{background:#141414;border:1px solid #262626;border-radius:1.6cqi;padding:1.6cqi;width:min(30cqi,300px);display:grid;gap:1cqi;font-size:clamp(9px,1.15cqi,13px)}
+.c5 .row{display:flex;justify-content:space-between;gap:1em;color:#9A958C}
+.c5 .row b{color:#F1EFEA;font-weight:600}
+.c5 .row s{color:#6B675F}
+.c5 .tbd{border-bottom:1px dashed #6B675F;color:#C9C4BA}
+.c5 .btn{border:0;border-radius:1cqi;padding:1.2cqi;font-weight:600;background:#B4231A;color:#fff;cursor:pointer;box-shadow:0 0 0 0 rgba(180,35,26,.6);animation:c5glow 3s ease-in-out infinite}
+@keyframes c5glow{50%{box-shadow:0 0 3cqi .4cqi rgba(180,35,26,.45)}}
+.c5 .panels{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:1.4cqi;min-height:0}
+.c5 .panel{position:relative;border-radius:1.4cqi;overflow:hidden;background:#141414}
+.c5 .panel .photo{inset:0}
+.c5 .panel:nth-child(1) .photo{background-image:var(--img-paint);background-position:center 60%}
+.c5 .panel:nth-child(2) .photo{background-image:var(--img-pdr);background-position:center 50%}
+.c5 .panel:nth-child(3) .photo{background-image:var(--img-carbon);background-position:center 55%}
+.c5 .panel figcaption{position:absolute;left:1.2cqi;bottom:1.2cqi;right:1.2cqi;font-size:clamp(9px,1.1cqi,12px);background:rgba(5,5,5,.72);backdrop-filter:blur(6px);padding:.8cqi 1cqi;border-radius:.8cqi;display:flex;justify-content:space-between;gap:1em}
+.c5 .panel figcaption span{color:#9A958C}
+.c5 figure{margin:0}
+
+/* ---- 06 Job Tracker ---- */
+.c6{background:#F6F7F5;color:#14171A;font-family:"IBM Plex Sans",sans-serif;display:grid;grid-template-columns:6.5cqi 1fr}
+.c6 .rail{background:#14171A;display:flex;flex-direction:column;align-items:center;padding-top:2.4cqi;gap:2cqi}
+.c6 .rail i{width:2.4cqi;height:2.4cqi;border-radius:.6cqi;background:#2A3036;display:block}
+.c6 .rail i:first-child{background:#0F3B2E;outline:1px solid #2F7A5D}
+.c6 main{padding:2.6cqi 3.4cqi;display:grid;gap:1.8cqi;align-content:start;min-width:0}
+.c6 .crumbs{font:400 clamp(9px,1.05cqi,12px) "IBM Plex Mono",monospace;color:#6B7280;display:flex;justify-content:space-between;gap:1em}
+.c6 .ex{background:#FEF3C7;color:#78350F;padding:.1em .5em;border-radius:3px}
+.c6 h4{margin:0;font-weight:600;font-size:clamp(16px,2.8cqi,34px);letter-spacing:-.015em;line-height:1.1}
+.c6 h4 small{display:block;font-weight:400;font-size:.45em;color:#6B7280;letter-spacing:0;margin-top:.3em}
+.c6 .alert{display:flex;justify-content:space-between;align-items:center;gap:2cqi;background:#E7F2EC;border:1px solid #B8D9C6;border-radius:1cqi;padding:1.1cqi 1.6cqi;font-size:clamp(10px,1.2cqi,14px)}
+.c6 .alert b{color:#0F3B2E}
+.c6 .alert button{background:#0F3B2E;color:#fff;border:0;border-radius:.7cqi;padding:.8cqi 1.4cqi;font-weight:600;white-space:nowrap;cursor:pointer}
+.c6 .stages{display:grid;grid-template-columns:repeat(4,1fr);gap:1cqi}
+.c6 .st{background:#fff;border:1px solid #E1E4E0;border-radius:1cqi;padding:1.1cqi 1.3cqi;font-size:clamp(9px,1.1cqi,13px);display:grid;gap:.6cqi;min-width:0}
+.c6 .st b{font-size:1.1em}
+.c6 .st .lab{font-family:"IBM Plex Mono",monospace;font-size:.85em;color:#6B7280}
+.c6 .bar{height:.6cqi;min-height:4px;background:#E5E7EB;border-radius:9px;overflow:hidden}
+.c6 .bar i{display:block;height:100%;background:#10B981;border-radius:9px;transform-origin:left}
+.c6 .st.now{border-color:#10B981;box-shadow:0 0 0 1px #10B981}
+.c6 .st.now .bar i{background:#0F3B2E;width:66%}
+.c6 .st.next .lab{color:#9CA3AF}
+.c6.inview.play .bar i{animation:c6fill 1.4s cubic-bezier(.2,.7,.2,1) both}
+.c6.inview.play .st:nth-child(2) .bar i{animation-delay:.25s}.c6.inview.play .st:nth-child(3) .bar i{animation-delay:.5s}
+@keyframes c6fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.c6 .log{display:grid;grid-template-columns:repeat(4,1fr);gap:1cqi}
+.c6 .shot{position:relative;aspect-ratio:4/3;border-radius:.9cqi;overflow:hidden;background:#E5E7EB}
+.c6 .shot .photo{inset:0}
+.c6 .foot{display:flex;justify-content:space-between;gap:2cqi;flex-wrap:wrap;font:400 clamp(9px,1.05cqi,12px) "IBM Plex Mono",monospace;color:#6B7280;border-top:1px solid #E1E4E0;padding-top:1.4cqi}
+.c6 .shot span{position:absolute;left:.6cqi;bottom:.6cqi;font:400 clamp(8px,.95cqi,11px) "IBM Plex Mono",monospace;background:rgba(20,23,26,.78);color:#fff;padding:.2em .5em;border-radius:3px}
+@media (prefers-reduced-motion:reduce){.c6 .bar i{animation:none!important}}
+
+/* ---- 07 Wordmark Cutout ---- */
+.c7{background:#EFEEEA;color:#111;font-family:"Anton",sans-serif}
+.c7 .grain{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.18;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+.c7 .word{position:absolute;left:-1cqi;right:-1cqi;top:14%;font-size:20.5cqi;line-height:.8;letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap;text-align:center;z-index:1}
+.c7 .ink{position:absolute;z-index:2;width:42cqi;height:42cqi;left:-10cqi;top:-14cqi;border-radius:46% 54% 60% 40%/50% 42% 58% 50%;background:#EFEEEA;mix-blend-mode:difference;animation:c7drift 16s ease-in-out infinite alternate;pointer-events:none}
+@keyframes c7drift{to{transform:translate(10cqi,8cqi) rotate(30deg)}}
+.c7 .script{position:absolute;z-index:3;right:7cqi;top:37%;font-family:"Homemade Apple",cursive;font-size:clamp(14px,3cqi,36px);color:#B4231A;transform:rotate(-6deg)}
+.c7 .cut{position:absolute;z-index:3;left:4cqi;bottom:0;width:38cqi;height:52%;background-image:var(--img-shop);background-size:cover;background-position:center 60%;filter:grayscale(1) contrast(1.1);-webkit-mask-image:linear-gradient(0deg,#000 70%,transparent);mask-image:linear-gradient(0deg,#000 70%,transparent)}
+.c7 .side{position:absolute;z-index:3;right:5cqi;bottom:5cqi;width:34cqi;display:grid;gap:1.6cqi;font-family:"Inter",sans-serif;font-size:clamp(10px,1.25cqi,14px);line-height:1.45}
+.c7 .side ul{list-style:none;margin:0;padding:0;font-family:"Anton",sans-serif;text-transform:uppercase;font-size:1.25em;line-height:1.25;letter-spacing:.01em}
+.c7 .side p{margin:0;color:#444}
+.c7 .btn{justify-self:start;background:#111;color:#EFEEEA;border:0;border-radius:99px;padding:1.1cqi 2.2cqi;font-weight:600;cursor:pointer}
+.c7 .nav{position:absolute;z-index:4;top:3cqi;right:5cqi;display:flex;gap:2.4cqi;font:500 clamp(9px,1.1cqi,13px) "Inter",sans-serif}
+
+/* ---- 08 Describe It ---- */
+.c8{background:#131210;color:#F3EFE8;font-family:"Sora",sans-serif}
+.c8::before{content:"";position:absolute;left:50%;top:44%;width:90cqi;height:56cqi;transform:translate(-50%,-50%);background:radial-gradient(ellipse at center,rgba(242,140,40,.38),rgba(242,140,40,.08) 45%,transparent 70%);filter:blur(2cqi);z-index:0}
+.c8 .in{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2cqi;padding:0 6cqi;text-align:center}
+.c8 .nav{position:absolute;z-index:2;top:3cqi;left:4cqi;right:4cqi;display:flex;justify-content:space-between;font-size:clamp(9px,1.15cqi,13px);font-weight:600}
+.c8 .nav span{font-weight:300;color:#B7AFA2}
+.c8 h4{margin:0;font-weight:300;font-size:clamp(24px,5.2cqi,64px);line-height:1.02;letter-spacing:-.03em}
+.c8 h4 b{font-weight:600}
+.c8 .sub{margin:0;font-weight:300;font-size:clamp(10px,1.35cqi,15px);color:#C9C1B4;max-width:52ch}
+.c8 form{width:min(62cqi,640px);display:flex;align-items:center;gap:1cqi;background:#F3EFE8;border-radius:1.6cqi;padding:.9cqi .9cqi .9cqi 2cqi;box-shadow:0 2cqi 6cqi rgba(0,0,0,.45)}
+.c8 input{flex:1;min-width:0;border:0;background:transparent;color:#131210;font-size:clamp(11px,1.45cqi,16px);padding:.8cqi 0;outline:none}
+.c8 input::placeholder{color:#857D70}
+.c8 form button{width:4cqi;height:4cqi;min-width:28px;min-height:28px;border-radius:1cqi;border:0;background:#131210;color:#F3EFE8;font-size:clamp(12px,1.6cqi,18px);cursor:pointer;flex:none}
+.c8 form:focus-within{outline:2px solid #F28C28;outline-offset:3px}
+.c8 .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.8cqi}
+.c8 .chips button{border:1px solid rgba(243,239,232,.22);background:rgba(243,239,232,.04);border-radius:99px;padding:.5cqi 1.3cqi;font-size:clamp(9px,1.1cqi,13px);cursor:pointer}
+.c8 .chips button:hover{border-color:#F28C28}
+.c8 .result{font:400 clamp(9px,1.1cqi,13px) "IBM Plex Mono",monospace;color:#F7C08A;min-height:1.4em}
+.c8 .makes{position:absolute;z-index:1;left:0;right:0;bottom:3cqi;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
+.c8 .makes .track{display:flex;gap:5cqi;width:max-content;animation:c8marq 28s linear infinite;font-size:clamp(9px,1.2cqi,14px);letter-spacing:.14em;text-transform:uppercase;color:#7F786C}
+.c8 .makes:hover .track{animation-play-state:paused}
+@keyframes c8marq{to{transform:translateX(-50%)}}
+
+/* ---- 09 Workshop Ledger ---- */
+.c9{background:#DCDDD7;color:#111311;font-family:"JetBrains Mono",monospace;display:grid;grid-template-rows:auto 1fr auto}
+.c9 .tick{background:#111311;color:#DCDDD7;overflow:hidden;white-space:nowrap;font-size:clamp(8px,1cqi,12px);padding:.8cqi 0;letter-spacing:.08em}
+.c9 .tick div{display:inline-block;animation:c8marq 30s linear infinite}
+.c9 .tick em{font-style:normal;color:#7DD3A8}
+.c9 .grid{display:grid;grid-template-columns:1.5fr 1fr;border-bottom:1px solid #111311;min-height:0}
+.c9 .grid > div{padding:2.6cqi 3cqi;min-width:0}
+.c9 .grid > div + div{border-left:1px solid #111311;display:flex;flex-direction:column;justify-content:space-between;gap:2cqi}
+.c9 .grid > div:first-child{display:flex;flex-direction:column;justify-content:space-between;gap:2cqi}
+.c9 .roof{font-size:clamp(9px,1.1cqi,13px);text-transform:uppercase;letter-spacing:.08em;color:#4A4F49}
+.c9 h4{margin:0;font:700 clamp(26px,6.6cqi,84px)/.9 "Stardos Stencil",Impact,sans-serif;text-transform:uppercase;letter-spacing:-.01em}
+.c9 h4 span{color:#0F5A3F}
+.c9 p{margin:0;font-size:clamp(9px,1.15cqi,13px);line-height:1.6;max-width:44ch}
+.c9 .btns{display:flex;gap:1cqi;flex-wrap:wrap}
+.c9 .btn{background:#0F5A3F;color:#F2F3EE;border:0;padding:1.1cqi 1.8cqi;font:700 clamp(9px,1.15cqi,13px) "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+.c9 .btn.o{background:transparent;color:#111311;outline:1px solid #111311;outline-offset:-1px}
+.c9 .yard{position:relative;flex:1;min-height:10cqi;border:1px solid #111311;overflow:hidden}
+.c9 .yard .photo{inset:0;background-image:var(--img-carbon);background-position:center 45%;filter:grayscale(1) contrast(1.35);mix-blend-mode:multiply}
+.c9 .yard::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(17,19,17,.12) 0 1px,transparent 1px 3px)}
+.c9 .stats{display:grid;grid-template-columns:repeat(3,1fr)}
+.c9 .stats div{padding:1.8cqi 3cqi;min-width:0}
+.c9 .stats div + div{border-left:1px solid #111311}
+.c9 .stats b{display:block;font:700 clamp(16px,3.4cqi,44px)/1 "Stardos Stencil",Impact,sans-serif;text-transform:uppercase}
+.c9 .stats span{font-size:clamp(8px,1cqi,12px);text-transform:uppercase;letter-spacing:.08em;color:#4A4F49}
+
+/* ---- 10 Before / After Atelier ---- */
+.c10{background:#0E0E0F;color:#F4F1EC;font-family:"Karla",sans-serif;display:grid;grid-template-columns:38% 1fr}
+.c10 .txt{padding:4cqi 3cqi 4cqi 4.4cqi;display:flex;flex-direction:column;justify-content:space-between;gap:2cqi;min-width:0}
+.c10 .lab{font-size:clamp(9px,1cqi,12px);letter-spacing:.32em;text-transform:uppercase;color:#8E8A84}
+.c10 h4{margin:0;font:500 italic clamp(26px,5.4cqi,70px)/.98 "Playfair Display",serif;letter-spacing:-.02em}
+.c10 p{margin:0;font-size:clamp(10px,1.3cqi,15px);color:#B5B0A8;max-width:34ch}
+.c10 .btns{display:flex;gap:1cqi;flex-wrap:wrap}
+.c10 .btn{border-radius:99px;padding:1.1cqi 2.2cqi;font-weight:600;font-size:clamp(10px,1.2cqi,14px);border:1px solid #F4F1EC;background:#F4F1EC;color:#0E0E0F;cursor:pointer}
+.c10 .btn.o{background:transparent;color:#F4F1EC}
+.c10 .ba{position:relative;overflow:hidden;--pos:50%}
+.c10 .ba .photo{inset:0;background-image:var(--img-hero);background-position:center 28%}
+.c10 .ba .before{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.c10 .ba .before .photo{filter:saturate(.55) contrast(.78) brightness(1.12) blur(.4px)}
+.c10 .ba canvas{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;opacity:.9}
+.c10 .ba .line{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;background:#F4F1EC;transform:translateX(-1px);pointer-events:none}
+.c10 .ba .knob{position:absolute;top:50%;left:var(--pos);width:5cqi;height:5cqi;min-width:30px;min-height:30px;border-radius:50%;background:#F4F1EC;color:#0E0E0F;transform:translate(-50%,-50%);display:grid;place-items:center;font-size:clamp(10px,1.4cqi,16px);pointer-events:none;box-shadow:0 .6cqi 2cqi rgba(0,0,0,.4)}
+.c10 .ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.c10 .ba input:focus-visible ~ .knob{outline:2px solid #F4F1EC;outline-offset:4px}
+.c10 .tag{position:absolute;top:2cqi;font-size:clamp(8px,1cqi,12px);letter-spacing:.2em;text-transform:uppercase;background:rgba(14,14,15,.7);padding:.4em .8em;pointer-events:none}
+.c10 .tag.l{left:2cqi}.c10 .tag.r{right:2cqi}
+.c10 .sim{position:absolute;left:2cqi;bottom:2cqi;font:400 clamp(8px,.95cqi,11px) "IBM Plex Mono",monospace;color:#F4F1EC;background:rgba(154,52,18,.85);padding:.3em .6em;pointer-events:none}
+
+/* ---- narrow (phone): rules on the mock element itself need a media query ---- */
+@media (max-width:620px){
+  .mock.c5{grid-template-rows:auto 1fr}
+  .mock.c6{grid-template-columns:1fr;aspect-ratio:auto}
+  .mock.c10{grid-template-columns:1fr;grid-template-rows:auto minmax(320px,1fr);aspect-ratio:auto}
+  .mock.c9{aspect-ratio:auto}
+}
+/* ---- narrow (phone) reflows for each mock ---- */
+@container (max-width:620px){
+  .c1 .copy{width:auto;right:5cqi;top:auto;bottom:20cqi}
+  .c1 h4{font-size:11cqi}.c1 p{font-size:3.4cqi}.c1 .btn{font-size:3.4cqi;padding:2.6cqi 4cqi}.c1 .nav{font-size:2.8cqi}
+  .c1 .proof{font-size:2.6cqi}
+  .c2{background-size:5cqi 5cqi}
+  .c2 .title{left:5cqi;right:5cqi;width:auto;top:auto;bottom:4cqi;height:auto;gap:3cqi}
+  .c2 .meta{display:none}
+  .c2 h4{font-size:11cqi}.c2 .lede{font-size:3.4cqi}.c2 .btn{font-size:3.2cqi;padding:2.4cqi 3.4cqi}.c2 .cta span{font-size:2.6cqi}
+  .c2 .sheet{left:5cqi;right:5cqi;width:auto;top:5cqi;bottom:58%}
+  .c2 .tip{width:56cqi;font-size:3cqi}
+  .c3 .nav{font-size:2.8cqi;top:5cqi}
+  .c3 .stage{width:52cqi;height:52cqi;top:46%}
+  .c3 h4{top:6%;top:16cqi;left:5cqi;width:auto;font-size:9cqi}
+  .c3 .serif{top:auto;bottom:20cqi;right:5cqi;width:auto;font-size:7cqi}
+  .c3 .foot{font-size:2.8cqi;flex-direction:column}
+  .c4 .nav{font-size:2.6cqi}.c4 .nav .wm{font-size:3.2cqi}.c4 .nav .r{display:none}.c4 .nav{grid-template-columns:auto 1fr}
+  .c4 h4{width:auto;left:6cqi;font-size:10cqi;bottom:24%}
+  .c4 .sub{max-width:none;right:6cqi;font-size:2.8cqi}
+  .c5 .top{flex-direction:column}.c5 .wm{font-size:12cqi}
+  .c5 .card{width:100%;font-size:3cqi;padding:3.4cqi;gap:2cqi}
+  .c5 .panels{grid-template-columns:1fr 1fr;grid-template-rows:1fr}
+  .c5 .panel:nth-child(3){display:none}
+  .c5 .panel figcaption{font-size:2.6cqi}
+  .c6 .rail{display:none}
+  .c6 main{padding:5cqi;gap:3.2cqi}
+  .c6 .crumbs,.c6 .alert,.c6 .st{font-size:2.8cqi}.c6 h4{font-size:6.2cqi}
+  .c6 .stages{grid-template-columns:1fr 1fr}
+  .c6 .log{grid-template-columns:1fr 1fr}.c6 .shot:nth-child(n+3){display:none}
+  .c6 .alert{flex-direction:column;align-items:flex-start}
+  .c7 .word{font-size:21cqi;top:12%}
+  .c7 .script{top:31%;font-size:5cqi}
+  .c7 .cut{width:60cqi;height:46%}
+  .c7 .side{left:5cqi;right:5cqi;width:auto;bottom:4cqi;font-size:3cqi;background:rgba(239,238,234,.86);padding:3cqi}
+  .c7 .nav{font-size:2.8cqi}
+  .c8 h4{font-size:9.4cqi}.c8 .sub{font-size:3.3cqi}
+  .c8 form{width:100%;padding:2cqi 2cqi 2cqi 3.4cqi}.c8 input{font-size:3.4cqi}
+  .c8 .chips button{font-size:2.8cqi;padding:1.2cqi 2.4cqi}.c8 .nav{font-size:2.8cqi}.c8 .result{font-size:2.8cqi}
+  .c8 .makes .track{font-size:2.6cqi}
+  .c9 .grid{grid-template-columns:1fr}
+  .c9 .grid > div + div{border-left:0;border-top:1px solid #111311}
+  .c9 h4{font-size:11cqi}.c9 p{font-size:3cqi}.c9 .btn{font-size:2.8cqi;padding:2.2cqi 3cqi}.c9 .tick{font-size:2.6cqi}
+  .c9 .yard{display:none}
+  .c9 .stats b{font-size:5.6cqi}.c9 .stats span{font-size:2.3cqi}.c9 .stats div{padding:3cqi}
+  .c10 .txt{padding:5cqi;gap:3cqi}
+  .c10 h4{font-size:10cqi}.c10 p{font-size:3.3cqi}.c10 .btn{font-size:3.1cqi;padding:2.2cqi 4cqi}.c10 .lab{font-size:2.6cqi}
+  .c10 .tag,.c10 .sim{font-size:2.4cqi}
+}
+</style>
+
+<div class="wrap">
+
+<header class="intro">
+  <div class="eyebrow">Auto Aesthetics · redesign directions · October 2026</div>
+  <h1>Ten ways the next site could look.</h1>
+  <p>Every concept below uses <strong>the same business, the same photos and the same copy</strong> as the live page, so the only thing changing is the design. Each one borrows its structure from a reference in the Inspiration Library taken from a <strong>different industry</strong>: hardware stores, architecture studios, fintech dashboards, med spas, beverage brands and more. Each one also states its motion tier under our motion rules and the main way it could fail.</p>
+  <p>The mocks are live. Hover, drag, click the hotspots and type in the boxes. Under each one, "The risk" is the main reason it could lose leads.</p>
+  <ol class="index">
+    <li><a href="#c1"><span class="n">01</span><span class="t">Showroom Noir</span><span class="i">car detailing</span></a></li>
+    <li><a href="#c2"><span class="n">02</span><span class="t">Correction Sheet</span><span class="i">architecture tech</span></a></li>
+    <li><a href="#c3"><span class="n">03</span><span class="t">The Weave</span><span class="i">beverage ecommerce</span></a></li>
+    <li><a href="#c4"><span class="n">04</span><span class="t">Macro Finish</span><span class="i">luxury property</span></a></li>
+    <li><a href="#c5"><span class="n">05</span><span class="t">Reserve the Bay</span><span class="i">boutique hardware</span></a></li>
+    <li><a href="#c6"><span class="n">06</span><span class="t">Job Tracker</span><span class="i">fintech dashboard</span></a></li>
+    <li><a href="#c7"><span class="n">07</span><span class="t">Wordmark Cutout</span><span class="i">personal brand</span></a></li>
+    <li><a href="#c8"><span class="n">08</span><span class="t">Describe It</span><span class="i">AI SaaS</span></a></li>
+    <li><a href="#c9"><span class="n">09</span><span class="t">Workshop Ledger</span><span class="i">startup incubator</span></a></li>
+    <li><a href="#c10"><span class="n">10</span><span class="t">Before / After Atelier</span><span class="i">med spa + portfolio</span></a></li>
+  </ol>
+</header>
+
+<!-- 01 -->
+<section class="concept" id="c1">
+  <div class="chead"><h2><span>01</span>Showroom Noir</h2><div class="from">From: automotive · <a href="https://github.com/NoeRx98/Claude-Design-Library/blob/main/library/refs/r9j63fje9wa6vmomx5wp/README.md" target="_blank" rel="noopener">Dark showroom homepage with full-bleed car hero</a></div></div>
+  <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>autoaesthetics.com</span></div>
+  <div class="mock c1" role="img" aria-label="Concept 1 mock: dark full-bleed AMG GT 53 hero with a light sweep across the paint">
+    <div class="photo"></div><div class="sweep anim"></div>
+    <div class="nav"><b>Auto Aesthetics</b><span>Work · Process · Quote</span></div>
+    <div class="copy">
+      <h4>Restored to showroom standard.</h4>
+      <p>Paint correction and respray, paintless dent repair and carbon fiber restoration for luxury and exotic cars.</p>
+      <button class="btn" type="button">Get a quote for your car</button>
+    </div>
+    <div class="proof"><div><b>Same day</b>dent repair, when it can be</div><div><b>2 to 3 days</b>carbon restoration</div><div><b><span class="slot">★ rating</span></b>needs real Google reviews</div></div>
+  </div></div>
+  <div class="spec">
+    <div><h3>The idea</h3><p>The safe upgrade. The car is the hero, one white button and nothing else is bright, and proof sits on the first screen. It's the closest to what high-end detailers already run, so it reads as "legit" immediately.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 1 · CSS · 0 KB</span><p>One light sweep across the paint on load and on hover, like a shop light moving over a panel. Headline and CTA are static.</p></div>
+    <div><h3>Use it when</h3><p>Paid mobile traffic, cold audiences, or as the base the riskier ideas below plug into.</p></div>
+    <div class="risk"><h3>The risk</h3><p>It looks like every other dark car-care site, so it won't stand out. All the shop's photos are vertical phone frames, so a wide hero needs a proper landscape shoot.</p></div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="concept" id="c2">
+  <div class="chead"><h2><span>02</span>Correction Sheet</h2><div class="from">From: architecture tech · <a href="https://github.com/NoeRx98/Claude-Design-Library/blob/main/library/refs/t73vdxkygley9p6t28yx/README.md" target="_blank" rel="noopener">Blueprint-grid hero with interactive drawing</a></div></div>
+  <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>autoaesthetics.com</span></div>
+  <div class="mock c2" data-c2>
+    <div class="title">
+      <div class="meta"><span>SHEET</span><span>AA-01 · Inspection</span><span>VEHICLE</span><span>Mercedes-AMG GT 53</span><span>SCOPE</span><span>Paint · Dent · Carbon</span></div>
+      <h4>Find the flaw.<br><em>We fix it.</em></h4>
+      <p class="lede">Tap a marker to see which of our three disciplines handles it, and how long it usually takes.</p>
+      <div class="cta"><button class="btn" type="button">Get a quote</button><span>Free · 60 seconds</span></div>
+    </div>
+    <div class="sheet" aria-label="Inspection drawing with three damage markers">
+      <div class="photo"></div>
+      <span class="dim" style="left:6%;top:3%">← 1,953 mm →</span>
+      <span class="dim" style="right:3%;top:40%;writing-mode:vertical-rl">1,447 mm</span>
+      <button class="hs" type="button" style="left:44%;top:30%" data-tip="0" aria-expanded="false" aria-label="Hood marker">1</button>
+      <button class="hs" type="button" style="left:62%;top:58%" data-tip="1" aria-expanded="false" aria-label="Bumper marker">2</button>
+      <button class="hs" type="button" style="left:80%;top:72%" data-tip="2" aria-expanded="false" aria-label="Splitter marker">3</button>
+      <div class="tip" hidden></div>
+      <div class="readout">X 0412 · Y 0187</div>
+    </div>
+  </div></div>
+  <div class="spec">
+    <div><h3>The idea</h3><p>The hero works as an inspection. Visitors point at the kind of damage they have and learn which service fixes it and how long it takes. The service section and the form's "What does the car need?" step become one interaction.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 1 · vanilla JS · 0 KB</span><p>Markers pulse quietly. The coordinate readout tracks the pointer. A click opens the service card. Nothing moves near the headline.</p></div>
+    <div><h3>Use it when</h3><p>Visitors don't know what to ask for ("is this a dent or a respray?"). Teaching them is what the page is for.</p></div>
+    <div class="risk"><h3>The risk</h3><p>A hotspot only works if people tap it. If they don't, the page has a hidden menu. The hotspot answer has to carry a Get a quote button that carries the chosen service into the form.</p></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="concept" id="c3">
+  <div class="chead"><h2><span>03</span>The Weave</h2><div class="from">From: beverage ecommerce · <a href="https://github.com/NoeRx98/Claude-Design-Library/blob/main/library/refs/zu9yojyzuu84idat7hf8/README.md" target="_blank" rel="noopener">Rotating product can hero</a></div></div>
+  <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>autoaesthetics.com/carbon</span></div>
+  <div class="mock c3" role="img" aria-label="Concept 3 mock: a carbon fiber tile slowly turning in light at the center of a dark teal page">
+    <div class="nav"><span>Paint</span><span>Dent</span><b>Carbon</b><button type="button">Get a quote</button></div>
+    <h4>Weave, brought back.</h4>
+    <div class="stage"><div class="tile anim"></div></div>
+    <div class="serif">Glass-clear gloss.</div>
+    <div class="foot"><span>Sun-faded, yellowed or scratched clear coat stripped, corrected and re-cleared.</span><span><b>Typically 2 to 3 days</b></span></div>
+  </div></div>
+  <div class="spec">
+    <div><h3>The idea</h3><p>Treat one service like a product launch. A carbon sample turns slowly in light so the gloss shifts across the weave, the way a beverage brand turns its can. It works as a landing page for one service or one ad, not as the homepage.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 2 · signature · CSS 3D</span><p>The turning tile is the page's one signature moment. A pre-rendered video of the real hood would sell harder; use HyperFrames for that, at 2.5 MB or less, with a poster frame.</p></div>
+    <div><h3>Use it when</h3><p>You run an ad for one service ("faded carbon?") and send the clicks to a page about only that.</p></div>
+    <div class="risk"><h3>The risk</h3><p>It's the prettiest concept and says the least. A pattern made in CSS is not proof of work. Without a real before and after of a carbon part, it's decoration.</p></div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="concept" id="c4">
+  <div class="chead"><h2><span>04</span>Macro Finish</h2><div class="from">From: luxury property · <a href="https://github.com/NoeRx98/Claude-Design-Library/blob/main/library/refs/evrvlr0p3e4qf7thto4l/README.md" target="_blank" rel="noopener">Macro shoreline texture hero with serif headline</a></div></div>
+  <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>autoaesthetics.com</span></div>
+  <div class="mock c4" data-c4>
+    <canvas aria-hidden="true"></canvas>
+    <div class="nav"><span>Work · Process</span><span class="wm">Auto Aesthetics</span><span class="r">Bay time <span data-clock>--:--</span> · <u>Let's talk</u></span></div>
+    <h4>For owners who <i>notice everything.</i></h4>
+    <div class="sub">Move your cursor: the metallic flake catches the light the way paint does after a multi-stage correction. <a href="#c4">Request a quote →</a></div>
+  </div></div>
+  <div class="spec">
+    <div><h3>The idea</h3><p>Sell the material instead of the car. The whole hero is metallic paint shown up close, and the flake answers the cursor like real paint under a shop light. It's how property developers sell sand and stone, applied to paint.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 2 · signature · canvas</span><p>The flake reacts to the pointer on desktop and drifts slowly on phones. It pauses offscreen and freezes under reduced motion.</p></div>
+    <div><h3>Use it when</h3><p>Brand and referral traffic from people who already know the name, or a collector-car audience that buys on taste.</p></div>
+    <div class="risk"><h3>The risk</h3><p>There's no car, no service and no proof on the first screen. A cold visitor from Google can't tell what you do in 3 seconds. It suits an about or brand page, not a lead page.</p></div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="concept" id="c5">
+  <div class="chead"><h2><span>05</span>Reserve the Bay</h2><div class="from">From: boutique hardware ecommerce · <a href="https://github.com/NoeRx98/Claude-Design-Library/blob/main/library/refs/d27ke69m5mg8rsxxt7ma/README.md" target="_blank" rel="noopener">Dark product hero with pinned reserve bar</a></div></div>
+  <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>autoaesthetics.com</span></div>
+  <div class="mock c5">
+    <div class="top">
+      <div class="wm">Auto Aesthetics<i>Three disciplines. One standard.</i></div>
+      <div class="card">
+        <div class="row"><span>Assessment</span><b>Free, no obligation</b></div>
+        <div class="row"><span>Next open bay</span><span class="tbd">shop confirms weekly</span></div>
+        <div class="row"><span>Quote back</span><b>Within business hours</b></div>
+        <button class="btn anim" type="button">Reserve an assessment</button>
+      </div>
+    </div>
+    <div class="panels">
+      <figure class="panel"><div class="photo"></div><figcaption><b>Paint correction</b><span>multi-week respray</span></figcaption></figure>
+      <figure class="panel"><div class="photo"></div><figcaption><b>Dent repair</b><span>can be same day</span></figcaption></figure>
+      <figure class="panel"><div class="photo"></div><figcaption><b>Carbon</b><span>2 to 3 days</span></figcaption></figure>
+    </div>
+  </div></div>
+  <div class="spec">
+    <div><h3>The idea</h3><p>Borrow how pre-order stores sell scarce products. A pinned card puts the offer, the availability and one red button together. Bays are limited, and the page says so.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 1 · CSS · 0 KB</span><p>Only the reserve button breathes, and the card stays pinned as the page scrolls. It's calm on purpose so the red button is the only thing that moves.</p></div>
+    <div><h3>Use it when</h3><p>The shop really is booked out and can say how far ahead. Then scarcity is a fact you're reporting.</p></div>
+    <div class="risk"><h3>The risk</h3><p>A fake "2 slots left" is a lie, and luxury owners notice. The bay date has to be real and kept current every week. If the shop won't maintain it, drop the row and the concept falls apart.</p></div>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="concept" id="c6">
+  <div class="chead"><h2><span>06</span>Job Tracker</h2><div class="from">From: fintech · <a href="https://github.com/NoeRx98/Claude-Design-Library/blob/main/library/refs/31loo1jr9tbo5eizmjo6/README.md" target="_blank" rel="noopener">Exception-first payments dashboard</a></div></div>
+  <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>autoaesthetics.com/your-car</span></div>
+  <div class="mock c6" data-c6>
+    <div class="rail"><i></i><i></i><i></i><i></i></div>
+    <main>
+      <div class="crumbs"><span>Your car / Job AA-2611</span><span class="ex">Example job</span></div>
+      <h4>Mercedes-AMG GT 53 · multi-stage paint correction<small>Checked in Monday. Your proposal set the timeline; we're on it.</small></h4>
+      <div class="alert"><span><b>Today:</b> second correction pass finished on the hood. Six new photos in your log.</span><button type="button">See today's photos</button></div>
+      <div class="stages">
+        <div class="st"><span class="lab">01 · done</span><b>Consultation</b><div class="bar"><i></i></div></div>
+        <div class="st"><span class="lab">02 · done</span><b>Proposal</b><div class="bar"><i></i></div></div>
+        <div class="st now"><span class="lab">03 · pass 2 of 3</span><b>Execution</b><div class="bar"><i></i></div></div>
+        <div class="st next"><span class="lab">04 · next</span><b>Delivery</b><div class="bar"><i style="width:0"></i></div></div>
+      </div>
+      <div class="log">
+        <div class="shot"><div class="photo" style="background-image:var(--img-hero);background-position:center 45%"></div><span>Hood · pass 2</span></div>
+        <div class="shot"><div class="photo" style="background-image:var(--img-paint);background-position:center 60%"></div><span>Fender</span></div>
+        <div class="shot"><div class="photo" style="background-image:var(--img-carbon);background-position:center 50%"></div><span>Masking</span></div>
+        <div class="shot"><div class="photo" style="background-image:var(--img-pdr);background-position:center 50%"></div><span>Panel check</span></div>
+      </div>
+      <div class="foot"><span>Next update: by text, Thursday by 5 pm</span><span>Reply to any update to ask your technician</span></div>
+    </main>
+  </div></div>
+  <div class="spec">
+    <div><h3>The idea</h3><p>Sell the experience after the car is dropped off. A payments dashboard puts the exception first, and here the top line is today's update on the owner's car. The homepage shows this as a preview with the label "this is what you'll get."</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 1 · CSS · 0 KB</span><p>The stage bars fill once when they scroll into view. That's all. A dashboard that moves too much feels unreliable.</p></div>
+    <div><h3>Use it when</h3><p>The shop will actually post stage updates and photos. GHL can send them as texts with a link. It's the only concept that turns a promise ("perfection is our only standard") into something the owner can check.</p></div>
+    <div class="risk"><h3>The risk</h3><p>It promises an operations process. If updates stop after two jobs, the feature becomes a liability. Build the process first and the page second.</p></div>
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="concept" id="c7">
+  <div class="chead"><h2><span>07</span>Wordmark Cutout</h2><div class="from">From: personal brand · <a href="https://github.com/NoeRx98/Claude-Design-Library/blob/main/library/refs/m06vrwzd58asb16ggvzt/README.md" target="_blank" rel="noopener">Oversized name wordmark with cutout portrait</a></div></div>
+  <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>autoaesthetics.com</span></div>
+  <div class="mock c7" data-c7 role="img" aria-label="Concept 7 mock: giant AESTHETICS wordmark with an ink shape inverting the letters and a black and white widebody Mustang below">
+    <div class="word">Aesthetics</div>
+    <div class="ink anim"></div>
+    <div class="script">by hand, panel by panel</div>
+    <div class="cut"></div>
+    <div class="nav"><span>Work</span><span>Process</span><span>Quote</span></div>
+    <div class="side">
+      <ul><li>Paint correction &amp; respray</li><li>Paintless dent repair</li><li>Carbon fiber restoration</li></ul>
+      <p>A boutique workshop, not a volume shop.</p>
+      <button class="btn" type="button">Get a quote</button>
+    </div>
+    <div class="grain"></div>
+  </div></div>
+  <div class="spec">
+    <div><h3>The idea</h3><p>Treat the shop like a famous craftsman. A creative director's portfolio puts the name first and the person second. Here the name fills the screen and the car stands in for the portrait. It's editorial, black and white, and confident.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 2 · signature · CSS</span><p>An ink shape drifts across the letters and inverts them, and it follows the cursor on hover. It pauses offscreen and stays still under reduced motion.</p></div>
+    <div><h3>Use it when</h3><p>The owner or lead tech is the brand and has a following on Instagram or YouTube. Pair it with a real portrait of that person.</p></div>
+    <div class="risk"><h3>The risk</h3><p>A big name only works if people know it. Nobody searches "Auto Aesthetics" yet. With cold traffic it spends the first screen on a word instead of an offer.</p></div>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="concept" id="c8">
+  <div class="chead"><h2><span>08</span>Describe It</h2><div class="from">From: AI SaaS · <a href="https://github.com/NoeRx98/Claude-Design-Library/blob/main/library/refs/fpkrsuirjj62qdraumqy/README.md" target="_blank" rel="noopener">Prompt-box hero with glow and logo marquee</a></div></div>
+  <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>autoaesthetics.com</span></div>
+  <div class="mock c8" data-c8>
+    <div class="nav"><b>Auto Aesthetics</b><span>Luxury cosmetic repair</span></div>
+    <div class="in">
+      <h4>Tell us what <b>your car needs.</b></h4>
+      <p class="sub">Write it the way you'd say it. We'll match it to the right work and come back with a real number.</p>
+      <form data-form><label for="c8-input" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Describe your car and the damage</label><input id="c8-input" autocomplete="off" placeholder="2021 AMG GT 53, swirl marks on the hood"><button type="submit" aria-label="Start my quote">↑</button></form>
+      <div class="chips"><button type="button">Swirl marks</button><button type="button">Door ding</button><button type="button">Faded carbon</button><button type="button">Full respray</button><button type="button">Not sure</button></div>
+      <div class="result" aria-live="polite"></div>
+    </div>
+    <div class="makes" aria-label="Makes we work on"><div class="track anim"><span>Mercedes-AMG</span><span>Porsche</span><span>Ferrari</span><span>Lamborghini</span><span>Rolls-Royce</span><span>Mercedes-AMG</span><span>Porsche</span><span>Ferrari</span><span>Lamborghini</span><span>Rolls-Royce</span></div></div>
+  </div></div>
+  <div class="spec">
+    <div><h3>The idea</h3><p>Make the first input the whole hero. AI tools have trained everyone to type into a box, so the quote starts with a sentence, not a form. It pre-fills the vehicle and service steps behind it. Try it: type "door ding" or tap a chip.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 1 · vanilla JS · 0 KB</span><p>The example text in the box rotates, the glow is static, and the make strip scrolls slowly at the bottom, away from the box, and pauses on hover.</p></div>
+    <div><h3>Use it when</h3><p>Mobile paid traffic, where the 3-step form is the drop-off point. A box that looks like a text message feels like no effort.</p></div>
+    <div class="risk"><h3>The risk</h3><p>Free text is messy data, and GHL needs year, make, model and service. Keep the structured steps after the box, pre-filled. A/B test it against the current form before you commit; this is a hypothesis, not a known win.</p></div>
+  </div>
+</section>
+
+<!-- 09 -->
+<section class="concept" id="c9">
+  <div class="chead"><h2><span>09</span>Workshop Ledger</h2><div class="from">From: startup incubator · <a href="https://github.com/NoeRx98/Claude-Design-Library/blob/main/library/refs/ahg7biufkxwt0nbn88w7/README.md" target="_blank" rel="noopener">Stencil-type hero with bordered grid and stat strip</a></div></div>
+  <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>autoaesthetics.com</span></div>
+  <div class="mock c9">
+    <div class="tick" aria-label="Example: what's in the bay"><div class="anim">IN THE BAY (EXAMPLE) · <em>AMG GT 53</em> MULTI-STAGE CORRECTION · <em>WIDEBODY MUSTANG</em> PANEL WORK · <em>G-CLASS</em> FINAL INSPECTION · <em>CARBON HOOD</em> RE-CLEAR · IN THE BAY (EXAMPLE) · <em>AMG GT 53</em> MULTI-STAGE CORRECTION · <em>WIDEBODY MUSTANG</em> PANEL WORK · <em>G-CLASS</em> FINAL INSPECTION · <em>CARBON HOOD</em> RE-CLEAR ·&nbsp;</div></div>
+    <div class="grid">
+      <div><h4>Three<br>disciplines.<br><span>One standard.</span></h4><div class="roof">Paint · Dent · Carbon — one roof, one finish standard</div></div>
+      <div>
+        <p>Paint correction and respray, paintless dent repair and carbon fiber restoration, done in-house by master technicians. No lot visit needed to get a number.</p>
+        <div class="yard"><div class="photo"></div></div>
+        <div class="btns"><button class="btn" type="button">Get a quote</button><button class="btn o" type="button">See recent work</button></div>
+      </div>
+    </div>
+    <div class="stats"><div><b>Same day</b><span>dent repair, when possible</span></div><div><b>2–3 days</b><span>carbon restoration</span></div><div><b>Multi-week</b><span>show-quality respray</span></div></div>
+  </div></div>
+  <div class="spec">
+    <div><h3>The idea</h3><p>A workshop's job log as the website. Stencil type, a hairline grid and a live "in the bay" ticker make it feel like walking into the shop. The stats are the shop's real turnaround times, not invented counters.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 1 · CSS · 0 KB</span><p>Only the ticker moves, in its own band at the top, away from the copy. The grid stays still.</p></div>
+    <div><h3>Use it when</h3><p>The client leans into the craft and the garage culture (widebody builds, track cars) more than white-glove luxury.</p></div>
+    <div class="risk"><h3>The risk</h3><p>It reads as industrial, and a Rolls-Royce owner may want quieter. The ticker must be fed real jobs, or it's theater. If nobody updates it, cut it.</p></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="concept" id="c10">
+  <div class="chead"><h2><span>10</span>Before / After Atelier</h2><div class="from">From: med spa pattern + portfolio · <a href="https://github.com/NoeRx98/Claude-Design-Library/blob/main/library/refs/g145e4exu18o42ru800l/README.md" target="_blank" rel="noopener">Italic serif name hero</a></div></div>
+  <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>autoaesthetics.com</span></div>
+  <div class="mock c10" data-c10>
+    <div class="txt">
+      <span class="lab">Paint correction · AMG GT 53</span>
+      <h4>Swirls out. Depth back.</h4>
+      <p>Drag across the hood. Multi-stage correction takes out the haze and swirl marks and leaves a finish deeper than the day it left the factory.</p>
+      <div class="btns"><button class="btn" type="button">Get a quote</button><button class="btn o" type="button">More results</button></div>
+    </div>
+    <div class="ba">
+      <div class="photo"></div>
+      <div class="before"><div class="photo"></div><canvas aria-hidden="true"></canvas></div>
+      <span class="tag l">Before</span><span class="tag r">After</span>
+      <span class="sim">Simulated. Needs real before/after pairs.</span>
+      <div class="line"></div>
+      <input type="range" id="c10-range" min="0" max="100" value="50" aria-label="Before and after comparison">
+      <div class="knob">↔</div>
+    </div>
+  </div></div>
+  <div class="spec">
+    <div><h3>The idea</h3><p>Med spas and cosmetic dentists sell on one thing: the before and after. Cosmetic car repair is the same purchase. The comparison slider is the hero, and the italic serif sets a calm, high-end tone around it.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 2 · signature · vanilla JS</span><p>The drag is the signature moment, and the visitor controls it, so it never gets in the way. It works with the keyboard (arrow keys) and needs no library.</p></div>
+    <div><h3>Use it when</h3><p>Almost always, as long as the shop shoots real pairs from the same angle and in the same light. It's the strongest proof format for this business.</p></div>
+    <div class="risk"><h3>The risk</h3><p>Everything depends on the photos. Mismatched angles or lighting look faked and kill trust. The shop has one "before" photo today, so a photo-shoot process has to come first.</p></div>
+  </div>
+</section>
+
+<section class="verdict">
+  <div class="eyebrow">My call</div>
+  <h2>Build 01 as the frame, 10 as the proof, 02 as the services. Test 08.</h2>
+  <p>These ten were meant to be wide, not ten equally good options. Ranked on what gets a luxury owner to send the quote form:</p>
+  <div class="cols">
+    <div><h3>Strongest</h3><ul><li><b>10 Before / After.</b> Proof is the product.</li><li><b>02 Correction Sheet.</b> It answers "which service do I need?"</li><li><b>01 Showroom Noir.</b> Safe, fast, credible.</li></ul></div>
+    <div><h3>Test, don't assume</h3><ul><li><b>08 Describe It.</b> A possible fix for form friction. A/B test it.</li><li><b>06 Job Tracker.</b> A strong difference, if ops will run it.</li><li><b>05 Reserve the Bay.</b> Only if the scarcity is real.</li></ul></div>
+    <div><h3>Brand pages, not lead pages</h3><ul><li><b>03 The Weave.</b> A one-service ad landing page.</li><li><b>04 Macro Finish.</b> An about page.</li><li><b>07 Wordmark.</b> Once the name is known.</li><li><b>09 Ledger.</b> For a garage-culture client.</li></ul></div>
+  </div>
+  <p><b>The uncomfortable part.</b> None of these fixes what the repo's own README calls the biggest conversion gap: the page has <b>no phone number, address, hours or reviews</b>. A redesign without them is a nicer-looking version of the same leak. The second blocker is <b>photography</b>. Every photo is a vertical phone still, and the three strongest concepts need landscape shots and matched before/after pairs. Fix those two things and the design choice matters much less.</p>
+  <p>On motion: the rules allow one signature moment per page, so a combined build picks <b>one</b>, the before/after drag. The hotspots and the light sweep drop to tier-1 accents.</p>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mocks = document.querySelectorAll('.mock');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('inview', e.isIntersecting); if(e.isIntersecting && e.target.matches('[data-c6]') && !e.target.classList.contains('play')) e.target.classList.add('play');});},{threshold:.25});
+    mocks.forEach(function(m){io.observe(m)});
+  } else mocks.forEach(function(m){m.classList.add('inview')});
+
+  /* 02 hotspots + readout */
+  var c2 = document.querySelector('[data-c2]');
+  if (c2){
+    var tips = [
+      ['Swirl marks & holograms','Multi-stage paint correction takes them out without a respray.','Show-quality respray: multi-week'],
+      ['Parking dent','Paintless dent repair: massaged out from behind, factory paint intact.','Can be same day'],
+      ['Faded carbon splitter','Yellowed clear coat stripped, corrected and re-cleared to glass-clear gloss.','Typically 2 to 3 days']
+    ];
+    var sheet = c2.querySelector('.sheet'), tip = c2.querySelector('.tip'), ro = c2.querySelector('.readout'), open = null;
+    c2.querySelectorAll('.hs').forEach(function(b){
+      b.addEventListener('click', function(){
+        var i = +b.dataset.tip;
+        c2.querySelectorAll('.hs').forEach(function(x){x.setAttribute('aria-expanded','false')});
+        if (open === i){ tip.hidden = true; open = null; return; }
+        open = i; b.setAttribute('aria-expanded','true');
+        tip.innerHTML = '<b>'+tips[i][0]+'</b>'+tips[i][1]+'<span>'+tips[i][2]+'</span>';
+        var l = parseFloat(b.style.left), t = parseFloat(b.style.top);
+        tip.style.left = Math.min(Math.max(l, 32), 68) + '%'; tip.style.top = t + '%';
+        tip.hidden = false;
+      });
+    });
+    sheet.addEventListener('pointermove', function(e){
+      var r = sheet.getBoundingClientRect();
+      var x = Math.round((e.clientX - r.left) / r.width * 1953), y = Math.round((e.clientY - r.top) / r.height * 1447);
+      ro.textContent = 'X ' + String(x).padStart(4,'0') + ' · Y ' + String(y).padStart(4,'0');
+    });
+  }
+
+  /* 04 metallic flake */
+  var c4 = document.querySelector('[data-c4]');
+  if (c4){
+    var cv = c4.querySelector('canvas'), ctx = cv.getContext('2d'), flakes = [], W = 0, H = 0, lx = .3, ly = .35, tx = .3, ty = .35, raf = 0, t0 = performance.now();
+    function size(){
+      var r = c4.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2);
+      W = cv.width = Math.round(r.width * d); H = cv.height = Math.round(r.height * d);
+      flakes = []; var n = Math.round(W * H / 55);
+      for (var i = 0; i < n; i++) flakes.push([Math.random()*W, Math.random()*H, Math.random()*Math.PI*2, .6 + Math.random()*1.6*d]);
+      draw();
+    }
+    function draw(){
+      var g = ctx.createRadialGradient(lx*W, ly*H, 0, lx*W, ly*H, Math.max(W,H)*.8);
+      g.addColorStop(0,'#5A5650'); g.addColorStop(.35,'#2C2B29'); g.addColorStop(1,'#121214');
+      ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+      var R = Math.max(W,H)*.55;
+      for (var i = 0; i < flakes.length; i++){
+        var f = flakes[i], dx = f[0]-lx*W, dy = f[1]-ly*H, dist = Math.sqrt(dx*dx+dy*dy)/R;
+        var face = Math.cos(f[2] + Math.atan2(dy,dx)*2);
+        var b = Math.max(0, face) * Math.max(0, 1 - dist*.75);
+        if (b < .03) continue;
+        b = Math.pow(b, 1.25);
+        ctx.fillStyle = 'rgba(' + (230 + 25*b|0) + ',' + (215 + 30*b|0) + ',' + (190 + 50*b|0) + ',' + Math.min(1, b*1.4).toFixed(3) + ')';
+        ctx.fillRect(f[0], f[1], f[3], f[3]);
+      }
+    }
+    function loop(now){
+      if (!c4.classList.contains('inview')){ raf = 0; return; }
+      if (!hovering){ var s = (now - t0)/1000; tx = .5 + Math.cos(s*.25)*.28; ty = .45 + Math.sin(s*.33)*.22; }
+      lx += (tx-lx)*.08; ly += (ty-ly)*.08; draw();
+      raf = requestAnimationFrame(loop);
+    }
+    var hovering = false;
+    c4.addEventListener('pointermove', function(e){ var r = c4.getBoundingClientRect(); tx = (e.clientX-r.left)/r.width; ty = (e.clientY-r.top)/r.height; hovering = true; if (reduce){ lx = tx; ly = ty; draw(); } });
+    c4.addEventListener('pointerleave', function(){ hovering = false; });
+    new MutationObserver(function(){ if (!reduce && !raf && c4.classList.contains('inview')) raf = requestAnimationFrame(loop); }).observe(c4,{attributes:true,attributeFilter:['class']});
+    window.addEventListener('resize', size); size();
+    var clk = c4.querySelector('[data-clock]');
+    function tick(){ var d = new Date(); clk.textContent = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'); }
+    tick(); setInterval(tick, 15000);
+  }
+
+  /* 07 ink follows cursor */
+  var c7 = document.querySelector('[data-c7]');
+  if (c7 && !reduce){
+    var ink = c7.querySelector('.ink');
+    c7.addEventListener('pointermove', function(e){ var r = c7.getBoundingClientRect(); ink.style.animation = 'none'; ink.style.transition = 'transform .9s cubic-bezier(.2,.7,.2,1)'; ink.style.transform = 'translate(' + (e.clientX - r.left - ink.offsetWidth*.25) + 'px,' + (e.clientY - r.top - ink.offsetHeight*.25) + 'px)'; });
+    c7.addEventListener('pointerleave', function(){ ink.style.transform = ''; ink.style.transition = 'transform 1.2s ease'; setTimeout(function(){ ink.style.animation = ''; }, 1200); });
+  }
+
+  /* 08 rotating example + fake parse */
+  var c8 = document.querySelector('[data-c8]');
+  if (c8){
+    var inp = c8.querySelector('input'), out = c8.querySelector('.result'), ex = ['2021 AMG GT 53, swirl marks on the hood','Porsche 911, door ding from a parking lot','Lambo Huracán, carbon splitter has gone yellow','Not sure. Rear bumper scuff, maybe a respray?'], k = 0;
+    if (!reduce) setInterval(function(){ if (document.activeElement !== inp && !inp.value && c8.classList.contains('inview')){ k = (k+1)%ex.length; inp.placeholder = ex[k]; } }, 3200);
+    var map = [[/swirl|holo|haze|scratch|respray|paint|scuff/i,'Paint correction / respray'],[/dent|ding|hail|crease/i,'Paintless dent repair'],[/carbon|weave|yellow|faded/i,'Carbon fiber restoration']];
+    function parse(v){
+      var s = map.filter(function(m){return m[0].test(v)}).map(function(m){return m[1]});
+      var yr = (v.match(/\b(19[5-9]\d|20[0-3]\d)\b/)||[])[0];
+      out.textContent = '→ ' + (s.length ? s.join(' + ') : 'Not sure: we assess it') + (yr ? ' · year ' + yr : '') + ' · next: confirm your car';
+    }
+    c8.querySelector('form').addEventListener('submit', function(e){ e.preventDefault(); parse(inp.value || inp.placeholder); });
+    c8.querySelectorAll('.chips button').forEach(function(b){ b.addEventListener('click', function(){ inp.value = b.textContent; parse(inp.value); inp.focus(); }); });
+  }
+
+  /* 10 before/after */
+  var c10 = document.querySelector('[data-c10]');
+  if (c10){
+    var ba = c10.querySelector('.ba'), rng = c10.querySelector('input'), cs = ba.querySelector('canvas');
+    rng.addEventListener('input', function(){ ba.style.setProperty('--pos', rng.value + '%'); });
+    function swirls(){
+      var r = ba.getBoundingClientRect(), d = Math.min(window.devicePixelRatio||1,2), x = cs.getContext('2d');
+      cs.width = Math.round(r.width*d); cs.height = Math.round(r.height*d);
+      x.clearRect(0,0,cs.width,cs.height); x.lineWidth = .7*d;
+      var cx = cs.width*.55, cy = cs.height*.24;
+      for (var i = 0; i < 520; i++){
+        var rad = 6*d + Math.random()*cs.width*.9, a0 = Math.random()*Math.PI*2, len = .08 + Math.random()*.28;
+        var ox = cx + (Math.random()-.5)*cs.width*.3, oy = cy + (Math.random()-.5)*cs.height*.25;
+        x.strokeStyle = 'rgba(255,255,255,' + (.05 + Math.random()*.16).toFixed(3) + ')';
+        x.beginPath(); x.arc(ox, oy, rad, a0, a0+len); x.stroke();
+      }
+    }
+    swirls(); window.addEventListener('resize', swirls);
+  }
+})();
+</script>
