@@ -7,7 +7,9 @@ imgs = {"hero": "hero-800.webp", "paint": "paint.webp", "pdr": "pdr.webp", "carb
         "gclass1": "g-class-quarter-1.webp", "gclass2": "g-class-quarter-2.webp", "carbontop": "carbon-hood-top.webp",
         "carbondetail": "carbon-hood-detail.webp", "gt53": "gt53-front.webp",
         "gt53b": "gt53-front-2.webp", "gt53wheel": "gt53-wheel.webp", "gt53rear": "gt53-rear.webp",
-        "tech": "technician-masking.webp", "gclassrear": "g-class-rear-fitment.webp"}
+        "tech": "technician-masking.webp", "gclassrear": "g-class-rear-fitment.webp",
+        "bfinished": "bumper-finished.webp", "bspray": "bumper-spraying.webp", "bprimed": "bumper-primed.webp",
+        "gclassfit": "g-class-bumper-fit.webp", "gclassdetail": "g-class-bumper-detail.webp"}
 name = sys.argv[1] if len(sys.argv) > 1 else "directions"
 html = (here / (name + ".template.html")).read_text()
 for key, fname in imgs.items():

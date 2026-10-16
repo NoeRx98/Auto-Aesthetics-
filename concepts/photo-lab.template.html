@@ -1,0 +1,349 @@
+<title>Auto Aesthetics Photo Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;500&family=Schibsted+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@1,500&display=swap">
+<style>
+/* Layout: a darkroom. Each module is a full-width stage built only from the shop's own photos,
+   followed by a four-cell note: what it does for the business, where it goes, motion cost, watch out. */
+:root{
+  --ink:#0C0D0E; --ink-2:#151719; --line:#2A2D30; --fg:#F1F0EC; --fg-2:#A4A39E; --green:#3FA37C; --flag:#F2A06B;
+  --f-display:"Outfit",ui-sans-serif,system-ui,sans-serif; --f-body:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace; --f-serif:"Playfair Display",Georgia,serif;
+  --img-gt53b:url({{gt53b}}); --img-gt53rear:url({{gt53rear}}); --img-gt53wheel:url({{gt53wheel}}); --img-gt53:url({{gt53}});
+  --img-bprimed:url({{bprimed}}); --img-bspray:url({{bspray}}); --img-bfinished:url({{bfinished}});
+  --img-carbondetail:url({{carbondetail}}); --img-carbontop:url({{carbontop}});
+  --img-tech:url({{tech}}); --img-gclassfit:url({{gclassfit}}); --img-gclassrear:url({{gclassrear}});
+  --img-gclass1:url({{gclass1}}); --img-gclass2:url({{gclass2}}); --img-gclassdetail:url({{gclassdetail}});
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--ink);color:var(--fg);font:400 16px/1.6 var(--f-body);margin:0}
+.band{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.in{max-width:1180px;margin:0 auto}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.eyebrow{font:500 12px/1.3 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2)}
+.ph{background-size:cover;background-position:center;background-repeat:no-repeat}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.intro{padding-block:56px 72px;display:grid;gap:20px}
+.intro h1{font:200 clamp(2.6rem,6.6vw,5.4rem)/.96 var(--f-display);letter-spacing:-.03em;max-width:13ch}
+.intro p{max-width:62ch;color:var(--fg-2);font-size:1.05rem}
+.intro p b{color:var(--fg);font-weight:500}
+
+.mhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px;padding-block:72px 18px;border-top:1px solid var(--line)}
+.mhead h2{font:300 clamp(1.7rem,3.4vw,2.6rem)/1.05 var(--f-display);letter-spacing:-.02em}
+.mhead h2 span{font:500 .42em/1 var(--f-mono);color:var(--fg-2);margin-right:.8em;vertical-align:.5em}
+.mhead .uses{font:400 13px/1.4 var(--f-mono);color:var(--green)}
+.note{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);margin-top:18px}
+.note div{padding:14px 18px 6px 0;min-width:0}
+.note div + div{padding-left:18px;border-left:1px solid var(--line)}
+.note h3{font:500 11px/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-2);margin-bottom:6px}
+.note p{font-size:14.5px;line-height:1.5}
+.note .w h3{color:var(--flag)}
+.tier{display:inline-block;font:500 11px/1 var(--f-mono);padding:4px 6px;border:1px solid var(--line);border-radius:3px;margin-bottom:6px}
+@media (max-width:860px){.note{grid-template-columns:1fr 1fr}.note div:nth-child(3){padding-left:0;border-left:0}.note div:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:520px){.note{grid-template-columns:1fr}.note div,.note div + div{padding-left:0;border-left:0}.note div + div{border-top:1px solid var(--line)}}
+
+/* ---------- 01 Primer to finish: pinned scroll sequence ---------- */
+.seq{position:relative;height:300vh}
+.seq .pin{position:sticky;top:0;height:min(100vh,820px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(20px,4vw,56px);align-items:center;overflow:hidden}
+.seq .stack{position:relative;height:88%;border-radius:4px;overflow:hidden;background:var(--ink-2)}
+.seq .stack .ph{position:absolute;inset:0;opacity:0;transform:scale(1.04);transition:opacity .6s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.seq .stack .ph.on{opacity:1;transform:none}
+.seq .copy{display:grid;gap:22px;align-content:center}
+.seq h3{font:500 italic clamp(2.2rem,5vw,4rem)/.98 var(--f-serif);letter-spacing:-.02em}
+.seq ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.seq li{display:grid;grid-template-columns:2.4em 1fr;gap:2px 10px;padding:12px 0;border-top:1px solid var(--line);color:var(--fg-2);transition:color .3s}
+.seq li .n{font:500 12px/1.8 var(--f-mono);grid-row:span 2}
+.seq li b{font:400 21px/1.2 var(--f-display);color:inherit}
+.seq li span.d{font-size:14.5px}
+.seq li.on{color:var(--fg)}
+.seq .bar{height:2px;background:var(--line);position:relative;overflow:hidden}
+.seq .bar i{position:absolute;inset:0;background:var(--fg);transform-origin:left;transform:scaleX(0)}
+.seq .stamp{position:absolute;left:14px;bottom:14px;font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;background:rgba(12,13,14,.75);padding:7px 9px}
+@media (max-width:860px){.seq .pin{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;align-content:start;padding-top:16px;gap:14px}.seq .stack{height:100%;min-height:0}.seq li .d{display:none}.seq li.on .d{display:block}.seq h3{font-size:2rem}.seq .copy{gap:12px;padding-bottom:16px}}
+@media (prefers-reduced-motion:reduce){.seq{height:auto}.seq .pin{position:static;height:auto;grid-template-columns:1fr}.seq .stack{height:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:none}.seq .stack .ph{position:relative;opacity:1;transform:none;aspect-ratio:3/4}.seq .stamp{display:none}}
+
+/* ---------- 02 Light pass ---------- */
+.light{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:4px;overflow:hidden;background:#000;cursor:crosshair}
+.light .ph{position:absolute;inset:0;background-position:50% 40%}
+.light .beam{position:absolute;top:-20%;bottom:-20%;width:38%;left:var(--x,-40%);background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.16) 42%,rgba(255,255,255,.34) 50%,rgba(255,255,255,.16) 58%,transparent 100%);mix-blend-mode:overlay;transform:skewX(-14deg);pointer-events:none;transition:left .6s cubic-bezier(.2,.7,.2,1)}
+.light .beam2{mix-blend-mode:screen;opacity:.35}
+.light .cap{position:absolute;left:clamp(16px,4vw,48px);bottom:clamp(16px,4vw,44px);display:grid;gap:10px;max-width:24ch}
+.light .cap b{font:200 clamp(1.8rem,4.6vw,3.6rem)/1 var(--f-display);letter-spacing:-.02em}
+.light .cap span{font:400 13px/1.4 var(--f-mono);color:#CFCDC6}
+.light::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent 45%);pointer-events:none}
+.light .cap{z-index:2}
+@media (max-width:640px){.light{aspect-ratio:4/5}}
+
+/* ---------- 03 Loupe ---------- */
+.loupewrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:24px;align-items:center}
+.loupe{position:relative;aspect-ratio:4/5;max-height:720px;width:100%;border-radius:4px;overflow:hidden;touch-action:none;cursor:none;background:#000}
+.loupe .ph{position:absolute;inset:0}
+.loupe .lens{position:absolute;width:clamp(120px,34%,240px);aspect-ratio:1;border-radius:50%;left:var(--lx,55%);top:var(--ly,38%);transform:translate(-50%,-50%);border:2px solid rgba(255,255,255,.85);box-shadow:0 18px 50px rgba(0,0,0,.6),inset 0 0 0 1px rgba(0,0,0,.4);background-image:var(--img-carbondetail);background-repeat:no-repeat;pointer-events:none}
+.loupe .hint{position:absolute;right:12px;top:12px;font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;background:rgba(12,13,14,.72);padding:7px 9px}
+.loupetext{display:grid;gap:16px}
+.loupetext h3{font:500 italic clamp(2rem,4vw,3.2rem)/1 var(--f-serif)}
+.loupetext p{color:var(--fg-2);max-width:40ch}
+@media (max-width:860px){.loupewrap{grid-template-columns:1fr}.loupe{aspect-ratio:4/4.4}}
+
+/* ---------- 04 Made by hand ---------- */
+.hands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+.hands figure{margin:0;display:grid;gap:10px}
+.hands figure:nth-child(2){margin-top:clamp(24px,6vw,80px)}
+.hands figure:nth-child(3){margin-top:clamp(12px,3vw,40px)}
+.hands .ph{aspect-ratio:3/4;border-radius:3px;transition:transform .6s cubic-bezier(.2,.7,.2,1),filter .6s}
+.hands figure:hover .ph{transform:scale(1.02)}
+.hands figcaption{display:grid;gap:2px}
+.hands figcaption b{font:400 19px/1.2 var(--f-display)}
+.hands figcaption span{font:400 12.5px/1.4 var(--f-mono);color:var(--fg-2)}
+.hands .reveal{opacity:.35;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.hands .reveal.in{opacity:1;transform:none}
+.handshead{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.handshead h3{font:200 clamp(2.2rem,5vw,4rem)/.95 var(--f-display);letter-spacing:-.03em;max-width:12ch}
+.handshead p{max-width:38ch;color:var(--fg-2)}
+@media (max-width:640px){.hands{grid-template-columns:repeat(3,72%);overflow-x:auto;scroll-snap-type:x mandatory}.hands figure{scroll-snap-align:start;margin-top:0!important}}
+@media (prefers-reduced-motion:reduce){.hands .reveal{opacity:1;transform:none}}
+
+/* ---------- 05 Satin study: scrollytelling ---------- */
+.satin{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(20px,4vw,56px)}
+.satin .sticky{position:sticky;top:6vh;height:88vh;max-height:760px;border-radius:4px;overflow:hidden;background:var(--ink-2)}
+.satin .sticky .ph{position:absolute;inset:0;opacity:0;transition:opacity .7s ease}
+.satin .sticky .ph.on{opacity:1}
+.satin .sticky .tag{position:absolute;left:14px;top:14px;font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;background:rgba(12,13,14,.75);padding:7px 9px}
+.satin .beats{display:grid}
+.satin .beat{min-height:70vh;display:grid;align-content:center;gap:14px;padding-block:6vh;opacity:.35;transition:opacity .5s}
+.satin .beat.on{opacity:1}
+.satin .beat .n{font:500 12px/1 var(--f-mono);color:var(--fg-2)}
+.satin .beat h3{font:300 clamp(1.7rem,3.4vw,2.6rem)/1.08 var(--f-display);letter-spacing:-.015em;max-width:16ch}
+.satin .beat p{color:var(--fg-2);max-width:42ch}
+@media (max-width:860px){.satin{grid-template-columns:1fr}.satin .sticky{top:0;height:52vh;z-index:1}.satin .beat{min-height:60vh;background:linear-gradient(transparent,var(--ink) 30%)}}
+@media (prefers-reduced-motion:reduce){.satin .beat{opacity:1}}
+
+/* ---------- 06 Cinematic hero ---------- */
+.cine{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:4px;overflow:hidden;background:#000;isolation:isolate}
+.cine .ph{position:absolute;inset:-4%;opacity:0;transition:opacity 1.4s ease;z-index:-2}
+.cine .ph.on{opacity:1;animation:kb 7s linear both}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}
+.cine::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,8,9,.88),rgba(8,8,9,.25) 60%,transparent),linear-gradient(0deg,rgba(8,8,9,.8),transparent 40%)}
+.cine .copy{position:absolute;left:clamp(16px,5vw,64px);top:50%;transform:translateY(-50%);display:grid;gap:18px;max-width:min(46%,520px)}
+.cine h3{font:200 clamp(2rem,5.4vw,4.6rem)/.95 var(--f-display);letter-spacing:-.03em}
+.cine .btn{justify-self:start;background:var(--fg);color:var(--ink);font:500 15px/1 var(--f-body);padding:15px 22px;border-radius:2px;text-decoration:none}
+.cine .dots{position:absolute;right:16px;bottom:16px;display:flex;gap:6px}
+.cine .dots i{width:22px;height:2px;background:rgba(255,255,255,.3);display:block}
+.cine .dots i.on{background:#fff}
+@media (max-width:640px){.cine{aspect-ratio:4/5}.cine .copy{max-width:none;right:16px;top:auto;bottom:40px;transform:none}}
+
+.plan{padding-block:72px 96px;border-top:2px solid var(--fg);display:grid;gap:22px}
+.plan h2{font:300 clamp(1.8rem,4vw,3rem)/1.05 var(--f-display);letter-spacing:-.02em;max-width:22ch}
+.tw{overflow-x:auto}
+.plan table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:640px}
+.plan th{text-align:left;font:500 11px/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-2);padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.plan td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.plan p{max-width:72ch;color:var(--fg-2)}
+.plan p b{color:var(--fg);font-weight:500}
+</style>
+
+<header class="intro band"><div class="in" style="display:grid;gap:20px">
+  <div class="eyebrow">Auto Aesthetics · photo lab · your own photos only</div>
+  <h1>Six ways to make the photos work harder.</h1>
+  <p>Every frame here is <b>a real photo from your shop</b>. Nothing is generated or faked. Each module uses a different design and motion idea, and under it is <b>what it does for the business</b>, where it would go and what it costs in speed. Scroll slowly; several of these react to scrolling, the pointer or touch.</p>
+</div></header>
+
+<!-- 01 -->
+<div class="band"><div class="in"><div class="mhead"><h2><span>01</span>Primer to finish</h2><div class="uses">Pinned scroll sequence · bumper photos</div></div></div></div>
+<section class="seq band" id="seq" aria-label="Bumper respray, from primer to finished metallic">
+  <div class="pin in">
+    <div class="stack">
+      <div class="ph on" style="background-image:var(--img-bprimed)" role="img" aria-label="Bumper in primer, masked for paint"></div>
+      <div class="ph" style="background-image:var(--img-bspray)" role="img" aria-label="Painter spraying the bumper"></div>
+      <div class="ph" style="background-image:var(--img-bfinished)" role="img" aria-label="Bumper finished in metallic flake"></div>
+      <span class="stamp" data-stamp>01 · Primed</span>
+    </div>
+    <div class="copy">
+      <div class="eyebrow">Bumper respray · scroll</div>
+      <h3>Every layer, done in-house.</h3>
+      <ol>
+        <li class="on"><span class="n">01</span><b>Primed</b><span class="d">Prepped, masked and primed so the color lays down evenly.</span></li>
+        <li><span class="n">02</span><b>Sprayed</b><span class="d">Color applied by hand, pass by pass.</span></li>
+        <li><span class="n">03</span><b>Finished</b><span class="d">Metallic flake under a deep clear, ready to refit.</span></li>
+      </ol>
+      <div class="bar"><i></i></div>
+    </div>
+  </div>
+</section>
+<div class="band"><div class="in"><div class="note">
+  <div><h3>What it does</h3><p>Proves the paint work happens in your shop, start to finish. For a new business with no reviews, visible process is the strongest proof you have.</p></div>
+  <div><h3>Where</h3><p>The landing page's signature moment, between the work showcase and the services.</p></div>
+  <div><h3>Motion</h3><span class="tier">Tier 2 · signature · vanilla JS</span><p>The section pins while you scroll through three stages, then releases. It's three scrolls long, so the quote button is never far.</p></div>
+  <div class="w"><h3>Watch out</h3><p>A photo of the bumper refitted on the car would make step 3 far stronger. Confirm the stage wording with the painter.</p></div>
+</div></div></div>
+
+<!-- 02 -->
+<div class="band"><div class="in"><div class="mhead"><h2><span>02</span>Light pass</h2><div class="uses">Pointer-driven light · GT 53 rear</div></div>
+  <div class="light" id="light"><div class="ph" style="background-image:var(--img-gt53rear)" role="img" aria-label="Mercedes-AMG GT 53 rear in the workshop"></div><div class="beam"></div><div class="beam beam2"></div>
+    <div class="cap"><b>Look at the reflections.</b><span>Move across the car · Mercedes-AMG GT 53</span></div></div>
+  <div class="note">
+    <div><h3>What it does</h3><p>A shop light glides across the paint and follows the pointer. It makes visitors look at the reflections, which is how owners judge a finish.</p></div>
+    <div><h3>Where</h3><p>The GT 53 showcase card on hover, or a full-width break between sections.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 1 · hover / touch · CSS</span><p>It moves only when the visitor moves. Nothing loops.</p></div>
+    <div class="w"><h3>Watch out</h3><p>It's an effect on a photo, not a before/after. Don't caption it as a result.</p></div>
+  </div>
+</div></div>
+
+<!-- 03 -->
+<div class="band"><div class="in"><div class="mhead"><h2><span>03</span>Look closer</h2><div class="uses">Magnifier · carbon hood detail</div></div>
+  <div class="loupewrap">
+    <div class="loupe" id="loupe"><div class="ph" style="background-image:var(--img-carbondetail)" role="img" aria-label="Restored carbon fiber hood with a deep clear gloss"></div><div class="lens" aria-hidden="true"></div><span class="hint">Drag or hover</span></div>
+    <div class="loupetext">
+      <div class="eyebrow">Carbon fiber restoration</div>
+      <h3>For owners who notice everything.</h3>
+      <p>The magnifier invites the visitor to inspect the weave the way they'd inspect their own car. It's a confident move: you only hand someone a magnifying glass when the work holds up.</p>
+    </div>
+  </div>
+  <div class="note">
+    <div><h3>What it does</h3><p>It turns your best detail shot into an inspection. Confidence reads as quality.</p></div>
+    <div><h3>Where</h3><p>The carbon service card, or a carbon-only ad landing page.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 1 · visitor-driven</span><p>It follows the pointer or a finger. The lens rests on the weave so the first frame is complete.</p></div>
+    <div class="w"><h3>Watch out</h3><p>It needs a sharp, high-resolution original. Upload the full-size photo for the real build.</p></div>
+  </div>
+</div></div>
+
+<!-- 04 -->
+<div class="band"><div class="in"><div class="mhead"><h2><span>04</span>Made by hand</h2><div class="uses">Staggered reveal · technician photos</div></div>
+  <div class="handshead"><h3>Real hands. Real bay.</h3><p>The work is done by the people in these photos, in this workshop, on your car.</p></div>
+  <div class="hands" id="hands">
+    <figure class="reveal"><div class="ph" style="background-image:var(--img-tech);background-position:40% 60%" role="img" aria-label="Technician masking a rear quarter panel"></div><figcaption><b>Masked by hand</b><span>Every edge taped before paint</span></figcaption></figure>
+    <figure class="reveal"><div class="ph" style="background-image:var(--img-bspray)" role="img" aria-label="Painter spraying a bumper"></div><figcaption><b>Sprayed in-house</b><span>Color applied pass by pass</span></figcaption></figure>
+    <figure class="reveal"><div class="ph" style="background-image:var(--img-gclassfit);background-position:40% 50%" role="img" aria-label="Technician refitting the G-Class rear bumper"></div><figcaption><b>Refitted with care</b><span>Mercedes-Benz G-Class</span></figcaption></figure>
+  </div>
+  <div class="note">
+    <div><h3>What it does</h3><p>It puts people on the page. Owners hand their car to a person, not a logo, and this answers "who touches my car?".</p></div>
+    <div><h3>Where</h3><p>Just before the quote form, where trust has to peak.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 1 · CSS</span><p>The three frames settle into place once as they enter the screen, staggered in height like a contact sheet.</p></div>
+    <div class="w"><h3>Watch out</h3><p>Add a name under one photo. "Masked by Marco" beats "Masked by hand".</p></div>
+  </div>
+</div></div>
+
+<!-- 05 -->
+<div class="band"><div class="in"><div class="mhead"><h2><span>05</span>Satin study</h2><div class="uses">Scrollytelling · G-Class photos</div></div>
+  <div class="satin" id="satin">
+    <div class="sticky">
+      <div class="ph on" style="background-image:var(--img-gclass2);background-position:40% 50%" role="img" aria-label="Mercedes-Benz G-Class satin rear quarter"></div>
+      <div class="ph" style="background-image:var(--img-gclassdetail);background-position:40% 40%" role="img" aria-label="Technician checking the G-Class rear bumper fit"></div>
+      <div class="ph" style="background-image:var(--img-gclass1);background-position:40% 50%" role="img" aria-label="Mercedes-Benz G-Class after the work, outdoors"></div>
+      <span class="tag">Mercedes-Benz G-Class</span>
+    </div>
+    <div class="beats">
+      <div class="beat on"><span class="n">01</span><h3>Satin can't be polished like gloss.</h3><p>On a satin or matte finish, polishing creates shiny spots. There's no buffing out a mistake, so the work has to be right the first time.</p></div>
+      <div class="beat"><span class="n">02</span><h3>Every panel has to match in sheen as well as color.</h3><p>Panels, bumpers and trim are checked by hand, at the angles an owner actually looks from.</p></div>
+      <div class="beat"><span class="n">03</span><h3>Then it goes back outside, in real light.</h3><p>The final check happens in daylight, where the finish has to look right every day.</p></div>
+    </div>
+  </div>
+  <div class="note">
+    <div><h3>What it does</h3><p>It teaches one hard-won fact (satin can't be polished) and ties it to your work. Expertise someone learns from you is the kind they trust.</p></div>
+    <div><h3>Where</h3><p>A feature section on the full site, or the landing page for a satin or matte ad.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 2 · signature if used</span><p>The photo stays pinned while three short beats scroll past and swap it.</p></div>
+    <div class="w"><h3>Watch out</h3><p>Confirm what was done on the G-Class before this ships. Beats 02 and 03 describe your process; change anything that isn't how you work.</p></div>
+  </div>
+</div></div>
+
+<!-- 06 -->
+<div class="band"><div class="in"><div class="mhead"><h2><span>06</span>Cinematic opener</h2><div class="uses">Slow crossfade · GT 53 front, rear, wheel</div></div>
+  <div class="cine" id="cine">
+    <div class="ph on" style="background-image:var(--img-gt53b);background-position:50% 45%" role="img" aria-label="Mercedes-AMG GT 53 front"></div>
+    <div class="ph" style="background-image:var(--img-gt53rear);background-position:50% 40%" role="img" aria-label="Mercedes-AMG GT 53 rear"></div>
+    <div class="ph" style="background-image:var(--img-gt53wheel);background-position:50% 40%" role="img" aria-label="Mercedes-AMG GT 53 wheel"></div>
+    <div class="copy"><h3>Your finish, restored to showroom standard.</h3><a class="btn" href="#cine">Get a quote for your car</a></div>
+    <div class="dots"><i class="on"></i><i></i><i></i></div>
+  </div>
+  <div class="note">
+    <div><h3>What it does</h3><p>Three angles of one car, slowly pushing in like a film opening. It sets a premium mood before a word is read.</p></div>
+    <div><h3>Where</h3><p>An alternative hero for a brand or about page. It plays one round, then rests on the front.</p></div>
+    <div><h3>Motion</h3><span class="tier">Tier 2 · one cycle, then still</span><p>The headline and button are static from the first frame and never wait on the photos.</p></div>
+    <div class="w"><h3>Watch out</h3><p>On the lead page this would compete with module 01, and the rules allow one signature. Pick one.</p></div>
+  </div>
+</div></div>
+
+<section class="plan band"><div class="in" style="display:grid;gap:22px">
+  <div class="eyebrow">How to use these</div>
+  <h2>Proof first, mood second.</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Module</th><th>Best use</th><th>Starts</th><th>Rule check</th></tr></thead>
+    <tbody>
+      <tr><td>01 Primer to finish</td><td>Landing page signature</td><td>Scroll</td><td>The one signature moment; the request journey becomes tap-only</td></tr>
+      <tr><td>02 Light pass</td><td>GT 53 card hover</td><td>Pointer</td><td>Micro-interaction, tier 1</td></tr>
+      <tr><td>03 Look closer</td><td>Carbon card or carbon ad page</td><td>Pointer / drag</td><td>Visitor-driven, tier 1</td></tr>
+      <tr><td>04 Made by hand</td><td>Above the quote form</td><td>Once on view</td><td>Tier 1 reveal</td></tr>
+      <tr><td>05 Satin study</td><td>Full site feature, satin/matte ad page</td><td>Scroll</td><td>Signature on its own page</td></tr>
+      <tr><td>06 Cinematic opener</td><td>Brand or about page hero</td><td>Once on load</td><td>Not on the lead page</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>My pick for the landing page:</b> 01 as the signature, 04 above the form, and 02 and 03 inside their cards. That swaps the request journey from autoplay to tap-only, because a page gets one signature. Proof of craft should outrank an explanation of process.</p>
+  <p><b>The ceiling on all of this is the photos.</b> These designs make good photos look great, but they can't fix a cluttered background. The next shoot needs a clean backdrop, the finished bumper on the car, and one portrait with a name.</p>
+</div></section>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 01 pinned sequence */
+  var seq = document.getElementById('seq'), sl = seq.querySelectorAll('.stack .ph'), li = seq.querySelectorAll('li'), bar = seq.querySelector('.bar i'), stamp = seq.querySelector('[data-stamp]');
+  var names = ['01 · Primed', '02 · Sprayed', '03 · Finished'], cur = 0;
+  function onScroll(){
+    if (reduce) return;
+    var r = seq.getBoundingClientRect(), total = seq.offsetHeight - innerHeight, p = Math.min(1, Math.max(0, -r.top / Math.max(1, total)));
+    bar.style.transform = 'scaleX(' + p + ')';
+    var i = Math.min(2, Math.floor(p * 3));
+    if (i !== cur){ cur = i; sl.forEach(function(s, k){ s.classList.toggle('on', k === i); }); li.forEach(function(l, k){ l.classList.toggle('on', k === i); }); stamp.textContent = names[i]; }
+  }
+  addEventListener('scroll', onScroll, {passive: true}); onScroll();
+
+  /* 02 light pass */
+  var light = document.getElementById('light'), beams = light.querySelectorAll('.beam');
+  function setX(v){ beams.forEach(function(b){ b.style.setProperty('--x', v); }); }
+  light.addEventListener('pointermove', function(e){ var r = light.getBoundingClientRect(); setX(((e.clientX - r.left) / r.width * 100 - 19) + '%'); });
+  light.addEventListener('pointerleave', function(){ setX('105%'); setTimeout(function(){ beams.forEach(function(b){ b.style.transition = 'none'; }); setX('-40%'); void light.offsetWidth; beams.forEach(function(b){ b.style.transition = ''; }); }, 650); });
+  if (!reduce && 'IntersectionObserver' in window){ var lo = new IntersectionObserver(function(es){ if (es[0].isIntersecting){ setTimeout(function(){ beams.forEach(function(b){ b.style.transition = 'left 2.6s cubic-bezier(.6,0,.2,1)'; }); setX('110%'); setTimeout(function(){ beams.forEach(function(b){ b.style.transition = ''; }); }, 2700); }, 300); lo.disconnect(); } }, {threshold: .6}); lo.observe(light); }
+
+  /* 03 loupe */
+  var lp = document.getElementById('loupe'), lens = lp.querySelector('.lens'), Z = 2.6;
+  function place(px, py){
+    var r = lp.getBoundingClientRect(); px = Math.min(1, Math.max(0, px)); py = Math.min(1, Math.max(0, py));
+    lp.style.setProperty('--lx', px * 100 + '%'); lp.style.setProperty('--ly', py * 100 + '%');
+    var lw = lens.offsetWidth, bw = r.width * Z, bh = r.height * Z;
+    lens.style.backgroundSize = bw + 'px ' + bh + 'px';
+    lens.style.backgroundPosition = (-(px * bw) + lw / 2) + 'px ' + (-(py * bh) + lw / 2) + 'px';
+  }
+  function fromEvent(e){ var r = lp.getBoundingClientRect(); place((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); }
+  lp.addEventListener('pointermove', fromEvent);
+  lp.addEventListener('pointerdown', function(e){ lp.setPointerCapture(e.pointerId); fromEvent(e); });
+  new ResizeObserver(function(){ place(.55, .38); }).observe(lp);
+
+  /* 04 reveal */
+  var figs = document.querySelectorAll('#hands .reveal');
+  if (!reduce && 'IntersectionObserver' in window){
+    var ho = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ var i = [].indexOf.call(figs, e.target); setTimeout(function(){ e.target.classList.add('in'); }, i * 140); ho.unobserve(e.target); } }); }, {threshold: .3});
+    figs.forEach(function(f){ ho.observe(f); });
+  } else figs.forEach(function(f){ f.classList.add('in'); });
+
+  /* 05 satin scrollytelling */
+  var beats = document.querySelectorAll('#satin .beat'), sp = document.querySelectorAll('#satin .sticky .ph');
+  if ('IntersectionObserver' in window){
+    var so = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ var i = [].indexOf.call(beats, e.target); beats.forEach(function(b, k){ b.classList.toggle('on', k === i); }); sp.forEach(function(s, k){ s.classList.toggle('on', k === i); }); } }); }, {rootMargin: '-45% 0px -45% 0px'});
+    beats.forEach(function(b){ so.observe(b); });
+  }
+
+  /* 06 cinematic: one cycle, then rest on the front */
+  var cine = document.getElementById('cine'), cs = cine.querySelectorAll('.ph'), dots = cine.querySelectorAll('.dots i');
+  function show(i){ cs.forEach(function(s, k){ s.classList.toggle('on', k === i); }); dots.forEach(function(d, k){ d.classList.toggle('on', k === i); }); }
+  if (!reduce && 'IntersectionObserver' in window){
+    var co = new IntersectionObserver(function(es){ if (es[0].isIntersecting){ co.disconnect(); [1, 2, 0].forEach(function(i, k){ setTimeout(function(){ show(i); }, (k + 1) * 5200); }); } }, {threshold: .5});
+    co.observe(cine);
+  }
+})();
+</script>
