@@ -2,22 +2,21 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- fonts load without blocking first paint; the fallback stacks show until they arrive -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;500&family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@1,500&display=swap" media="print" id="fontcss">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;500&family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@1,500&display=swap"></noscript>
-<script>(function(){var l=document.getElementById('fontcss');function on(){l.media='all';}if(l.sheet)on();else l.addEventListener('load',on);})();</script>
+<!-- two web fonts only (display + italic serif); body and labels use system fonts. Measured: 4 families = 340-400 ms blocking on a throttled phone, 2 = under 150 ms -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200..500&family=Playfair+Display:ital,wght@1,500&display=swap">
 <!--
 MOTION PLAN: Auto Aesthetics (combined direction, round 3)
 Tier: 2 (automotive default 2; +1 luxury, visual product; -1 traffic likely mobile/paid; user request: no reflection test)
-Signature moment: "What happens after you send a request": a phone walks through the five real steps once when
-  scrolled into view, then the visitor can tap any step. It replays after submit with the visitor's own car and channel.
+Signature moment: "Primer to finish" (patterns/scroll-photo-sequence): the section pins for ~3 viewports while real
+  bumper photos change Primed > Sprayed > Finished, then releases. Approved by the owner 2026-10-16.
 Per section: hero = one light sweep on load, headline and CTA static from first paint
-  · work log = static (photos; before/after drag appears only on jobs that have a real matched pair)
-  · services = markers pulse 3 times then stop; "See how it works" explainers play only when tapped (visitor-started)
-  · form = static (feedback only) · sticky mobile CTA slides in after the hero
+  · selected work = static; light pass on the GT 53 card follows the pointer (hover only)
+  · services = markers pulse 3 times then stop; explainers play only when tapped; carbon card loupe follows pointer/finger
+  · request journey = tap-only (no autoplay; the page has one signature)
+  · made by hand = three photos settle in once, staggered · form = static · sticky mobile CTA after the hero
 Libraries: none (CSS + vanilla JS + canvas), eager
 Budgets: eager motion JS <= 80 KB; LCP <= 2.5 s; CLS <= 0.1; TBT <= 200 ms (mobile, throttled)
-Reduced motion: no sweep, no pulse, journey does not auto-advance (steps stay tappable), explainers jump to the end state
+Reduced motion: no sweep, no pulse, no pinning (stages shown as a static row), no reveal, explainers jump to the end state
 Waivers: none
 -->
 <style>
@@ -28,8 +27,8 @@ Waivers: none
   --paper:#F1F0EB; --paper-2:#E6E5DF; --card:#FBFAF7; --text:#17181A; --text-2:#55585A; --line:#CFCEC6;
   --green:#0F3B2E; --green-2:#14513F; --green-tint:#DCE7E0; --flag:#9A3412; --flag-bg:#FBEBDD;
   --f-display:"Outfit",ui-sans-serif,system-ui,sans-serif;
-  --f-body:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --f-body:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --f-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --f-serif:"Playfair Display",Georgia,serif;
   --img-hero:url({{hero}}); --img-paint:url({{paint}}); --img-pdr:url({{pdr}}); --img-carbon:url({{carbon}}); --img-shop:url({{shop}});
   --img-gclass1:url({{gclass1}}); --img-gclass2:url({{gclass2}}); --img-carbontop:url({{carbontop}}); --img-carbondetail:url({{carbondetail}}); --img-gt53:url({{gt53}}); --img-gt53b:url({{gt53b}}); --img-gt53wheel:url({{gt53wheel}}); --img-gt53rear:url({{gt53rear}}); --img-tech:url({{tech}}); --img-gclassrear:url({{gclassrear}}); --img-bfinished:url({{bfinished}}); --img-bspray:url({{bspray}}); --img-bprimed:url({{bprimed}}); --img-gclassfit:url({{gclassfit}}); --img-gclassdetail:url({{gclassdetail}});
@@ -195,6 +194,55 @@ a{color:inherit}
 .done .jphone{width:min(100%,260px);aspect-ratio:9/15}
 @media (max-width:760px){.jobs{grid-auto-flow:column;grid-auto-columns:78%;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin-right:calc(-1 * var(--gut-r))}.job{scroll-snap-align:start}}
 
+/* ---------- 01 primer to finish (signature; patterns/scroll-photo-sequence) ---------- */
+.seq{position:relative;height:300vh;background:var(--ink);color:var(--on-ink)}
+.seq .pin{position:sticky;top:0;height:min(100vh,820px);max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(20px,4vw,56px);align-items:center;overflow:hidden;box-sizing:content-box}
+.seq .stack{position:relative;height:84%;border-radius:4px;overflow:hidden;background:var(--ink-2)}
+.seq .stack .ph{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);transition:opacity .6s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.seq .stack .ph.on{opacity:1;transform:none}
+.seq .copy{display:grid;gap:20px;align-content:center}
+.seq h2{font:500 italic clamp(2.2rem,5vw,4rem)/.98 var(--f-serif);letter-spacing:-.02em}
+.seq ol{list-style:none;margin:0;padding:0}
+.seq li{display:grid;grid-template-columns:2.4em 1fr;gap:2px 10px;padding:12px 0;border-top:1px solid var(--ink-line);color:var(--on-ink-2);transition:color .3s}
+.seq li .n{font:500 12px/1.8 var(--f-mono);grid-row:span 2}
+.seq li b{font:400 21px/1.2 var(--f-display);color:inherit}
+.seq li .d{font-size:15px}
+.seq li.on{color:var(--on-ink)}
+.seq .bar{height:2px;background:var(--ink-line);overflow:hidden}
+.seq .bar i{display:block;height:100%;background:var(--on-ink);transform-origin:left;transform:scaleX(0)}
+.seq .stamp{position:absolute;left:14px;bottom:14px;font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;background:rgba(12,13,14,.75);padding:7px 9px}
+@media (max-width:860px){.seq .pin{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;align-content:start;padding-top:80px;padding-bottom:84px;gap:14px;height:calc(100vh - 164px)}.seq .stack{height:100%;min-height:0}.seq li .d{display:none}.seq li.on .d{display:block}.seq h2{font-size:2rem}.seq .copy{gap:10px;padding-bottom:16px}.seq .eyebrow{display:none}}
+@media (prefers-reduced-motion:reduce){.seq{height:auto;padding-block:72px}.seq .pin{position:static;height:auto;grid-template-columns:1fr}.seq .stack{height:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:none}.seq .stack .ph{position:relative;opacity:1;transform:none;aspect-ratio:3/4}.seq .stamp,.seq .bar{display:none}}
+
+/* ---------- 02 light pass on the GT 53 card ---------- */
+.lightfx{overflow:hidden}
+.lightfx .beam{position:absolute;top:-20%;bottom:-20%;width:42%;left:var(--x,-50%);background:linear-gradient(100deg,transparent,rgba(255,255,255,.16) 42%,rgba(255,255,255,.34) 50%,rgba(255,255,255,.16) 58%,transparent);mix-blend-mode:overlay;transform:skewX(-14deg);pointer-events:none;transition:left .6s cubic-bezier(.2,.7,.2,1)}
+.lightfx .beam2{mix-blend-mode:screen;opacity:.35}
+
+/* ---------- 03 loupe in the carbon card ---------- */
+.loupe{position:relative;aspect-ratio:16/10;border-radius:3px;overflow:hidden;touch-action:none;cursor:none;background:#000;margin-bottom:6px}
+.loupe .lph{position:absolute;inset:0;background-size:cover;background-position:center 55%}
+.loupe .lens{position:absolute;width:clamp(96px,32%,170px);aspect-ratio:1;border-radius:50%;left:var(--lx,55%);top:var(--ly,45%);transform:translate(-50%,-50%);border:2px solid rgba(255,255,255,.85);box-shadow:0 14px 40px rgba(0,0,0,.6);background-repeat:no-repeat;pointer-events:none}
+.loupe .hint{position:absolute;right:8px;top:8px;font:500 10.5px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:#EFEEEA;background:rgba(12,13,14,.72);padding:6px 8px}
+
+/* ---------- 04 made by hand ---------- */
+.hands-sec{background:var(--ink);color:var(--on-ink);padding-block:clamp(72px,10vw,120px)}
+.handshead{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.handshead h2{font:200 clamp(2.2rem,5vw,4rem)/.95 var(--f-display);letter-spacing:-.03em;max-width:12ch}
+.handshead p{max-width:38ch;color:var(--on-ink-2)}
+.hands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+.hands figure{margin:0;display:grid;gap:10px}
+.hands figure:nth-child(2){margin-top:clamp(24px,6vw,80px)}
+.hands figure:nth-child(3){margin-top:clamp(12px,3vw,40px)}
+.hands .hph{aspect-ratio:3/4;border-radius:3px;background-size:cover;background-position:center;background-color:var(--ink-2)}
+.hands figcaption{display:grid;gap:2px}
+.hands figcaption b{font:400 19px/1.2 var(--f-display)}
+.hands figcaption span{font:400 12.5px/1.4 var(--f-mono);color:var(--on-ink-2)}
+.hands .reveal{opacity:.35;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.hands .reveal.in{opacity:1;transform:none}
+@media (max-width:640px){.hands{grid-template-columns:repeat(3,72%);overflow-x:auto;scroll-snap-type:x mandatory;margin-right:calc(-1 * var(--gut-r))}.hands figure{scroll-snap-align:start;margin-top:0!important}}
+@media (prefers-reduced-motion:reduce){.hands .reveal{opacity:1;transform:none}}
+
 /* ---------- explainers inside service cards ---------- */
 .card .how{justify-self:start;background:none;border:0;padding:0;font:500 14px/1 var(--f-body);color:var(--text);cursor:pointer;display:inline-flex;gap:8px;align-items:center}
 .card .how::before{content:"▸";transition:transform .15s}
@@ -337,6 +385,27 @@ footer a{color:var(--on-ink-2)}
   </div>
 </section>
 
+<section class="seq dark" id="seq" aria-labelledby="h-seq">
+  <div class="pin band">
+    <div class="stack">
+      <div class="ph on" data-bg="bprimed" role="img" aria-label="Bumper in primer, masked for paint"></div>
+      <div class="ph" data-bg="bspray" role="img" aria-label="Painter spraying the bumper in the workshop"></div>
+      <div class="ph" data-bg="bfinished" role="img" aria-label="Bumper finished in metallic flake"></div>
+      <span class="stamp" data-stamp>01 · Primed</span>
+    </div>
+    <div class="copy">
+      <div class="eyebrow">Bumper respray · scroll</div>
+      <h2 id="h-seq">Every layer, done in-house.</h2>
+      <ol>
+        <li class="on" data-label="Primed"><span class="n">01</span><b>Primed</b><span class="d">Prepped, masked and primed so the color lays down evenly.</span></li>
+        <li data-label="Sprayed"><span class="n">02</span><b>Sprayed</b><span class="d">Color applied by hand, pass by pass.</span></li>
+        <li data-label="Finished"><span class="n">03</span><b>Finished</b><span class="d">Metallic flake under a deep clear, ready to refit.</span></li>
+      </ol>
+      <div class="bar"><i></i></div>
+    </div>
+  </div>
+</section>
+
 <section class="services band" id="services" aria-labelledby="h-services">
   <div class="in">
     <div class="head">
@@ -370,6 +439,7 @@ footer a{color:var(--on-ink-2)}
           <div class="meta"><span>Can be same day</span><button type="button" data-pick="pdr">Quote this →</button></div>
         </article>
         <article class="card" data-card="carbon">
+          <div class="loupe" id="loupe"><div class="lph" data-bg="carbondetail" role="img" aria-label="Restored carbon fiber hood with a deep clear gloss"></div><div class="lens" aria-hidden="true"></div><span class="hint">Look closer</span></div>
           <div class="k"><h3>Carbon fiber restoration</h3><span class="n">03 · faded weave</span></div>
           <p>Sun-faded, yellowed or scratched weave brought back to deep, vibrant, glass-clear gloss.</p>
           <button class="how" type="button" aria-expanded="false" data-how="carbon">See how it works</button>
@@ -388,6 +458,17 @@ footer a{color:var(--on-ink-2)}
       <h2 class="h2" id="h-how">A person, on your channel, at your time.</h2>
     </div>
     <div data-journey="example"></div>
+  </div>
+</section>
+
+<section class="hands-sec dark band" aria-labelledby="h-hands">
+  <div class="in">
+    <div class="handshead"><h2 id="h-hands">Real hands. Real bay.</h2><p>The work is done by the people in these photos, in this workshop, on your car.</p></div>
+    <div class="hands" id="hands">
+      <figure class="reveal"><div class="hph" data-bg="tech" style="background-position:40% 60%" role="img" aria-label="Technician masking a rear quarter panel"></div><figcaption><b>Masked by hand</b><span>Every edge taped before paint</span></figcaption></figure>
+      <figure class="reveal"><div class="hph" data-bg="bspray" role="img" aria-label="Painter spraying a bumper"></div><figcaption><b>Sprayed in-house</b><span>Color applied pass by pass</span></figcaption></figure>
+      <figure class="reveal"><div class="hph" data-bg="gclassfit" style="background-position:40% 50%" role="img" aria-label="Technician refitting the G-Class rear bumper"></div><figcaption><b>Refitted with care</b><span>Mercedes-Benz G-Class</span></figcaption></figure>
+    </div>
   </div>
 </section>
 
@@ -538,7 +619,7 @@ footer a{color:var(--on-ink-2)}
      'key' or ['key', 'Caption'] to label a stage (Primed, Finished...).
      --------------------------------------------------------------- */
   var JOBS = [
-    {show: true,  vehicle: 'Mercedes-AMG GT 53', work: 'Multi-stage paint correction', photos: ['gt53b', 'gt53rear', 'gt53wheel']},
+    {show: true,  vehicle: 'Mercedes-AMG GT 53', work: 'Multi-stage paint correction', photos: ['gt53b', 'gt53rear', 'gt53wheel'], fx: 'light'},
     {show: true,  vehicle: 'Bumper respray', work: 'Metallic flake finish', photos: [['bfinished', 'Finished'], ['bprimed', 'Primed'], ['bspray', 'Spraying']]},
     {show: true,  vehicle: 'Mercedes-Benz G-Class', work: 'Satin finish, rear quarter', photos: ['gclass1', 'gclass2', 'gclassdetail', 'gclassrear']},
     {show: true,  vehicle: 'Carbon fiber hood', work: 'Carbon fiber restoration', photos: ['carbontop', 'carbondetail']},
@@ -575,6 +656,9 @@ footer a{color:var(--on-ink-2)}
           pics.addEventListener('scroll', function(){ cnt.textContent = (idx() + 1) + ' / ' + n; }, {passive: true});
         }
       }
+      if (j.fx === 'light'){ top.classList.add('lightfx'); var b1 = el('div', 'beam'), b2 = el('div', 'beam beam2'); top.append(b1, b2);
+        top.addEventListener('pointermove', function(e){ var r = top.getBoundingClientRect(); top.style.setProperty('--x', ((e.clientX - r.left) / r.width * 100 - 19) + '%'); });
+        top.addEventListener('pointerleave', function(){ top.style.setProperty('--x', '110%'); }); }
       var body = el('div', 'body');
       body.append(el('h3', null, j.vehicle), el('p', 'what', j.work));
       if (j.quote) body.append(el('blockquote', null, '“' + j.quote + '”'));
@@ -645,7 +729,7 @@ footer a{color:var(--on-ink-2)}
       b.addEventListener('click', function(){ stop(); go(i); });
       li.append(b); ol.append(li); return li;
     });
-    var foot = el('div', 'jfoot'), replay = el('button', null, '↺ Play again'); replay.type = 'button';
+    var foot = el('div', 'jfoot'), replay = el('button', null, local ? '↺ Play again' : '▶ Play the steps'); replay.type = 'button';
     foot.append(replay, el('span', null, 'Then: the work itself, and delivery.')); left.append(ol, foot); wrap.append(left, phone); root.append(wrap);
 
     var cur = -1, timer = 0, DUR = 2800; ol.style.setProperty('--jdur', DUR + 'ms');
@@ -661,14 +745,7 @@ footer a{color:var(--on-ink-2)}
     }
     replay.addEventListener('click', function(){ play(0); });
     go(0);
-    if (local) play(0);
-    else if ('IntersectionObserver' in window){
-      var started = false;
-      new IntersectionObserver(function(es){
-        if (es[0].isIntersecting && !started){ started = true; play(0); }
-        if (!es[0].isIntersecting) stop();
-      }, {threshold: .45}).observe(root);
-    }
+    if (local) play(0); /* after submit it plays once for the visitor; on the page it is tap-only */
   }
   Journey(document.querySelector('[data-journey="example"]'), {first: 'Jordan', vehicle: '2021 Mercedes-AMG GT 53', services: ['Showroom paint / custom paint'], channels: ['text'], window: 'Weekday evenings'}, false);
 
@@ -912,6 +989,58 @@ footer a{color:var(--on-ink-2)}
     Journey(mine, {first: firstName(), vehicle: [val('year'), val('make'), val('model')].filter(Boolean).join(' '), services: checked('service'), channels: checked('channel'), window: checked('window')[0] || ''}, true);
   });
   form.querySelector('[data-reset]').addEventListener('click', function(){ form.reset(); match.textContent = ''; updateChannels(); form.querySelector('.done').hidden = true; form.querySelector('.prog').hidden = false; show(0); });
+
+  /* lazy section photos: [data-bg] gets its image when it comes near the viewport */
+  if ('IntersectionObserver' in window){
+    var bgo = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.style.backgroundImage = 'var(--img-' + e.target.dataset.bg + ')'; e.target.removeAttribute('data-bg'); bgo.unobserve(e.target); } }); }, {rootMargin: '600px'});
+    document.querySelectorAll('[data-bg]').forEach(function(d){ bgo.observe(d); });
+  } else document.querySelectorAll('[data-bg]').forEach(function(d){ d.style.backgroundImage = 'var(--img-' + d.dataset.bg + ')'; });
+
+  /* 01 primer to finish: pinned scroll sequence (signature) */
+  (function(){
+    var seq = document.getElementById('seq'); if (!seq || reduce) return;
+    var ims = seq.querySelectorAll('.stack .ph'), items = seq.querySelectorAll('li'), bar = seq.querySelector('.bar i'), stamp = seq.querySelector('[data-stamp]'), n = ims.length, cur = 0, ticking = false;
+    function update(){
+      ticking = false;
+      var r = seq.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+      var total = seq.offsetHeight - innerHeight, p = Math.min(1, Math.max(0, -r.top / Math.max(1, total))), i = Math.min(n - 1, Math.floor(p * n));
+      bar.style.transform = 'scaleX(' + p + ')';
+      if (i === cur) return; cur = i;
+      ims.forEach(function(el, k){ el.classList.toggle('on', k === i); });
+      items.forEach(function(el, k){ el.classList.toggle('on', k === i); });
+      stamp.textContent = String(i + 1).padStart(2, '0') + ' · ' + items[i].dataset.label;
+    }
+    addEventListener('scroll', function(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }, {passive: true});
+  })();
+
+  /* 03 loupe in the carbon card */
+  (function(){
+    var lp = document.getElementById('loupe'); if (!lp) return;
+    var lens = lp.querySelector('.lens'), Z = 2.6;
+    function place(px, py){
+      var r = lp.getBoundingClientRect(); if (!r.width) return; px = Math.min(1, Math.max(0, px)); py = Math.min(1, Math.max(0, py));
+      lp.style.setProperty('--lx', px * 100 + '%'); lp.style.setProperty('--ly', py * 100 + '%');
+      /* match the card photo's cover crop (900x1600 source, positioned center 55%) so the lens lines up */
+      var W = r.width, H = r.height, sc = Math.max(W / 900, H / 1600), iw = 900 * sc, ih = 1600 * sc, ox = (W - iw) / 2, oy = (H - ih) * .55, lw = lens.offsetWidth;
+      lens.style.backgroundImage = 'var(--img-carbondetail)';
+      lens.style.backgroundSize = (iw * Z) + 'px ' + (ih * Z) + 'px';
+      lens.style.backgroundPosition = (lw / 2 - (px * W - ox) * Z) + 'px ' + (lw / 2 - (py * H - oy) * Z) + 'px';
+    }
+    function ev(e){ var r = lp.getBoundingClientRect(); place((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); }
+    lp.addEventListener('pointermove', ev);
+    lp.addEventListener('pointerdown', function(e){ lp.setPointerCapture(e.pointerId); ev(e); });
+    if ('IntersectionObserver' in window){ var lo = new IntersectionObserver(function(es){ if (es[0].isIntersecting){ place(.55, .45); lo.disconnect(); } }, {rootMargin: '400px'}); lo.observe(lp); }
+    addEventListener('resize', function(){ place(.55, .45); });
+  })();
+
+  /* 04 made by hand: settle in once, staggered */
+  (function(){
+    var figs = document.querySelectorAll('#hands .reveal');
+    if (!reduce && 'IntersectionObserver' in window){
+      var ho = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ var i = [].indexOf.call(figs, e.target); setTimeout(function(){ e.target.classList.add('in'); }, i * 140); ho.unobserve(e.target); } }); }, {threshold: .3});
+      figs.forEach(function(f){ ho.observe(f); });
+    } else figs.forEach(function(f){ f.classList.add('in'); });
+  })();
 
   /* sticky mobile CTA after the hero */
   var mbar = document.getElementById('mbar'), hero = document.querySelector('.hero'), quote = document.getElementById('quote');
