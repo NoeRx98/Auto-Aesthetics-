@@ -15,7 +15,6 @@ python3 -m http.server 4173      # then visit http://localhost:4173
 | `index.html` | The whole page. Design tokens (primitive, semantic, component) are at the top of the `<style>` block. |
 | `images/` | Hero, service and shop photos as WebP, plus `og.jpg` for link previews. |
 | `api/lead.js` | **Vercel** Edge Function at `/api/lead`. Validates, rate-limits and relays quote requests to GoHighLevel. |
-| `netlify/edge-functions/lead.mjs` | The same relay for **Netlify** (the live site's host). Not used on Vercel. Keep the two in step. |
 | `vercel.json` | Copies `index.html` and `images/` into `public/` so only those are served, and sets security headers. |
 | `.claude/skills/` | Design skills used for the rebuild. Not served (`.vercelignore`). |
 

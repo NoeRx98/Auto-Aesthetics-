@@ -1,6 +1,6 @@
 # Quote form → GHL: field contract
 
-The new design (`combined.template.html`) posts the same JSON to `/api/lead` as the live `index.html`. The relay (`api/lead.js`, `netlify/edge-functions/lead.mjs`) forwards every key, drops `_gotcha`, and adds `client_ip` and `relayed_at`.
+The new design (`combined.template.html`) posts the same JSON to `/api/lead` as the live `index.html`. The relay (`api/lead.js`, a Vercel Edge Function) forwards every key, drops `_gotcha`, and adds `client_ip` and `relayed_at`.
 
 ## Unchanged (the GHL workflow already maps these)
 

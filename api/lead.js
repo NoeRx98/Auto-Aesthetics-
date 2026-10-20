@@ -1,5 +1,5 @@
 /* ============================================================
-   LEAD RELAY (Vercel Edge Function) — mirrors netlify/edge-functions/lead.mjs.
+   LEAD RELAY (Vercel Edge Function). The site is hosted on Vercel only.
 
    The quote form posts here instead of straight to GHL. This file:
      1. keeps the webhook URL off the public page
